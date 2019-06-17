@@ -1,0 +1,203 @@
+/* Header font */
+.main-header .logo {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-weight: normal;
+  font-size: 20px;
+  text-align: left;
+
+}
+
+.content-wrapper,
+.right-side {
+  background-color: #F0F9F6;
+  background-image: url("pvabackground.png");
+  background-repeat: repeat-y;
+}
+
+/* main sidebar */
+ .skin-blue .main-sidebar {
+	font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: medium;
+	line-height: 1.0;
+}
+
+/* Mandatory fields */
+.mandatory_star { color: red; }
+
+/* Help block background colour */
+.dropdown-menu {
+   background: #f0f3f8f0;
+   font-size: small;
+   border-color: #3c8dbc;
+   box-shadow: 5px 8px #0000000a
+}
+
+
+/* DT show list*/
+.dataTables_length {
+	margin-right: 6px;
+}
+
+/*
+.box {
+	font-size: normal;
+}
+*/
+
+/* SelectInput font */
+.form-control {
+	font-size: normal;
+}
+
+/* Shiny background */
+.content-wrapper {
+	min-height: 3000px !important;
+}
+
+/* Shiny slider */
+.irs-grid-text {
+	font-size: 10pt;
+}
+.irs-max {
+	font-size: 10pt;
+}
+.irs-min {
+	font-size: 10pt;
+}
+.irs-from {
+	font-size: 12pt;
+	font-weight: bold;
+}
+.irs-to {
+	font-size: 12pt;
+	font-weight: bold;
+}
+.irs-single {
+	font-size: 12pt;
+	font-weight: bold;
+}
+.irs-slider {
+	top: 15pt;
+    width: 22px;
+	height: 10pt;
+}
+
+/* Inline label class */
+.inlinen label{
+	display: table-cell;
+	font-weight: normal;
+	text-align: left;
+	vertical-align: middle;
+	padding: 6px 12px 12px 0;
+}
+.inlinen .form-group {
+	display: table-row;
+}
+
+/* SwitchInput inline labels */
+.swtextinline {
+	display: inline-block;
+	text-align: left;
+	vertical-align: middle;
+	word-wrap: break-word;
+	word-break: normal;
+	margin-right: 12px;
+	width: 75%;
+}
+
+/* Panels */
+.xpanel {
+	padding: 12px 12px 12px 12px;
+}
+
+.loader {
+  color:#a6d8aa;
+  font-size: 90px;
+  text-indent: -9999em;
+  overflow: hidden;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  margin: 72px auto;
+  position: relative;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation: load6 1.7s infinite ease, round 1.7s infinite ease;
+  animation: load6 1.7s infinite ease, round 1.7s infinite ease;
+}
+@-webkit-keyframes load6 {
+  0% {
+    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+  }
+  5%,
+  95% {
+    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+  }
+  10%,
+  59% {
+    box-shadow: 0 -0.83em 0 -0.4em, -0.087em -0.825em 0 -0.42em, -0.173em -0.812em 0 -0.44em, -0.256em -0.789em 0 -0.46em, -0.297em -0.775em 0 -0.477em;
+  }
+  20% {
+    box-shadow: 0 -0.83em 0 -0.4em, -0.338em -0.758em 0 -0.42em, -0.555em -0.617em 0 -0.44em, -0.671em -0.488em 0 -0.46em, -0.749em -0.34em 0 -0.477em;
+  }
+  38% {
+    box-shadow: 0 -0.83em 0 -0.4em, -0.377em -0.74em 0 -0.42em, -0.645em -0.522em 0 -0.44em, -0.775em -0.297em 0 -0.46em, -0.82em -0.09em 0 -0.477em;
+  }
+  100% {
+    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+  }
+}
+@keyframes load6 {
+  0% {
+    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+  }
+  5%,
+  95% {
+    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+  }
+  10%,
+  59% {
+    box-shadow: 0 -0.83em 0 -0.4em, -0.087em -0.825em 0 -0.42em, -0.173em -0.812em 0 -0.44em, -0.256em -0.789em 0 -0.46em, -0.297em -0.775em 0 -0.477em;
+  }
+  20% {
+    box-shadow: 0 -0.83em 0 -0.4em, -0.338em -0.758em 0 -0.42em, -0.555em -0.617em 0 -0.44em, -0.671em -0.488em 0 -0.46em, -0.749em -0.34em 0 -0.477em;
+  }
+  38% {
+    box-shadow: 0 -0.83em 0 -0.4em, -0.377em -0.74em 0 -0.42em, -0.645em -0.522em 0 -0.44em, -0.775em -0.297em 0 -0.46em, -0.82em -0.09em 0 -0.477em;
+  }
+  100% {
+    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+  }
+}
+@-webkit-keyframes round {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes round {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
