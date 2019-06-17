@@ -1,0 +1,53 @@
+Argument,fullrun,simplescenarios,sensitivity.local,sensitivity.global,validation,Rationale
+model.envstoch,,,,,,
+model.demostoch,,,,,,
+model.dd,,,Fix::Char:nodd,Fix::Char:nodd,,PSG meeting: decision that density dependence would not be considered in sensitivity analyzes
+trans.dd,,Fix::FALSE,Fix::FALSE,Fix::FALSE,Fix::FALSE,
+model.prodmax,,,,,,
+mbs,,,,,,
+afb,,,,,,
+npop,,,Fix::Val:1,Fix::Val:1,Fix::Val:1,"PSG meeting: decision that sensitivity analyzes would be restricted to a single subpopulation; ""validation"" can only easily be implemented for a single subpopulation"
+nscen,,,Fix::Val:1,Fix::Val:1,Fix::Val:0,PSG meeting: decision that sensitivity analyzes would be restricted to a single scenario
+include.baseline,,Fix::TRUE,Fix::TRUE,Fix::TRUE,Fix::TRUE,Project team: internal logic: It appears to always make sense to include a baseline run within the Shiny tool
+sim.n,,,,,,
+sim.seed,,,,,,
+demobase.specify.as.params,,,Fix::FALSE,Fix::FALSE,,PSG meeting: decision that sensitivity analyzes would focus only on situation where user directly supplies mean and SD
+demobase.splitpops,,,Fix::FALSE,Fix::FALSE,Fix::FALSE,PSG meeting: decision that sensitivity analyzes would be restricted to a single subpopulation
+demobase.splitimmat,,,Fix::FALSE,Fix::FALSE,,PSG meeting: decision that sensitivity analyzes would be restricted to situation where immature survival rates are not specified directly by the user
+demobase.prod,,,,,,
+demobase.survimmat,,,Fix::NULL,Fix::NULL,,PSG meeting: decision that sensitivity analyzes would be restricted to situation where immature survival rates are not specified directly by the user
+demobase.survadult,,,,,,
+demobase.cormat,,Fix::NULL,Fix::NULL,Fix::NULL,Fix::NULL,PSG meeting: decision that correlation matrices would not be included in the Shiny tool
+demobase.bskippc,,Fix::NULL,Fix::NULL,Fix::NULL,Fix::NULL,PSG meeting: decision that skipped breeding would not be included in the Shiny tool
+inipop.years,,,,,,
+inipop.inputformat,,,Fix::Char:breeding.adults,Fix::Char:breeding.adults,,To check
+inipop.vals,,,,,,
+inipop.splitimmat,,Fix::FALSE,Fix::FALSE,Fix::FALSE,Fix::FALSE,PSG meeting: decision that splitting on initial values by age would not be included in the Shiny tool
+inipop.immatvals,,Fix::NULL,Fix::NULL,Fix::NULL,Fix::NULL,PSG meeting: decision that splitting on initial values by age would not be included in the Shiny tool
+impacts.relative,,,,,Fix::TRUE,
+impacts.splitpops,,,Fix::FALSE,Fix::FALSE,Fix::FALSE,PSG meeting: decision that sensitivity analyzes would be restricted to a single subpopulation
+impacts.splitimmat,,,Fix::FALSE,Fix::FALSE,Fix::FALSE,
+impacts.provideses,,,Fix::FALSE,Fix::FALSE,Fix::FALSE,
+impacts.year.start,,,,,Fix::Val:2200,
+impacts.year.end,,,,,Fix::Val:2202,
+impacts.scennames,,,Fix::Char:impacted,Fix::Char:impacted,Fix::NULL,Project team: internal logic: Scenario name is unimportant when a single scenario is being run
+impacts.matchscens,,,Fix::TRUE,Fix::FALSE,Fix::FALSE,To check
+impacts.prod.mean,,,,,Fix::NULL,
+impacts.prod.se,,,Fix::NULL,Fix::NULL,Fix::NULL,PSG meeting: decision not to consider uncertainty in impact effects within the sensitivity analysis
+impacts.survimmat.mean,,,Fix::NULL,Fix::NULL,Fix::NULL,
+impacts.survimmat.se,,,Fix::NULL,Fix::NULL,Fix::NULL,PSG meeting: decision not to consider uncertainty in impact effects within the sensitivity analysis
+impacts.survadult.mean,,,,,Fix::NULL,
+impacts.survadult.se,,,Fix::NULL,Fix::NULL,Fix::NULL,PSG meeting: decision not to consider uncertainty in impact effects within the sensitivity analysis
+output.agetype,,,Fix::Char:breeding.adults,Fix::Char:breeding.adults,,To check
+output.year.start,,,Fix::NULL,Fix:NULL,Fix::NULL,To check
+output.year.end,,,,,,
+output.popsize.target,,,,,,
+output.popsize.qe,,,,,,
+output.validation.years,,Fix::NULL,Fix::NULL,Fix::NULL,,
+output.validation.counts,,Fix::NULL,Fix::NULL,Fix::NULL,,
+sens.pcr,,Fix::NULL,,,Fix::NULL,
+sens.npvlocal,,Fix::NULL,,Fix::NULL,Fix::NULL,
+sens.npvglobal,,Fix::NULL,Fix::NULL,,Fix::NULL,
+silent,,,,,,
+output.raw,,Fix::FALSE,Fix::FALSE,Fix::FALSE,Fix::FALSE,Option to include raw output added to R package (but not Shiny) following user workshop in March 2019
+noround,,Fix::FALSE,Fix::FALSE,Fix::FALSE,Fix::FALSE,Option to avoid rounding (useful for validation against analytic version)

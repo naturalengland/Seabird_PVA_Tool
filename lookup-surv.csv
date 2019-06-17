@@ -1,0 +1,80 @@
+Species,Age class,Age.lo,Age.hi,Source,Source_old_version,Type,Study area,Study Period,Region,Country,Reference,"Data collection method (MR - mark-recapture; RR
+- Ring-recovery; Joint - ring-recovery and mark- recapture)",Estimation method (VR - variable recapture; CR - constant recapture),study.nyears,Study.Mean,Study.SD.Orig,Study.SE.Orig,Study.SD,Number.of.studies,Weighted?,Nat.Mean.HRN,Nat.Mean,Nat.SD.HRN,Nat.SD,Comparison.to.HRN,SV.mean,SV.SD
+Atlantic Puffin,Adult,5,,National,National (H&R; 2015),National - derived ,,,,,,,,,,,,,3,No,0.906,0.907,0.083,0.083,Good,0.907,0.083
+Atlantic Puffin,Adult,5,,Fair Isle (1990-2002),Fair Isle (1990-2002),Study - sep and nat,Fair Isle,1990-2002,Shetland,UK,Harris et al 2005,MR,VR,12,0.915,0.11,,0.11,,,,,,,,0.915,0.11
+Atlantic Puffin,Adult,5,,Isle of May (1984-2008),Isle of May (1984-2008),Study - sep and nat,Isle of May,1984-2008,SE Scotland,UK,Lahoz-Monfort et al 2011,MR,VR,24,0.901,0.091,,0.091,,,,,,,,0.901,0.091
+Atlantic Puffin,Adult,5,,Skomer (1972-2008),Skomer (1972-2008),Study - sep and nat,Skomer,1972-2008,Wales,UK,Taylor et al 2010,MR,,36,0.906,0.047,,0.047,,,,,,,,0.906,0.047
+Atlantic Puffin,Immature,0,3,National,National (H&R; 2015),National - single study,,1980-2003,New Brunswick,Canada,Breton et al 2006,MR,VR,24,0.709,,0.022,0.108,1,,0.709,0.709,0.022,0.108,Error in H&R SDs,0.709,0.108
+Atlantic Puffin,Immature,3,4,National,National (H&R; 2015),National - single study,,1980-2003,New Brunswick,Canada,Breton et al 2006,MR,VR,24,0.76,,0.019,0.093,1,,0.76,0.76,0.019,0.093,Error in H&R SDs,0.76,0.093
+Atlantic Puffin,Immature,4,5,National,National (H&R; 2015),National - single study,,1980-2003,New Brunswick,Canada,Breton et al 2006,MR,VR,24,0.805,,0.017,0.083,1,,0.805,0.805,0.017,0.083,Error in H&R SDs,0.805,0.083
+Common Guillemot,Adult,4,,National,National (H&R; 2015),National - derived ,,,,,,,,,,,,,4,No,0.939,0.94,0.015,0.025,Error in H&R SDs,0.94,0.025
+Common Guillemot,Adult,4,,Canna (1983-1995),Canna (1983-1995),Study - sep only,Canna,1983-1995,NW Scotland,UK,Harris et al 2000b,MR,VR,12,0.875,0.102,,0.102,,,,,,,,0.875,0.102
+Common Guillemot,Adult,4,,,,Study - nat only,Canna,1983-2005,NW Scotland,UK,Reynolds et al 2011,MR,VR,22,0.95,,,0,,,,,,,,,
+Common Guillemot,Adult,4,,Colonsay (1990-1995),Colonsay (1990-1995),Study - sep only,Colonsay,1990-1995,SW Scotland,UK,Harris et al 2000b,MR,VR,5,0.838,0.142,,0.142,,,,,,,,0.838,0.142
+Common Guillemot,Adult,4,,,,Study - nat only,Colonsay,1983-2005,SW Scotland,UK,Reynolds et al 2011,MR,VR,22,0.955,,,0,,,,,,,,,
+Common Guillemot,Adult,4,,Isle of May (1984-2008),Isle of May (1984-2008),Study - sep and nat,Isle of May,1984-2008,SE Scotland,UK,Lahoz-Monfort et al 2011,MR,VR,24,0.924,0.058,,0.058,,,,,,,,0.924,0.058
+Common Guillemot,Adult,4,,Skomer (1985-2011),Skomer (1985-2011),Study - sep and nat,Skomer,1985-2011,Wales,UK,Meade et al 2013,MR,VR,26,0.93,0.043,,0.043,,,,,,,,0.93,0.043
+Common Guillemot,Immature,0,1,National,National (H&R; 2015),National - single study,Isle of May,1983-2002,SE Scotland,UK,Harris et al 2007,MR,VR,20,0.56,,0.013,0.058,1,,0.56,0.56,0.013,0.058,Error in H&R SDs,0.56,0.058
+Common Guillemot,Immature,1,2,National,National (H&R; 2015),National - single study,Isle of May,1983-2002,SE Scotland,UK,Harris et al 2007,MR,VR,20,0.792,,0.034,0.152,1,,0.792,0.792,0.034,0.152,Error in H&R SDs,0.792,0.152
+Common Guillemot,Immature,2,3,National,National (H&R; 2015),National - single study,Isle of May,1983-2002,SE Scotland,UK,Harris et al 2007,MR,VR,20,0.917,,0.022,0.098,1,,0.917,0.917,0.022,0.098,Error in H&R SDs,0.917,0.098
+Common Guillemot,Immature,3,4,National,National (H&R; 2015),National - single study,Isle of May,1983-2002,SE Scotland,UK,Harris et al 2007,MR,VR,20,0.938,,0.024,0.107,1,,0.938,0.938,0.024,0.107,Error in H&R SDs,0.938,0.107
+Razorbill,Adult,2,,National,National (H&R; 2015),National - derived ,,,,,,,,,,,,,2,No,0.895,0.895,0.067,0.067,Good,0.895,0.067
+Razorbill,Adult,2,,Isle of May (1984-2008),Isle of May (1984-2008),Study - sep and nat,Isle of May,1984-2008,SE Scotland,UK,Lahoz-Monfort et al 2011,MR,VR,24,0.894,0.07,,0.07,,,,,,,,0.894,0.07
+Razorbill,Adult,2,,Shiant Islands (1990-1995),Shiant Islands (1990-1995),Study - sep only,Shaint Islands,1990-1995,NW Scotland,UK,Chapdelaine 1997,MR,,5,0.77,0.21,,0.21,,,,,,,,0.77,0.21
+Razorbill,Adult,2,,Skomer (1970-2008),Skomer (1970-2008),Study - sep and nat,Skomer,1970-2008,Wales,UK,Taylor et al 2010,MR,,39,0.895,0.064,,0.064,,,,,,,,0.895,0.064
+Razorbill,Immature,0,2,National,National (H&R; 2015),National - derived ,,,,,,,,,,,,,2,No,0.63,0.63,0.209,,Missing value for SE,0.63,
+Razorbill,Immature,0,2,,,Study - nat only,Gannet Island,1995-2006,Labrador,Canada,Lavers et al 2008,MR,,11,0.482,,0.033,0.109,,,,,,,,0.482,0.109
+Razorbill,Immature,0,2,,,Study - nat only,Machias  seal Island,1995-2006,New Brunswick,Canada,Lavers et al 2008,MR,,11,0.778,,0.041,0.136,,,,,,,,0.778,0.136
+European Shag,Adult,2,,National,National (H&R; 2015),National - single study,Isle of May,1963-2005,SE Scotland,UK,Frederiksen et al 2008,Joint,VR,42,0.858,0.194,,0.194,1,,0.858,0.858,0.194,0.194,Good,0.858,0.194
+European Shag,Immature,0,1,National,National (H&R; 2015),National - single study,Isle of May,1963-2005,SE Scotland,UK,Frederiksen et al 2008,Joint,VR,42,0.513,0.246,,0.246,1,,0.513,0.513,0.256,0.246,Good,0.513,0.246
+European Shag,Immature,1,2,National,National (H&R; 2015),National - single study,Isle of May,1963-2005,SE Scotland,UK,Frederiksen et al 2008,Joint,VR,42,0.737,0.181,,0.181,1,,0.737,0.737,0.181,0.181,Good,0.737,0.181
+Great Cormorant,Adult,1,,National,National (H&R; 2015),National - derived ,,,,,,,,,,,,,2,Yes,0.868,0.868,0.055,0.048,,0.868,0.048
+Great Cormorant,Adult,1,,,,Study - nat only,Vorso,1977-1997,Horsens Fjord,Denmark,Frederiksen and Bregnballe 2000b,Joint,VR,20,0.88,0.055,,0.055,,,,,,,Good,0.88,0.055
+Great Cormorant,Adult,1,,,,Study - nat only,,1981-1993,,Denmark,Hénaux et al 2007,MR,VR,13,0.85,,0.01,0.036,,,,,,,Good,0.85,0.036
+Great Cormorant,Immature,0,1,National,National (H&R; 2015),National - derived ,,,,,,,,,,,,,2,No,0.54,0.54,0.09,,Missing value for SE,0.54,
+Great Cormorant,Immature,0,1,,,Study - nat only,Vorso,1977-1997,Horsens Fjord,Denmark,Frederiksen & Bregnballe 2000a,Joint,VR,20,0.58,,,,,,,,,,,0.58,
+Great Cormorant,Immature,0,1,,,Study - nat only,,1981-1993,,Denmark,Hénaux et al 2007,MR,VR,13,0.5,0.324,,0.324,,,,,,,,0.5,0.324
+Northern Gannet,Adult,4,,Bass Rock,Bass Rock,Study - sep only,Bass Rock,1959-2001,SE Scotland,UK,Wanless et al 2006,RR,VR,42,0.916,,0.003,0.019,,,,,,,,0.916,0.019
+Northern Gannet,Adult,4,,Ailsa Criag; Hermaness; Great Saltee; and others,Ailsa Criag; Hermaness; Great Saltee; and others,Study - sep only,Ailsa Criag; Hermaness; Great Saltee; and others,1959-2001,,UK,Wanless et al 2006,RR,VR,42,0.922,,0.003,0.019,,,,,,,,0.922,0.019
+Northern Gannet,Adult,4,,National,National (H&R; 2015),National - single study,Bass Rock; Ailsa Criag; Hermaness; Great Saltee; and others,1959-2001,,UK,Wanless et al 2006,RR,VR,42,0.919,0.042,,0.042,1,,0.919,0.919,0.042,0.042,Good,0.919,0.042
+Northern Gannet,Immature,0,1,Bass Rock,Bass Rock,Study - sep only,Bass Rock,1959-2001,SE Scotland,UK,Wanless et al 2006,RR,VR,42,0.542,,0.013,0.084,,,,,,,,0.542,0.084
+Northern Gannet,Immature,0,1,Ailsa Criag; Hermaness; Great Saltee; and others,Ailsa Criag; Hermaness; Great Saltee; and others,Study - sep only,Ailsa Criag; Hermaness; Great Saltee; and others,1959-2001,,UK,Wanless et al 2006,RR,VR,42,0.42,,0.013,0.084,,,,,,,,0.42,0.084
+Northern Gannet,Immature,0,1,National,National (H&R; 2015),National - single study,Bass Rock; Ailsa Criag; Hermaness; Great Saltee; and others,1959-2001,,UK,Wanless et al 2006,RR,VR,42,0.424,,0.007,0.045,1,,0.424,0.424,0.007,0.045,Error in H&R SDs,0.424,0.045
+Northern Gannet,Immature,1,2,Bass Rock,Bass Rock,Study - sep only,Bass Rock,1959-2001,SE Scotland,UK,Wanless et al 2006,RR,VR,42,0.779,,0.007,0.045,,,,,,,,0.779,0.045
+Northern Gannet,Immature,1,2,Ailsa Criag; Hermaness; Great Saltee; and others,Ailsa Criag; Hermaness; Great Saltee; and others,Study - sep only,Ailsa Criag; Hermaness; Great Saltee; and others,1959-2001,,UK,Wanless et al 2006,RR,VR,42,0.852,,0.005,0.032,,,,,,,,0.852,0.032
+Northern Gannet,Immature,1,2,National,National (H&R; 2015),National - single study,Bass Rock; Ailsa Criag; Hermaness; Great Saltee; and others,1959-2001,,UK,Wanless et al 2006,RR,VR,42,0.829,,0.004,0.026,1,,0.829,0.829,0.004,0.026,Error in H&R SDs,0.829,0.026
+Northern Gannet,Immature,2,3,Bass Rock,Bass Rock,Study - sep only,Bass Rock,1959-2001,SE Scotland,UK,Wanless et al 2006,RR,VR,42,0.859,,0.005,0.032,,,,,,,,0.859,0.032
+Northern Gannet,Immature,2,3,Ailsa Criag; Hermaness; Great Saltee; and others,Ailsa Criag; Hermaness; Great Saltee; and others,Study - sep only,Ailsa Criag; Hermaness; Great Saltee; and others,1959-2001,,UK,Wanless et al 2006,RR,VR,42,0.908,,0.004,0.026,,,,,,,,0.908,0.026
+Northern Gannet,Immature,2,3,National,National (H&R; 2015),National - single study,Bass Rock; Ailsa Criag; Hermaness; Great Saltee; and others,1959-2001,,UK,Wanless et al 2006,RR,VR,42,0.891,,0.003,0.019,1,,0.891,0.891,0.003,0.019,Error in H&R SDs,0.891,0.019
+Northern Gannet,Immature,3,4,Bass Rock,Bass Rock,Study - sep only,Bass Rock,1959-2001,SE Scotland,UK,Wanless et al 2006,RR,VR,42,0.863,,0.006,0.039,,,,,,,,0.863,0.039
+Northern Gannet,Immature,3,4,Ailsa Criag; Hermaness; Great Saltee; and others,Ailsa Criag; Hermaness; Great Saltee; and others,Study - sep only,Ailsa Criag; Hermaness; Great Saltee; and others,1959-2001,,UK,Wanless et al 2006,RR,VR,42,0.91,,0.004,0.026,,,,,,,,0.91,0.026
+Northern Gannet,Immature,3,4,National,National (H&R; 2015),National - single study,Bass Rock; Ailsa Criag; Hermaness; Great Saltee; and others,1959-2001,,UK,Wanless et al 2006,RR,VR,42,0.895,,0.003,0.019,1,,0.895,0.895,0.003,0.019,Error in H&R SDs,0.895,0.019
+Black-Legged Kittiwake,Adult,1,,National,National (H&R; 2015),National - derived ,,,,,,,,,,,,,3,Yes,0.834,0.854,0.051,0.077,Error in H&R SDs,0.854,0.077
+Black-Legged Kittiwake,Adult,1,,Foula (1987-1997),Foula (1987-1997),Study - sep and nat,Foula,1987-1997,Shetland,UK,Oro and Furness 2002,MR,VR,10,0.812,0.131,,0.131,,,,,,,,0.812,0.131
+Black-Legged Kittiwake,Adult,1,,Isle of May (1986-2002),Isle of May (1986-2002),Study - sep and nat,Isle of May,1986-2002,SE Scotland,UK,Frederiksen et al 2004a,MR,VR,16,0.911,0.035,,0.035,,,,,,,,0.911,0.035
+Black-Legged Kittiwake,Adult,1,,Skomer (1978-2007),Skomer (1978-2007),Study - sep and nat,Skomer,1978-2007,Wales,UK,Taylor et al 2010,MR,VR,29,0.837,0.082,,0.082,,,,,,,,0.837,0.082
+Black-Legged Kittiwake,Immature,0,1,National,National (H&R; 2015),National - single study,North Shields,1955-1958,NE England,UK,Coulson and White 1959,RR,CR,4,0.79,,,,1,,0.79,0.79,0.051,,Missing value for SE,0.79,
+Great Black-Backed Gull,All,0,,National,National (H&R; 2015),National - single study,,,,,Glutz von Blotzheim and Bauer 1982,,,,0.93,,,,1,,0.93,0.93,0.034,,Missing value for SE,0.93,
+Herring Gull,Adult,1,,National,National (H&R; 2015),National - derived ,,,,,,,,,,,,,2,Yes,0.834,0.834,0.034,0.079,Error in H&R SDs,0.834,0.079
+Herring Gull,Adult,1,,Isle of May (1989-1992),Isle of May (1989-1992),Study - sep and nat,Isle of May,1989-1992,SE Scotland,UK,Wanless et al 1996,MR,VR,3,0.878,0.034,,0.034,,,,,,,,0.878,0.034
+Herring Gull,Adult,1,,Skomer (1978-2010),Skomer (1978-2010),Study - sep and nat,Skomer,1978-2010,Wales,UK,Taylor et al 2010,MR,VR,32,0.83,0.083,,0.083,,,,,,,,0.83,0.083
+Herring Gull,Immature,0,1,National,National (H&R; 2015),National - derived ,,,,,,,,,,,,,2,Yes,0.798,0.794,0.092,,Missing value for SE,0.794,
+Herring Gull,Immature,0,1,,,Study - nat only,Skomer; Skokholm; Grassholm,1968-1969,Wales,UK,Harris 1970,RR,CR,2,0.82,,,,,,,,,,,0.82,
+Herring Gull,Immature,0,1,,,Study - nat only,Isle of May,1966-1968,SE Scotland,UK,Chabrzyk and Coulson 1976,RR,CR,3,0.777,0.092,,0.092,,,,,,,,0.777,0.092
+Lesser Black-Backed Gull,Adult,1,,National,National (H&R; 2015),National - derived ,,,,,,,,,,,,,2,Yes,0.885,0.885,0.022,0.056,Error in H&R SDs,0.885,0.056
+Lesser Black-Backed Gull,Adult,1,,Isle of May (1989-1992),Isle of May (1989-1992),Study - sep and nat,Isle of May,1989-1992,SE Scotland,UK,Wanless et al 1996,MR,VR,3,0.913,0.022,,0.022,,,,,,,,0.913,0.022
+Lesser Black-Backed Gull,Adult,1,,Skomer (1978-2010),Skomer (1978-2010),Study - sep and nat,Skomer,1978-2010,Wales,UK,Taylor et al 2010,MR,VR,32,0.882,0.059,,0.059,,,,,,,,0.882,0.059
+Lesser Black-Backed Gull,Immature,0,1,National,National (H&R; 2015),National - single study,Skomer; Skokholm; Grassholm,1968-1969,Wales,UK,Harris 1970,RR,CR,2,0.82,,,,1,,0.82,0.82,0.022,,Missing value for SE,0.82,
+Northern Fulmar,Adult,8,,National,National (H&R; 2015),National - single study,Eynhallow,1962-1995,Orkney,UK,Grosbois and Thompson 2005,MR,VR,34,0.936,0.055,,0.055,1,,0.936,0.936,0.055,0.055,Good,0.936,0.055
+Northern Fulmar,Immature,0,8,National,National (H&R; 2015),National - single study,Ile des Petrels,1963-1992,Pointe Geologie Archipelago,Antarctica,Jenouvrier et al 2003,MR,VR,29,0.26,0.15,,0.15,1,,0.26,0.26,0.15,0.15,Good,0.26,0.15
+Arctic Skua,Adult,4,,National,National (H&R; 2015),National - single study,Foula,1976;77;79;87;92-94,Shetland,UK,Phillips and Furness 1998,MR,CR,6,0.91,,,,1,,0.91,0.91,0.038,,Missing value for SE,0.91,
+Arctic Skua,Immature,0,4,National,National (H&R; 2015),National - single study,Fair Isle,,Shetland,UK,O'Donald  1983,,,,0.346,,,,1,,0.346,0.346,0.038,,Missing value for SE,0.346,
+Common Tern,Adult,5,,National,National (H&R; 2015),National - derived ,,,,,,,,,,,,,2,Yes,0.883,0.883,0.014,0.011,,0.883,0.011
+Common Tern,Adult,5,,,,Study - nat only,Great Gull Island; Plymouth beach,1995-1997,Massachusetts,US,Nisbet and Cam 2002,MR,VR,3,0.9,0.085,,0.085,,,,,,,Error,0.9,0.085
+Common Tern,Adult,5,,,,Study - nat only,Bird Island; Ram Island; Penikese Island,1983-2004,Massachusetts,US,Breton et al 2014,MR,VR,21,0.88,,,0,,,,,,,Error,0.88,
+Common Tern,Immature,3,5,National,National (H&R; 2015),National - single study,Bird Island; Ram Island; Penikese Island,1983-2004,Massachusetts,US,Breton et al 2014,MR,VR,21,0.85,,,,1,,0.85,0.85,0.014,,Missing value for SE,0.85,
+Common Tern,Immature,0,3,National,National (H&R; 2015),National - single study,Banter See,2000-2001,,Germany,Braasch et al 2008,MR,CR,2,0.441,,0.004,0.006,1,,0.441,0.441,0.004,0.006,Error,0.441,0.006
+Little Tern,All,0,,National,National (H&R; 2015),National - single study,,,,,Grosskopf 1964,MR,,7,0.8,,,,1,,0.8,0.8,0.014,,Missing value for SE,0.8,
+Sandwich Tern,Adult,5,,National,National (H&R; 2015),National - single study,,1990-2006,,UK,Robinson 2010,RR,VR,16,0.898,,0.029,0.116,1,,0.898,0.898,0.029,0.116,Error,0.898,0.116
+Sandwich Tern,Immature,0,2,National,National (H&R; 2015),National - single study,,1990-2006,,UK,Robinson 2010,RR,VR,16,0.358,,0.219,0.876,1,,0.358,0.358,0.219,0.876,Error,0.358,0.876
+Sandwich Tern,Immature,2,5,National,National (H&R; 2015),National - single study,,1990-2006,,UK,Robinson 2010,RR,VR,16,0.741,,0.206,0.824,1,,0.741,0.741,0.206,0.824,Error,0.741,0.824
