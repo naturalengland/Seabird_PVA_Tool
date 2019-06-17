@@ -1,0 +1,791 @@
+Regclass,Species,Region,nsites,nyears,BS.mean,BS.sd1,BS.sd2,BS.sd
+Site,Arctic Skua,Birsay Moors to South of Hillside Road;Birsay Moors RSPB,1,16,0.5575,0.397450206524876,NA,0.397450206524876
+Site,Arctic Skua,Fair Isle SPA;Fair Isle,1,30,0.394,0.39373192350406,NA,0.39373192350406
+Site,Arctic Skua,Fetlar;Fetlar RSPB,1,15,0.460666666666667,0.512075143295349,NA,0.512075143295349
+Site,Arctic Skua,Foula SPA;Foula,1,26,0.374230769230769,0.415520618760832,NA,0.415520618760832
+Site,Arctic Skua,Handa Island SPA;Handa Island,1,18,0.933888888888889,0.384266128505154,NA,0.384266128505154
+Site,Arctic Skua,Hermaness;Hermaness,1,11,0.589090909090909,0.421365744821635,NA,0.421365744821635
+Site,Arctic Skua,Hoy and Southwalls;Binga Fea,1,7,0.118571428571429,0.102701601972019,NA,0.102701601972019
+Site,Arctic Skua,Mousa SPA;Mousa RSPB,1,14,0.584285714285714,0.481978523072654,NA,0.481978523072654
+Site,Arctic Skua,NA;North Hill RSPB. Papa Westray,1,29,0.51551724137931,0.394937483361034,NA,0.394937483361034
+Site,Arctic Skua,North Mainland 17 - Whalwick Taing to Point of Quida Stac;North Mainland 17 - Whalwick Taing to Point of Quida Stac - breeding success,1,5,0.112,0.165891530826622,NA,0.165891530826622
+Site,Arctic Skua,Noss SPA;Noss,1,13,0.533846153846154,0.343111703422721,NA,0.343111703422721
+Site,Arctic Skua,Papa Stour SPA;Papa Stour Whole Island,1,7,0.0728571428571429,0.192761881234706,NA,0.192761881234706
+Site,Arctic Skua,Unst - Hill of Colvadale;Unst - Hill of Colvadale - breeding success,1,9,0.568888888888889,0.361678187220506,NA,0.361678187220506
+Site,Arctic Skua,Westray - North East;Gallo Hill,1,11,0.626363636363636,0.463578962578604,NA,0.463578962578604
+Site,Atlantic Puffin,Fair Isle SPA;Fair Isle,1,31,0.630967741935484,0.174649264502883,NA,0.174649264502883
+Site,Atlantic Puffin,Farne Islands SPA;Farne Islands,1,22,0.769090909090909,0.175361099310865,NA,0.175361099310865
+Site,Atlantic Puffin,Skokholm and Skomer SPA;Skokholm,1,6,0.576666666666667,0.0731209044437134,NA,0.0731209044437134
+Site,Atlantic Puffin,Skokholm and Skomer SPA;Skomer,1,28,0.754285714285714,0.0701019665507731,NA,0.0701019665507731
+Site,Atlantic Puffin,St Kilda SPA;Dun,1,11,0.568181818181818,0.158418318499988,NA,0.158418318499988
+Site,Common Guillemot,Deerness;Mull Head - cliff-nesters,1,23,0.56304347826087,0.249480091801998,NA,0.249480091801998
+Site,Common Guillemot,Fair Isle SPA;Fair Isle,1,31,0.514193548387097,0.285000282965338,NA,0.285000282965338
+Site,Common Guillemot,Farne Islands SPA;Farne Islands,1,9,0.787777777777778,0.140158640277524,NA,0.140158640277524
+Site,Common Guillemot,Flamborough Head and Bempton Cliffs SPA;Flamborough Head and Bempton Cliffs,1,17,0.724117647058824,0.118060303633853,NA,0.118060303633853
+Site,Common Guillemot,Handa Island SPA;Handa Island,1,30,0.596666666666667,0.225607736070181,NA,0.225607736070181
+Site,Common Guillemot,Lundy;Lundy,1,10,0.598,0.228803651874508,NA,0.228803651874508
+Site,Common Guillemot,Marwick Head SPA;Marwick Head,1,28,0.5525,0.257762810868183,NA,0.257762810868183
+Site,Common Guillemot,NA;North Hill RSPB. Papa Westray,1,27,0.450740740740741,0.289055836047772,NA,0.289055836047772
+Site,Common Guillemot,NA;St Aldhelm's Head - Durlston Head,1,9,0.826666666666667,0.0492442890089805,NA,0.0492442890089805
+Site,Common Guillemot,North Sutor to Shandwick;North Sutor Of Cromarty/Castlecraig,1,17,0.561764705882353,0.184364967324247,NA,0.184364967324247
+Site,Common Guillemot,Plymouth to Berry Head Coastline;Berry Head 1,1,14,0.648571428571429,0.122653805664382,NA,0.122653805664382
+Site,Common Guillemot,Skokholm and Skomer SPA;Skokholm,1,8,0.84375,0.137730326570232,NA,0.137730326570232
+Site,Common Guillemot,Skokholm and Skomer SPA;Skomer,1,29,0.687241379310345,0.0781434830352903,NA,0.0781434830352903
+Site,Common Guillemot,Sumburgh Head SPA;Sumburgh Head,1,27,0.52962962962963,0.220671727677134,NA,0.220671727677134
+Site,Common Tern,Abberton Reservoir SPA;Abberton Reservoir,1,5,0.616,0.337979289306312,NA,0.337979289306312
+Site,Common Tern,Alton Water;Alton Water,1,8,1.31,0.746496579266873,NA,0.746496579266873
+Site,Common Tern,Arisaig to Loch Ailort;Eilean an t-Snidhe,1,8,0.5825,0.597201808436646,NA,0.597201808436646
+Site,Common Tern,Arisaig to Loch Ailort;Eilean Ceann Feidh,1,5,1.064,0.634097784257286,NA,0.634097784257286
+Site,Common Tern,Avoch Tern Rafts;Avoch Tern Rafts,1,18,0.948333333333333,0.516028384992189,NA,0.516028384992189
+Site,Common Tern,Bangor and Caernarfon;Ynys Gorad Goch,1,9,1.08777777777778,0.552059276205413,NA,0.552059276205413
+Site,Common Tern,Belfast Harbour;Belfast Lough RSPB,1,10,0.992,0.595124636805882,NA,0.595124636805882
+Site,Common Tern,Billingham Pond;Billingham Pond,1,7,1.44714285714286,0.77489169750175,NA,0.77489169750175
+Site,Common Tern,Boultham Mere;Boultham Mere,1,5,0.75,0.585576638878294,NA,0.585576638878294
+Site,Common Tern,Breydon Water SPA;Breydon Water,1,23,0.992173913043478,0.265893972746813,NA,0.265893972746813
+Site,Common Tern,Carlingford Lough SPA;Carlingford Lough,1,5,0.258,0.31467443493236,NA,0.31467443493236
+Site,Common Tern,Chesil Beach and The Fleet SPA;Chesil Beach,1,15,1.30133333333333,0.829146434306878,NA,0.829146434306878
+Site,Common Tern,Chichester and Langstone Harbours SPA;Chichester Harbour,1,11,0.253636363636364,0.287689858259645,NA,0.287689858259645
+Site,Common Tern,Chichester and Langstone Harbours SPA;Langstone Harbour,1,27,0.468518518518519,0.465317953361782,NA,0.465317953361782
+Site,Common Tern,Coquet Island SPA;Coquet Island,1,27,1.0937037037037,0.444333105712267,NA,0.444333105712267
+Site,Common Tern,Craobh Haven to Craignish + Selected Offshore Islands;Sgeir na Caillich,1,17,0.542352941176471,0.504932290160828,NA,0.504932290160828
+Site,Common Tern,Cromarty Firth SPA;Alness Point,1,15,0.41,0.467852235524972,NA,0.467852235524972
+Site,Common Tern,Cromarty Firth SPA;Ardullie,1,7,0.888571428571429,0.72712742054903,NA,0.72712742054903
+Site,Common Tern,Cromarty Firth SPA;Foulis Tern Raft,1,8,0.885,0.372827037646145,NA,0.372827037646145
+Site,Common Tern,Duddon Estuary SPA;Hodbarrow RSPB,1,21,0.279047619047619,0.381286044353905,NA,0.381286044353905
+Site,Common Tern,Dungeness to Pett Level SPA;Dungeness RSPB Reserve - breeding success,1,16,0.54125,0.444640304066107,NA,0.444640304066107
+Site,Common Tern,Dungeness to Pett Level SPA;Rye Harbour SSSI,1,28,0.856785714285714,0.702203165554162,NA,0.702203165554162
+Site,Common Tern,Fairburn Ings. Mickletown Ings. Methley GP;Fairburn Ings RSPB,1,5,0.932,0.964867866601433,NA,0.964867866601433
+Site,Common Tern,Farne Islands SPA;Farne Islands,1,7,0.615714285714286,0.442035335799343,NA,0.442035335799343
+Site,Common Tern,Fetlar;Fetlar - breeding success,1,7,0.482857142857143,0.366683982275123,NA,0.366683982275123
+Site,Common Tern,Firth of Lorn;Eilean an Ruisg,1,6,0.526666666666667,0.678694825872915,NA,0.678694825872915
+Site,Common Tern,Forth Islands SPA;Isle of May,1,13,0.705384615384615,0.540703482890814,NA,0.540703482890814
+Site,Common Tern,Forth Islands SPA;Long Craig,1,16,0.86125,0.379752112129303,NA,0.379752112129303
+Site,Common Tern,Glas Eileanan SPA;Glas Eileanan,1,24,0.482083333333333,0.431276963030232,NA,0.431276963030232
+Site,Common Tern,Grangemouth;Grangemouth 1,1,9,0.405555555555556,0.184872328318161,NA,0.184872328318161
+Site,Common Tern,Greatham Creek;Cowpen Marsh,1,6,0.763333333333333,0.16741166825125,NA,0.16741166825125
+Site,Common Tern,Havergate Island;Havergate Island,1,22,0.576818181818182,0.552055780166809,NA,0.552055780166809
+Site,Common Tern,Haverton Hill Ponds;Saltholme Pool,1,5,1.12,0.415391381711272,NA,0.415391381711272
+Site,Common Tern,Hoy and Southwalls;Lyness,1,7,0.282857142857143,0.377390791519626,NA,0.377390791519626
+Site,Common Tern,Inland Sea;Inland Sea 1,1,6,0.578333333333333,0.336417399470757,NA,0.336417399470757
+Site,Common Tern,Inner Moray Firth SPA;McDermott's,1,12,0.305833333333333,0.414409949278014,NA,0.414409949278014
+Site,Common Tern,Invergordon;Invergordon Town and Docks,1,9,0.375555555555556,0.465674540615844,NA,0.465674540615844
+Site,Common Tern,Lismore;Eilean Glas,1,5,0.446,0.456157867409957,NA,0.456157867409957
+Site,Common Tern,Loch Ailort;Eilean Dubh (NM78),1,20,0.441,0.566707016107321,NA,0.566707016107321
+Site,Common Tern,Loch Caolisport;Eilean Fada,1,8,0.34375,0.344671168341238,NA,0.344671168341238
+Site,Common Tern,Loch Creran;Mussel Raft,1,14,0.772857142857143,0.6874303161488,NA,0.6874303161488
+Site,Common Tern,Loch Etive;Airds Islets,1,10,0.516,0.56338658525425,NA,0.56338658525425
+Site,Common Tern,Loch Fleet;Skelbo,1,5,0.396,0.435694847341577,NA,0.435694847341577
+Site,Common Tern,Loch Fyne;Duncuan,1,18,0.614444444444444,0.469533212785312,NA,0.469533212785312
+Site,Common Tern,Loch Fyne;Islet Whitehouse Bay,1,5,0.172,0.368062494693496,NA,0.368062494693496
+Site,Common Tern,Loch Leven;Eilean Munde,1,13,0.532307692307692,0.70562211140423,NA,0.70562211140423
+Site,Common Tern,Loch of Strathbeg SPA;Loch of Strathbeg RSPB,1,23,0.428695652173913,0.353621579296108,NA,0.353621579296108
+Site,Common Tern,Loch Sunart;Eilean a'Chuilinn,1,6,0.576666666666667,0.630386125058814,NA,0.630386125058814
+Site,Common Tern,Loch Sunart;Sligneach Mor,1,9,0.227777777777778,0.347950347671107,NA,0.347950347671107
+Site,Common Tern,Loch Teacuis;Eilean nan Gabhar,1,12,0.435833333333333,0.588441058040547,NA,0.588441058040547
+Site,Common Tern,Loch Teacuis;Narrows Islet,1,5,0.838,1.03659056526673,NA,1.03659056526673
+Site,Common Tern,Lodmoor and Radipole;Lodmoor RSPB,1,17,1.33470588235294,0.560893457430407,NA,0.560893457430407
+Site,Common Tern,Lossiemouth East Beach and Loch Spynie;Loch Spynie,1,10,0.468,0.254942259257965,NA,0.254942259257965
+Site,Common Tern,Lower River Spey Islands;Lower River Spey Islands - breeding success,1,5,0.174,0.290482357467713,NA,0.290482357467713
+Site,Common Tern,Minsmere and Walberswick SPA;Minsmere Scrape & Beach,1,21,0.40952380952381,0.448792559992656,NA,0.448792559992656
+Site,Common Tern,Moidart;Eilean Mhic Neill,1,11,0.422727272727273,0.443803805956887,NA,0.443803805956887
+Site,Common Tern,Morecambe Bay SPA;Foulney Island,1,10,0.138,0.170476456504182,NA,0.170476456504182
+Site,Common Tern,NA;An Glas Eilean (nr Glenancross),1,7,0.134285714285714,0.224191669697839,NA,0.224191669697839
+Site,Common Tern,NA;Eilean Nan Cabar & Islet,1,9,0.247777777777778,0.336258002796133,NA,0.336258002796133
+Site,Common Tern,NA;Foulness Point/ Maplin Bank,1,9,0.75,0.577472943089111,NA,0.577472943089111
+Site,Common Tern,NA;Hurst Point - Pitts Deep,1,10,0.333,0.334000998002501,NA,0.334000998002501
+Site,Common Tern,NA;ICI Wilton,1,6,1.36333333333333,0.804553706514777,NA,0.804553706514777
+Site,Common Tern,Nigg;Nigg Oil Terminal,1,15,0.546,0.520505249047226,NA,0.520505249047226
+Site,Common Tern,Norfolk Broads;Bure Marshes,1,13,1.17692307692308,0.753971535883867,NA,0.753971535883867
+Site,Common Tern,North Norfolk Coast SPA;Blakeney Point,1,26,0.365384615384615,0.401937614753641,NA,0.401937614753641
+Site,Common Tern,North Norfolk Coast SPA;Holkham NNR,1,23,0.372173913043478,0.445267606172647,NA,0.445267606172647
+Site,Common Tern,North Norfolk Coast SPA;Scolt Head Island NNR,1,30,0.419333333333333,0.475205460706269,NA,0.475205460706269
+Site,Common Tern,North Solent National Nature Reserve ;North Solent National Nature Reserve,1,6,0.945,0.682224303290348,NA,0.682224303290348
+Site,Common Tern,Pagham Harbour SPA;Pagham Harbour RSPB,1,5,0.3,0.253475837112732,NA,0.253475837112732
+Site,Common Tern,Poole Harbour SPA;Brownsea Island,1,27,0.478518518518519,0.319972399094572,NA,0.319972399094572
+Site,Common Tern,River Lee Country Park;Rye Meads RSPB,1,16,1.295,0.481414582246944,NA,0.481414582246944
+Site,Common Tern,Seaforth Nature Reserve and Liverpool City;Seaforth Nature Reserve,1,27,0.513703703703704,0.260430828674749,NA,0.260430828674749
+Site,Common Tern,Shotton Steel Works;Shotton Steel Works,1,24,1.27625,0.498657436654097,NA,0.498657436654097
+Site,Common Tern,South Solway;Rockcliffe Marsh,1,15,0.111333333333333,0.183881431777058,NA,0.183881431777058
+Site,Common Tern,St Fergus;St Fergus Gas Terminal,1,16,0.17375,0.172041661621054,NA,0.172041661621054
+Site,Common Tern,Tain to Bonar Bridge;Mid Fearn Mere,1,6,0.37,0.54236519062344,NA,0.54236519062344
+Site,Common Tern,The Wash NNR;Snettisham RSPB,1,27,0.397777777777778,0.418470965203022,NA,0.418470965203022
+Site,Common Tern,Welney and Black Dyke;Welney WWT,1,8,0.56875,0.586087207065394,NA,0.586087207065394
+Site,Common Tern,West Loch Tarbert;Torinturk Islets (W Loch Tarbert),1,15,0.326666666666667,0.501136802917223,NA,0.501136802917223
+Site,Common Tern,Whisby Pits;Whisby Pits,1,12,1.23,0.71170729427713,NA,0.71170729427713
+Site,Common Tern,Ynys Feurig. Cemlyn Bay and The Skerries SPA;Cemlyn Lagoon,1,21,0.591904761904762,0.513679073426386,NA,0.513679073426386
+Site,Common Tern,Ynys Feurig. Cemlyn Bay and The Skerries SPA;The Skerries RSPB,1,21,1.19666666666667,0.491094016796513,NA,0.491094016796513
+Site,Common Tern,Ynys Feurig. Cemlyn Bay and The Skerries SPA;Ynys Feurig,1,17,1.16529411764706,0.830347198820009,NA,0.830347198820009
+Site,Common Tern,Ythan Estuary SPA;Sands of Forvie,1,22,0.591363636363636,0.584964756403124,NA,0.584964756403124
+Site,Northern Fulmar,Aberdaron Coast and Bardsey Island SPA;Bardsey Island,1,13,0.755384615384615,0.235004091617408,NA,0.235004091617408
+Site,Northern Fulmar,Aberlady to John Muir Country Park;Tantallon,1,31,0.235483870967742,0.198894255148767,NA,0.198894255148767
+Site,Northern Fulmar,Ailsa Craig SPA;Ailsa Craig,1,8,0.69,0.120830459735946,NA,0.120830459735946
+Site,Northern Fulmar,Alderney;Alderney,1,7,0.564285714285714,0.16621844491082,NA,0.16621844491082
+Site,Northern Fulmar,Bishop & Clerks and Ramsey;Ramsey Island RSPB,1,7,0.46,0.203306009093025,NA,0.203306009093025
+Site,Northern Fulmar,Canna and Sanday SPA;Canna and Sanday,1,32,0.3778125,0.0963439528878928,NA,0.0963439528878928
+Site,Northern Fulmar,Coquet Island SPA;Coquet Island,1,19,0.454736842105263,0.147021102833446,NA,0.147021102833446
+Site,Northern Fulmar,Deerness;Mull Head - cliff-nesters,1,24,0.384166666666667,0.10914356985448,NA,0.10914356985448
+Site,Northern Fulmar,East Caithness Cliffs SPA (North);Ires Geo,1,9,0.31,0.08,NA,0.08
+Site,Northern Fulmar,East Caithness Cliffs SPA (South);Rockhead,1,9,0.328888888888889,0.072188026092359,NA,0.072188026092359
+Site,Northern Fulmar,Eynhallow;Eynhallow,1,23,0.307391304347826,0.121251706316179,NA,0.121251706316179
+Site,Northern Fulmar,Fair Isle SPA;Fair Isle,1,32,0.46375,0.0883449982153909,NA,0.0883449982153909
+Site,Northern Fulmar,Farne Islands SPA;Farne Islands,1,28,0.529285714285714,0.103706443652391,NA,0.103706443652391
+Site,Northern Fulmar,Fetlar;Fetlar - breeding success,1,6,0.403333333333333,0.0625033332444492,NA,0.0625033332444492
+Site,Northern Fulmar,Fetlar;Fetlar RSPB,1,6,0.403333333333333,0.0625033332444492,NA,0.0625033332444492
+Site,Northern Fulmar,Flamborough Head and Bempton Cliffs SPA;Flamborough Head and Bempton Cliffs,1,9,0.555555555555556,0.0505250213040804,NA,0.0505250213040804
+Site,Northern Fulmar,Foula SPA;Foula,1,11,0.533636363636364,0.141864211644285,NA,0.141864211644285
+Site,Northern Fulmar,Handa Island SPA;Handa Island,1,29,0.422758620689655,0.0944494026194577,NA,0.0944494026194577
+Site,Northern Fulmar,Hermaness;Hermaness,1,29,0.378965517241379,0.114122266125484,NA,0.114122266125484
+Site,Northern Fulmar,Heylor to Stenness;Cross-voe-sand to Caves,1,30,0.412,0.0985900603509299,NA,0.0985900603509299
+Site,Northern Fulmar,Holm;Gultak,1,24,0.37875,0.123581077065608,NA,0.123581077065608
+Site,Northern Fulmar,Hoy and Southwalls;Bay of Creekland,1,7,0.43,0.169016764454496,NA,0.169016764454496
+Site,Northern Fulmar,Hoy and Southwalls;Old Man of Hoy to Rora Head,1,12,0.3825,0.148454155764116,NA,0.148454155764116
+Site,Northern Fulmar,Hunstanton;Hunstanton Cliffs SSSI,1,10,0.392,0.145281336264046,NA,0.145281336264046
+Site,Northern Fulmar,Isle of Colonsay;Isle of Colonsay - breeding success,1,6,0.453333333333333,0.0568037557443755,NA,0.0568037557443755
+Site,Northern Fulmar,Melvich to Duncansby Stacks SSSI/SPA;Dunnet Head RSPB,1,7,0.288571428571429,0.0674360367134594,NA,0.0674360367134594
+Site,Northern Fulmar,Melvich to Duncansby Stacks SSSI/SPA;Sandside Head 1,1,5,0.582,0.225211012164148,NA,0.225211012164148
+Site,Northern Fulmar,Melvich to Duncansby Stacks SSSI/SPA;St Johns Point,1,5,0.422,0.143944433723573,NA,0.143944433723573
+Site,Northern Fulmar,Menawethan Island;Menawethan,1,8,0.30625,0.11783008347374,NA,0.11783008347374
+Site,Northern Fulmar,NA;Bradda - Fleshwick,1,21,0.277619047619048,0.154042356574572,NA,0.154042356574572
+Site,Northern Fulmar,NA;Costa Head,1,24,0.455833333333333,0.115755239027522,NA,0.115755239027522
+Site,Northern Fulmar,NA;Douglas Town,1,9,0.322222222222222,0.104376455412341,NA,0.104376455412341
+Site,Northern Fulmar,NA;Glen Maye - Peel,1,10,0.259,0.0864677203739446,NA,0.0864677203739446
+Site,Northern Fulmar,NA;Niarbyl - Glen Maye,1,22,0.311818181818182,0.140530842696249,NA,0.140530842696249
+Site,Northern Fulmar,NA;North Hill RSPB. Papa Westray,1,29,0.397931034482759,0.196148254978306,NA,0.196148254978306
+Site,Northern Fulmar,NA;Peel - Glen Mooar,1,16,0.278125,0.161914329199117,NA,0.161914329199117
+Site,Northern Fulmar,NA;Traie Vane - Gob yn Ushtey,1,13,0.225384615384615,0.105563202601995,NA,0.105563202601995
+Site,Northern Fulmar,NA;Troswick Ness,1,30,0.388,0.1012814446702,NA,0.1012814446702
+Site,Northern Fulmar,North Ronaldsay;North Ronaldsay Whole Island,1,13,0.315384615384615,0.190158503386665,NA,0.190158503386665
+Site,Northern Fulmar,North Sutor to Shandwick;North Sutor Of Cromarty/Castlecraig,1,24,0.111666666666667,0.137292663177312,NA,0.137292663177312
+Site,Northern Fulmar,Noss SPA;Noss,1,32,0.3753125,0.0961847810039311,NA,0.0961847810039311
+Site,Northern Fulmar,Rousay Coast;Rousay 7,1,22,0.507727272727273,0.162654521936814,NA,0.162654521936814
+Site,Northern Fulmar,Scarvister to Culswick;Westerwick,1,14,0.567142857142857,0.130645060634269,NA,0.130645060634269
+Site,Northern Fulmar,Shandwick to Portmahomack;Wilkhaven 1,1,13,0.19,0.194422220952236,NA,0.194422220952236
+Site,Northern Fulmar,Skokholm and Skomer SPA;Skokholm,1,14,0.475714285714286,0.0755201741476852,NA,0.0755201741476852
+Site,Northern Fulmar,Skokholm and Skomer SPA;Skomer,1,26,0.444230769230769,0.142693323653858,NA,0.142693323653858
+Site,Northern Fulmar,St Abbs to Fast Castle SPA;St Abb's Head NNR,1,15,0.215333333333333,0.104599007552426,NA,0.104599007552426
+Site,Northern Fulmar,St Kilda SPA;Dun,1,22,0.347272727272727,0.0900889411416147,NA,0.0900889411416147
+Site,Northern Fulmar,St Martin's Island;St Martin's,1,8,0.2925,0.156729977076135,NA,0.156729977076135
+Site,Northern Fulmar,Sumburgh Head SPA;Sumburgh Head,1,30,0.434,0.10685471928971,NA,0.10685471928971
+Site,Northern Fulmar,Troup. Pennan and Lion's Heads SPA;Troup. Pennan and Lion's Heads,1,8,0.24625,0.0740535520513943,NA,0.0740535520513943
+Site,Northern Fulmar,West Bay - Bridport;Westbay. Eastcliff,1,8,0.4825,0.224037624391211,NA,0.224037624391211
+Site,Northern Fulmar,Yell - East Coast;SE Yell (inc. Burravoe),1,13,0.363076923076923,0.0891052388456683,NA,0.0891052388456683
+Site,Great Black-Backed Gull,Arisaig to Loch Ailort;Eilean an t-Snidhe,1,10,0.728,0.629652461459671,NA,0.629652461459671
+Site,Great Black-Backed Gull,Burnt Islands - Kyles of Bute;Burnt Islands,1,8,1.68,0.560662872984164,NA,0.560662872984164
+Site,Great Black-Backed Gull,Canna and Sanday SPA;Canna and Sanday,1,21,0.904761904761905,0.56862658263239,NA,0.56862658263239
+Site,Great Black-Backed Gull,Craobh Haven to Craignish + Selected Offshore Islands;Eilean Gamhna (NM71),1,6,0.808333333333333,0.572692471285128,NA,0.572692471285128
+Site,Great Black-Backed Gull,Firth of Lorn;Bach Island,1,10,0.783,0.394294024527101,NA,0.394294024527101
+Site,Great Black-Backed Gull,Firth of Lorn;Dubh Sgeir (NM72b),1,7,1.34142857142857,0.419023808847364,NA,0.419023808847364
+Site,Great Black-Backed Gull,Hoy and Southwalls;Hoy RSPB Reserve,1,5,0.448,0.166343019090072,NA,0.166343019090072
+Site,Great Black-Backed Gull,Hoy and Southwalls;Whaness,1,10,1.455,0.343357604320109,NA,0.343357604320109
+Site,Great Black-Backed Gull,Lismore;Eilean Dubh,1,8,0.86125,0.379339181057948,NA,0.379339181057948
+Site,Great Black-Backed Gull,Loch Craignish - Loch Crinan;Eilean na Cille,1,6,0.745,0.405647630339436,NA,0.405647630339436
+Site,Great Black-Backed Gull,Loch Craignish - Loch Crinan;Ruadh Sgeir,1,12,0.911666666666667,0.250883288089152,NA,0.250883288089152
+Site,Great Black-Backed Gull,Loch Etive;Abbot's Isles,1,23,1.17434782608696,0.443014734897123,NA,0.443014734897123
+Site,Great Black-Backed Gull,Loch Fyne;Eilean Aoghainn,1,10,0.692,0.597937194769558,NA,0.597937194769558
+Site,Great Black-Backed Gull,Loch Fyne;Eilean Buidhe (Portavadie),1,13,0.981538461538461,0.555215365929386,NA,0.555215365929386
+Site,Great Black-Backed Gull,Loch Fyne;Glas Eilean (Loch Fyne),1,9,0.814444444444444,0.501575296219598,NA,0.501575296219598
+Site,Great Black-Backed Gull,Loch Fyne;Liath Eilean (Loch Fyne),1,11,0.884545454545455,0.545075474340272,NA,0.545075474340272
+Site,Great Black-Backed Gull,Loch Fyne;Sgat Mor,1,13,1.00153846153846,0.367351923769886,NA,0.367351923769886
+Site,Great Black-Backed Gull,Loch Linnhe and Fort William;Eilean Balnagowan,1,12,1.03,0.3976064751622,NA,0.3976064751622
+Site,Great Black-Backed Gull,Loch Sunart;Sligneach Mor,1,15,0.891333333333333,0.228062230438056,NA,0.228062230438056
+Site,Great Black-Backed Gull,Mull;Eileanan Glasa,1,6,0.848333333333333,0.364275536739247,NA,0.364275536739247
+Site,Great Black-Backed Gull,NA;An Glas Eilean (nr Glenancross),1,8,0.5625,0.565679111460603,NA,0.565679111460603
+Site,Great Black-Backed Gull,NA;Eilean Gainimh,1,21,1.17571428571429,0.462304785056043,NA,0.462304785056043
+Site,Great Black-Backed Gull,NA;North Hill RSPB. Papa Westray,1,10,0.908,0.3945968406699,NA,0.3945968406699
+Site,Great Black-Backed Gull,Nigg;Nigg Oil Terminal,1,15,1.37133333333333,0.832267699607238,NA,0.832267699607238
+Site,Great Black-Backed Gull,Noss SPA;Noss,1,14,0.942142857142857,0.391607703456652,NA,0.391607703456652
+Site,Great Black-Backed Gull,Skokholm and Skomer SPA;Skokholm,1,17,1.20294117647059,0.325898080423204,NA,0.325898080423204
+Site,Great Black-Backed Gull,Skokholm and Skomer SPA;Skomer,1,22,1.29409090909091,0.254552063921614,NA,0.254552063921614
+Site,Great Black-Backed Gull,Sound of Jura;Carraig an Daimh,1,14,0.9,0.275094389395573,NA,0.275094389395573
+Site,Great Black-Backed Gull,Sound of Jura;Corr Eilean,1,9,0.696666666666667,0.315990506186499,NA,0.315990506186499
+Site,Great Black-Backed Gull,Sound of Jura;Reisa Mhic Phaidean,1,7,0.808571428571429,0.478415041967696,NA,0.478415041967696
+Site,Great Black-Backed Gull,South Solway;Rockcliffe Marsh,1,7,0.551428571428571,0.270334889314998,NA,0.270334889314998
+Site,Great Black-Backed Gull,Strangford Lough SPA;Strangford Lough,1,5,1.772,0.297859027058104,NA,0.297859027058104
+Site,Great Black-Backed Gull,Ynys Feurig. Cemlyn Bay and The Skerries SPA;The Skerries RSPB,1,6,0.791666666666667,0.26716411934739,NA,0.26716411934739
+Site,Great Cormorant,Aberdaron Coast and Bardsey Island SPA;Ynysoedd Gwylan (Fawr and Bach Total),1,12,2.35583333333333,0.926091084596811,NA,0.926091084596811
+Site,Great Cormorant,Arisaig to Loch Ailort;An Glas-eilean,1,15,1.38,0.761173905415651,NA,0.761173905415651
+Site,Great Cormorant,East Caithness Cliffs SPA (South);Ceann Leathad nam Bo 2,1,10,2.298,0.340776890191939,NA,0.340776890191939
+Site,Great Cormorant,Lismore;Eilean Dubh,1,6,1.48666666666667,0.7127598941205,NA,0.7127598941205
+Site,Great Cormorant,Loch Craignish - Loch Crinan;Ruadh Sgeir,1,6,1.91,0.304565263941901,NA,0.304565263941901
+Site,Great Cormorant,Loch Fyne;Eilean Buidhe (Portavadie),1,12,1.34833333333333,0.728957329257885,NA,0.728957329257885
+Site,Great Cormorant,NA;Peel - Glen Mooar,1,10,2.412,0.141484196212078,NA,0.141484196212078
+Site,Great Cormorant,North Sutor to Shandwick;North Sutor Of Cromarty/Castlecraig,1,27,2.1937037037037,0.398537211351599,NA,0.398537211351599
+Site,Great Cormorant,Plymouth to Berry Head Coastline;Blackaterry Point,1,6,1.79333333333333,0.538726894322779,NA,0.538726894322779
+Site,Great Cormorant,Skokholm and Skomer SPA;Skomer,1,5,1.376,0.187696563633967,NA,0.187696563633967
+Site,Great Cormorant,Sound of Jura;Carraig an Daimh,1,7,1.27857142857143,0.837564496450444,NA,0.837564496450444
+Site,Great Cormorant,Sound of Jura;Corr Eilean,1,5,1.66,0.98,NA,0.98
+Site,Great Cormorant,South Solway;Grune Point Man Made,1,8,1.74125,0.333185383833085,NA,0.333185383833085
+Site,Great Cormorant,St Margaret's Island;St Margaret's Island,1,5,2.158,0.196900990347941,NA,0.196900990347941
+Site,Great Cormorant,Studland SSSI - Purbeck;Ballard Cliffs,1,8,1.3575,0.211305466091154,NA,0.211305466091154
+Site,Herring Gull,Aberdaron Coast and Bardsey Island SPA;Bardsey Island,1,20,0.959,0.375470231492248,NA,0.375470231492248
+Site,Herring Gull,Aberdaron Coast and Bardsey Island SPA;Ynysoedd Gwylan (Fawr and Bach Total),1,8,0.8275,0.445573466765823,NA,0.445573466765823
+Site,Herring Gull,Arisaig to Loch Ailort;An Glas-eilean,1,5,0.28,0.288444102037119,NA,0.288444102037119
+Site,Herring Gull,Arisaig to Loch Ailort;Eilean an Sgurra,1,6,0.106666666666667,0.261278905896872,NA,0.261278905896872
+Site,Herring Gull,Arisaig to Loch Ailort;Eilean an t-Snidhe,1,8,0.4825,0.371358509875757,NA,0.371358509875757
+Site,Herring Gull,Arisaig to Loch Ailort;Sgeir An Fheoir,1,6,0.105,0.196341539160719,NA,0.196341539160719
+Site,Herring Gull,Arisaig to Loch Nevis;Eilean Da Chuain,1,10,0.372,0.35439463251516,NA,0.35439463251516
+Site,Herring Gull,Arisaig to Loch Nevis;Rubha Da Chuain,1,8,0.375,0.552733467155993,NA,0.552733467155993
+Site,Herring Gull,Burnt Islands - Kyles of Bute;Burnt Islands,1,10,0.821,0.335507906845063,NA,0.335507906845063
+Site,Herring Gull,Canna and Sanday SPA;Canna and Sanday,1,28,0.895357142857143,0.65591599587965,NA,0.65591599587965
+Site,Herring Gull,Craobh Haven to Craignish + Selected Offshore Islands;Eilean Gamhna (NM71),1,9,0.504444444444444,0.458069621103362,NA,0.458069621103362
+Site,Herring Gull,Firth of Lorn;Bach Island,1,11,0.573636363636364,0.498984423149115,NA,0.498984423149115
+Site,Herring Gull,Firth of Lorn;Dubh Sgeir (NM72b),1,10,0.644,0.411587711726728,NA,0.411587711726728
+Site,Herring Gull,Flamborough Head and Bempton Cliffs SPA;Flamborough Head and Bempton Cliffs,1,9,0.888888888888889,0.200464737824664,NA,0.200464737824664
+Site,Herring Gull,Forth Islands SPA;Isle of May,1,19,0.978421052631579,0.306598962778102,NA,0.306598962778102
+Site,Herring Gull,Havergate Island;Havergate Island,1,5,0.414,0.390230700996218,NA,0.390230700996218
+Site,Herring Gull,Hunstanton;Hunstanton Town,1,7,1.47285714285714,0.25753409390566,NA,0.25753409390566
+Site,Herring Gull,Lismore;Eilean Dubh,1,20,0.425,0.530615332966309,NA,0.530615332966309
+Site,Herring Gull,Lismore;Eilean nan Caorach,1,21,0.818571428571429,0.481282512816388,NA,0.481282512816388
+Site,Herring Gull,Lismore;Sgeir nan Tom,1,16,1.119375,0.427542882839449,NA,0.427542882839449
+Site,Herring Gull,Loch Ailort;Sgeir Ghlas,1,13,0.300769230769231,0.434289871293002,NA,0.434289871293002
+Site,Herring Gull,Loch Craignish - Loch Crinan;Eilean na Cille,1,11,0.555454545454545,0.259744629833367,NA,0.259744629833367
+Site,Herring Gull,Loch Craignish - Loch Crinan;Eilean na Cille small islet,1,5,0.73,0.116404467268228,NA,0.116404467268228
+Site,Herring Gull,Loch Craignish - Loch Crinan;Eilean na Cille steep islet,1,12,0.660833333333333,0.305716991330019,NA,0.305716991330019
+Site,Herring Gull,Loch Craignish - Loch Crinan;Ruadh Sgeir,1,10,0.415,0.163588236469225,NA,0.163588236469225
+Site,Herring Gull,Loch Etive;Abbot's Isles,1,22,0.888636363636364,0.394078738259313,NA,0.394078738259313
+Site,Herring Gull,Loch Etive;Kilmaronag Islands,1,20,0.7365,0.415353685683089,NA,0.415353685683089
+Site,Herring Gull,Loch Fyne;Eilean a' Bhuic,1,9,0.707777777777778,0.467460634112055,NA,0.467460634112055
+Site,Herring Gull,Loch Fyne;Eilean Aoghainn,1,12,0.534166666666667,0.377972060856195,NA,0.377972060856195
+Site,Herring Gull,Loch Fyne;Eilean Buidhe (Black Harbour),1,8,0.89,0.609730619676779,NA,0.609730619676779
+Site,Herring Gull,Loch Fyne;Eilean Buidhe (Portavadie),1,17,0.609411764705882,0.387725266590844,NA,0.387725266590844
+Site,Herring Gull,Loch Fyne;Glas Eilean (Loch Fyne),1,11,0.676363636363636,0.321567185119151,NA,0.321567185119151
+Site,Herring Gull,Loch Fyne;Liath Eilean (Loch Fyne),1,12,0.681666666666667,0.363788983124042,NA,0.363788983124042
+Site,Herring Gull,Loch Fyne;Sgat Beag,1,13,0.210769230769231,0.264369108711713,NA,0.264369108711713
+Site,Herring Gull,Loch Fyne;Sgat Mor,1,13,0.645384615384615,0.466522871618948,NA,0.466522871618948
+Site,Herring Gull,Loch Leven;Eilean Choinneich,1,14,0.758571428571429,0.52808590709725,NA,0.52808590709725
+Site,Herring Gull,Loch Linnhe and Fort William;Eilean Balnagowan,1,15,0.811333333333333,0.364963142300829,NA,0.364963142300829
+Site,Herring Gull,Loch Linnhe and Fort William;Three Islets,1,15,0.701333333333333,0.371865310998229,NA,0.371865310998229
+Site,Herring Gull,Loch Lomond;Tarbet Isle,1,5,0.632,0.59503781392446,NA,0.59503781392446
+Site,Herring Gull,Loch Sunart;Sligneach Mor,1,18,0.816666666666667,0.3198712976477,NA,0.3198712976477
+Site,Herring Gull,Moidart;Eilean Mhic Neill,1,20,0.5425,0.467815471943237,NA,0.467815471943237
+Site,Herring Gull,Mull;Eilean Rubha an Ridire,1,13,0.335384615384615,0.399616803630165,NA,0.399616803630165
+Site,Herring Gull,Mull;Eileanan Glasa,1,7,0.828571428571429,0.431641385543932,NA,0.431641385543932
+Site,Herring Gull,Mull;Sgeir nan Gobhar,1,21,0.775714285714286,0.528285637023868,NA,0.528285637023868
+Site,Herring Gull,NA;Am Fraoch-eilean. Loch Nan Ceall,1,8,0.12,0.271661554144123,NA,0.271661554144123
+Site,Herring Gull,NA;An Glas-eilean,1,7,0.17,0.249198715887542,NA,0.249198715887542
+Site,Herring Gull,NA;An Glas Eilean (nr Glenancross),1,10,0.404,0.445675517239467,NA,0.445675517239467
+Site,Herring Gull,NA;Eilean Loch Oscair,1,6,0.0933333333333333,0.228619042659763,NA,0.228619042659763
+Site,Herring Gull,NA;Inn Island,1,20,0.7085,0.500044997975182,NA,0.500044997975182
+Site,Herring Gull,Noss SPA;Noss,1,19,1.12473684210526,0.409462634586853,NA,0.409462634586853
+Site,Herring Gull,Oban;Eilean Beag (NM83),1,22,0.909090909090909,0.257236394723925,NA,0.257236394723925
+Site,Herring Gull,Oban;Eilean Mor (NM83),1,21,0.700952380952381,0.40022374694544,NA,0.40022374694544
+Site,Herring Gull,Skokholm and Skomer SPA;Skokholm,1,15,0.684,0.335448527028685,NA,0.335448527028685
+Site,Herring Gull,Skokholm and Skomer SPA;Skomer,1,22,0.698636363636364,0.237893442623562,NA,0.237893442623562
+Site,Herring Gull,Sound of Jura;Corr Eilean,1,13,0.537692307692308,0.386461594602315,NA,0.386461594602315
+Site,Herring Gull,Sound of Jura;Eilean Mor (NR67),1,15,0.684666666666667,0.379922297820163,NA,0.379922297820163
+Site,Herring Gull,Sound of Jura;Reisa Mhic Phaidean,1,17,0.241176470588235,0.199558335861383,NA,0.199558335861383
+Site,Herring Gull,Sound of Luing;Eilean Dubh Mor,1,5,0.456,0.649715322275841,NA,0.649715322275841
+Site,Herring Gull,St Bees Head and Town;St Bees Head,1,5,1.218,0.18322117781523,NA,0.18322117781523
+Site,Herring Gull,Strangford Lough SPA;Strangford Lough,1,5,1.674,0.321449840566145,NA,0.321449840566145
+Site,Herring Gull,West Bay - Bridport;Westbay. Eastcliff,1,9,2.16555555555556,0.401251514361974,NA,0.401251514361974
+Site,Herring Gull,West Loch Tarbert;Eilean Eoghainn,1,17,0.544705882352941,0.370575863472293,NA,0.370575863472293
+Site,Black-Legged Kittiwake,Aberdaron Coast and Bardsey Island SPA;Bardsey Island,1,26,0.678846153846154,0.374714044819,NA,0.374714044819
+Site,Black-Legged Kittiwake,Ailsa Craig SPA;Ailsa Craig,1,29,0.495862068965517,0.295133350506649,NA,0.295133350506649
+Site,Black-Legged Kittiwake,Bishop & Clerks and Ramsey;Ramsey Island RSPB,1,18,0.474444444444444,0.384756947301452,NA,0.384756947301452
+Site,Black-Legged Kittiwake,Buchan Ness to Collieston Coast SPA;Buchan Ness to Collieston,1,22,0.598636363636364,0.327563813550966,NA,0.327563813550966
+Site,Black-Legged Kittiwake,Canna and Sanday SPA;Canna and Sanday,1,32,0.6625,0.29588576697228,NA,0.29588576697228
+Site,Black-Legged Kittiwake,Castlemartin Coast SPA (Berryslade to Barafundle Bay);Green Bridge of Wales to Flimston Bay (Elegug Stacks),1,23,0.207826086956522,0.228293203055336,NA,0.228293203055336
+Site,Black-Legged Kittiwake,Cayton Bay to Filey;Filey 1,1,5,0.206,0.162573060498965,NA,0.162573060498965
+Site,Black-Legged Kittiwake,Cayton Bay to Filey;Filey 2,1,5,0.412,0.145499140890934,NA,0.145499140890934
+Site,Black-Legged Kittiwake,Coquet Island SPA;Coquet Island,1,23,1.13826086956522,0.290605201947951,NA,0.290605201947951
+Site,Black-Legged Kittiwake,Deerness;Mull Head - cliff-nesters,1,24,0.863333333333333,0.446159131941164,NA,0.446159131941164
+Site,Black-Legged Kittiwake,Dunbar Coast;Dunbar Coast and Harbour,1,29,0.839655172413793,0.288041201896791,NA,0.288041201896791
+Site,Black-Legged Kittiwake,East Caithness Cliffs SPA (North);Ires Geo,1,9,1.02444444444444,0.341398268562947,NA,0.341398268562947
+Site,Black-Legged Kittiwake,East Caithness Cliffs SPA (South);Rockhead,1,9,1.07444444444444,0.456265030193831,NA,0.456265030193831
+Site,Black-Legged Kittiwake,Fair Isle SPA;Fair Isle,1,32,0.47125,0.473638966901734,NA,0.473638966901734
+Site,Black-Legged Kittiwake,Farne Islands SPA;Farne Islands,1,29,0.823793103448276,0.315893447147513,NA,0.315893447147513
+Site,Black-Legged Kittiwake,Flamborough Head and Bempton Cliffs SPA;Flamborough Head and Bempton Cliffs,1,31,0.873225806451613,0.332329024680604,NA,0.332329024680604
+Site,Black-Legged Kittiwake,Foula SPA;Foula,1,29,0.416206896551724,0.404566909467956,NA,0.404566909467956
+Site,Black-Legged Kittiwake,Fowlsheugh SPA;Fowlsheugh RSPB,1,29,0.797586206896552,0.324517831035674,NA,0.324517831035674
+Site,Black-Legged Kittiwake,Great Orme and Little Orme;Great Orme,1,19,0.484736842105263,0.246043546756636,NA,0.246043546756636
+Site,Black-Legged Kittiwake,Handa Island SPA;Handa Island,1,31,1.01838709677419,0.473561659302451,NA,0.473561659302451
+Site,Black-Legged Kittiwake,Hermaness;Hermaness,1,28,0.363928571428571,0.295864574697355,NA,0.295864574697355
+Site,Black-Legged Kittiwake,Heylor to Stenness;Cross-voe-sand to Caves,1,14,0.334285714285714,0.318402606428119,NA,0.318402606428119
+Site,Black-Legged Kittiwake,Holm;Gultak,1,26,0.69,0.379420610931984,NA,0.379420610931984
+Site,Black-Legged Kittiwake,Isle of Colonsay;Isle of Colonsay - breeding success,1,6,0.803333333333333,0.176484182482926,NA,0.176484182482926
+Site,Black-Legged Kittiwake,Isles of Scilly Archipelago;Isles of Scilly Archipelago,1,6,0.14,0.283196045170126,NA,0.283196045170126
+Site,Black-Legged Kittiwake,Ligger Point to Porth;Towan Head,1,5,0.384,0.238075618239248,NA,0.238075618239248
+Site,Black-Legged Kittiwake,Lowestoft (Town);Lowestoft,1,31,1.06064516129032,0.251686782646884,NA,0.251686782646884
+Site,Black-Legged Kittiwake,Lundy;Lundy,1,15,0.501333333333333,0.30125610051124,NA,0.30125610051124
+Site,Black-Legged Kittiwake,Marwick Head SPA;Marwick Head,1,29,0.828620689655172,0.450108908550642,NA,0.450108908550642
+Site,Black-Legged Kittiwake,Melvich to Duncansby Stacks SSSI/SPA;Dunnet Head RSPB,1,7,0.751428571428571,0.401224316786698,NA,0.401224316786698
+Site,Black-Legged Kittiwake,Melvich to Duncansby Stacks SSSI/SPA;Skirza Head,1,9,0.91,0.411308886361576,NA,0.411308886361576
+Site,Black-Legged Kittiwake,Mount's Bay. Cornwall;Rinsey ,1,6,0.413333333333333,0.127540843131393,NA,0.127540843131393
+Site,Black-Legged Kittiwake,Muck Island;Muck Island,1,13,0.672307692307692,0.375857992823394,NA,0.375857992823394
+Site,Black-Legged Kittiwake,NA;Calf of Man,1,9,0.251111111111111,0.130330775763482,NA,0.130330775763482
+Site,Black-Legged Kittiwake,NA;Costa Head,1,21,0.67047619047619,0.509769322247585,NA,0.509769322247585
+Site,Black-Legged Kittiwake,NA;Glen Maye - Peel,1,13,0.309230769230769,0.33362807481939,NA,0.33362807481939
+Site,Black-Legged Kittiwake,NA;Kettlaness,1,10,0.08,0.181291661878495,NA,0.181291661878495
+Site,Black-Legged Kittiwake,NA;Mull Of Galloway RSPB,1,5,0.626,0.688897670194928,NA,0.688897670194928
+Site,Black-Legged Kittiwake,NA;North Hill RSPB. Papa Westray,1,21,0.57047619047619,0.497689423139333,NA,0.497689423139333
+Site,Black-Legged Kittiwake,NA;Saltburn Cliffs (Huntcliff),1,23,0.778260869565217,0.303908661127485,NA,0.303908661127485
+Site,Black-Legged Kittiwake,NA;St Aldhelm's Head - Durlston Head,1,16,0.655,0.336650164612069,NA,0.336650164612069
+Site,Black-Legged Kittiwake,NA;Troswick Ness,1,10,0.372,0.428765670267572,NA,0.428765670267572
+Site,Black-Legged Kittiwake,No Ness to Levenwick and Boddam to Virkie;Noness,1,20,0.325,0.395707228296775,NA,0.395707228296775
+Site,Black-Legged Kittiwake,North Sutor to Shandwick;North Sutor Of Cromarty/Castlecraig,1,28,0.5225,0.357000103745187,NA,0.357000103745187
+Site,Black-Legged Kittiwake,Noss SPA;Noss,1,31,0.211290322580645,0.232790921006868,NA,0.232790921006868
+Site,Black-Legged Kittiwake,Plymouth to Berry Head Coastline;Berry Head 1,1,9,0.725555555555556,0.250505045413816,NA,0.250505045413816
+Site,Black-Legged Kittiwake,Puffin Island SPA;Puffin Island,1,9,0.727777777777778,0.439026701288708,NA,0.439026701288708
+Site,Black-Legged Kittiwake,Rathlin Island SPA;Rathlin Island,1,12,0.766666666666667,0.480138868800822,NA,0.480138868800822
+Site,Black-Legged Kittiwake,River Tyne to Seaton Sluice;Baltic Flour Mill,1,19,1.04473684210526,0.231909187711546,NA,0.231909187711546
+Site,Black-Legged Kittiwake,River Tyne to Seaton Sluice;Gateshead Kittiwake Tower,1,17,0.837058823529412,0.212654787915837,NA,0.212654787915837
+Site,Black-Legged Kittiwake,River Tyne to Seaton Sluice;International Coatings,1,18,1.01555555555556,0.251424698637519,NA,0.251424698637519
+Site,Black-Legged Kittiwake,River Tyne to Seaton Sluice;McNulty's. Tyne Dock ,1,13,1.04769230769231,0.283964605956266,NA,0.283964605956266
+Site,Black-Legged Kittiwake,River Tyne to Seaton Sluice;Newcastle Quayside Buildings,1,24,1.05708333333333,0.234047174112709,NA,0.234047174112709
+Site,Black-Legged Kittiwake,River Tyne to Seaton Sluice;Newcastle to Seaton Sluice - breeding success,1,10,0.931,0.230576572000617,NA,0.230576572000617
+Site,Black-Legged Kittiwake,River Tyne to Seaton Sluice;North Shields Warehouse,1,8,1.17875,0.352600036463818,NA,0.352600036463818
+Site,Black-Legged Kittiwake,River Tyne to Seaton Sluice;Tyne Bridge North Tower,1,18,0.987777777777778,0.177351613387761,NA,0.177351613387761
+Site,Black-Legged Kittiwake,River Tyne to Seaton Sluice;Tyne Bridge South Tower,1,12,1.01583333333333,0.242354298622092,NA,0.242354298622092
+Site,Black-Legged Kittiwake,River Tyne to Seaton Sluice;Tynemouth,1,16,0.9025,0.26042273326267,NA,0.26042273326267
+Site,Black-Legged Kittiwake,Scarvister to Culswick;Westerwick,1,17,0.315882352941176,0.423660518923014,NA,0.423660518923014
+Site,Black-Legged Kittiwake,Sharkham Point to Start Point (South Hams);North Hallsands,1,5,0.752,0.706908763561466,NA,0.706908763561466
+Site,Black-Legged Kittiwake,Skokholm and Skomer SPA;Skomer,1,32,0.6346875,0.217477983683629,NA,0.217477983683629
+Site,Black-Legged Kittiwake,St Abbs to Fast Castle SPA;St Abb's Head NNR,1,31,0.654516129032258,0.340439311377495,NA,0.340439311377495
+Site,Black-Legged Kittiwake,St Bees Head and Town;St Bees Head,1,13,0.563076923076923,0.375130746437928,NA,0.375130746437928
+Site,Black-Legged Kittiwake,St Kilda SPA;Hirta,1,27,0.357777777777778,0.231621928902939,NA,0.231621928902939
+Site,Black-Legged Kittiwake,St Margaret's Island;St Margaret's Island,1,5,0.442,0.394106584568185,NA,0.394106584568185
+Site,Black-Legged Kittiwake,Straight Point and Otterton Ledge to Ladram Bay;Straight Point,1,5,0.584,0.245825141106438,NA,0.245825141106438
+Site,Black-Legged Kittiwake,Sumburgh Head SPA;Compass Head,1,8,0.215,0.326977500318119,NA,0.326977500318119
+Site,Black-Legged Kittiwake,Sumburgh Head SPA;Sumburgh Head,1,30,0.442666666666667,0.46324889663105,NA,0.46324889663105
+Site,Black-Legged Kittiwake,Troup. Pennan and Lion's Heads SPA;Troup. Pennan and Lion's Heads,1,7,1.18,0.231156512634477,NA,0.231156512634477
+Site,Black-Legged Kittiwake,West Burra - Shetland;Whale Wick to Sandwick,1,23,0.421739130434783,0.405862181869581,NA,0.405862181869581
+Site,Black-Legged Kittiwake,West Westray Cliffs SPA;West Westray 2,1,5,0.464,0.543258686078741,NA,0.543258686078741
+Site,Black-Legged Kittiwake,Yell - East Coast;SE Yell (inc. Burravoe),1,12,0.613333333333333,0.331644205117289,NA,0.331644205117289
+Site,Black-Legged Kittiwake,Yesnaby to Marwick (West Mainland);Row Head,1,25,0.8184,0.439940147444324,NA,0.439940147444324
+Site,Black-Legged Kittiwake,Ythan Estuary SPA;Sands of Forvie,1,20,0.5705,0.413120028435728,NA,0.413120028435728
+Site,Lesser Black-Backed Gull,Aberdaron Coast and Bardsey Island SPA;Bardsey Island,1,18,0.570555555555556,0.276202658381001,NA,0.276202658381001
+Site,Lesser Black-Backed Gull,Burnt Islands - Kyles of Bute;Burnt Islands,1,9,0.708888888888889,0.398730624746973,NA,0.398730624746973
+Site,Lesser Black-Backed Gull,Coquet Island SPA;Coquet Island,1,5,0.2,0.447213595499958,NA,0.447213595499958
+Site,Lesser Black-Backed Gull,Craobh Haven to Craignish + Selected Offshore Islands;Eilean Gamhna (NM71),1,9,0.517777777777778,0.402640589663343,NA,0.402640589663343
+Site,Lesser Black-Backed Gull,Duddon Estuary SPA;Hodbarrow RSPB,1,6,0.221666666666667,0.376479304433413,NA,0.376479304433413
+Site,Lesser Black-Backed Gull,Firth of Lorn;Bach Island,1,7,0.214285714285714,0.247780624939155,NA,0.247780624939155
+Site,Lesser Black-Backed Gull,Forth Islands SPA;Isle of May,1,19,0.846315789473684,0.303208958499943,NA,0.303208958499943
+Site,Lesser Black-Backed Gull,Havergate Island;Havergate Island,1,5,0.46,0.477283982551269,NA,0.477283982551269
+Site,Lesser Black-Backed Gull,Loch Craignish - Loch Crinan;Eilean na Cille,1,13,0.573846153846154,0.360382631415057,NA,0.360382631415057
+Site,Lesser Black-Backed Gull,Loch Fyne;Eilean Aoghainn,1,6,0.615,0.49557037845295,NA,0.49557037845295
+Site,Lesser Black-Backed Gull,Loch Fyne;Glas Eilean (Loch Fyne),1,5,0.602,0.262811719677795,NA,0.262811719677795
+Site,Lesser Black-Backed Gull,Loch Leven;Eilean Choinneich,1,5,0.23,0.286356421265527,NA,0.286356421265527
+Site,Lesser Black-Backed Gull,Loch Lomond;Tarbet Isle,1,6,0.496666666666667,0.578019607510564,NA,0.578019607510564
+Site,Lesser Black-Backed Gull,Oban;Eilean Mor (NM83),1,16,0.52375,0.321535379079814,NA,0.321535379079814
+Site,Lesser Black-Backed Gull,Skokholm and Skomer SPA;Skokholm,1,15,0.177333333333333,0.0717601826190807,NA,0.0717601826190807
+Site,Lesser Black-Backed Gull,Skokholm and Skomer SPA;Skomer,1,28,0.337142857142857,0.209352744019684,NA,0.209352744019684
+Site,Lesser Black-Backed Gull,Sound of Jura;Reisa Mhic Phaidean,1,17,0.195882352941176,0.147988970177232,NA,0.147988970177232
+Site,Northern Gannet,Ailsa Craig SPA;Ailsa Craig,1,25,0.784,0.121826379190497,NA,0.121826379190497
+Site,Northern Gannet,Alderney;Les Etacs,1,6,0.653333333333333,0.0871014733897577,NA,0.0871014733897577
+Site,Northern Gannet,Fair Isle SPA;Fair Isle,1,31,0.696451612903226,0.0811397307980406,NA,0.0811397307980406
+Site,Northern Gannet,Flamborough Head and Bempton Cliffs SPA;Flamborough Head and Bempton Cliffs,1,20,0.7975,0.0663225769291748,NA,0.0663225769291748
+Site,Northern Gannet,Grassholm SPA;Grassholm,1,12,0.744166666666667,0.066120871870913,NA,0.066120871870913
+Site,Northern Gannet,Hermaness;Hermaness,1,29,0.657586206896552,0.0556555203534457,NA,0.0556555203534457
+Site,Northern Gannet,Noss SPA;Noss,1,32,0.719375,0.0538778487009751,NA,0.0538778487009751
+Site,Northern Gannet,Troup. Pennan and Lion's Heads SPA;Troup. Pennan and Lion's Heads,1,19,0.646315789473684,0.101991858406868,NA,0.101991858406868
+Site,Northern Gannet,West Westray Cliffs SPA;West Westray 2,1,11,0.575454545454545,0.137866865951441,NA,0.137866865951441
+Site,Razorbill,Fair Isle SPA;Fair Isle,1,28,0.447142857142857,0.269263152886995,NA,0.269263152886995
+Site,Razorbill,Farne Islands SPA;Farne Islands,1,20,0.6795,0.108699247080141,NA,0.108699247080141
+Site,Razorbill,Flamborough Head and Bempton Cliffs SPA;Flamborough Head and Bempton Cliffs,1,9,0.618888888888889,0.0749073501808141,NA,0.0749073501808141
+Site,Razorbill,NA;North Hill RSPB. Papa Westray,1,14,0.182142857142857,0.14028424833056,NA,0.14028424833056
+Site,Razorbill,North Sutor to Shandwick;North Sutor Of Cromarty/Castlecraig,1,20,0.659,0.216622397636751,NA,0.216622397636751
+Site,Razorbill,Skokholm and Skomer SPA;Skokholm,1,10,0.719,0.231057953288299,NA,0.231057953288299
+Site,Razorbill,Skokholm and Skomer SPA;Skomer,1,24,0.470416666666667,0.155604827427817,NA,0.155604827427817
+Site,Razorbill,Sumburgh Head SPA;Sumburgh Head,1,5,0.376,0.2524480144505,NA,0.2524480144505
+Site,Sandwich Tern,Chichester and Langstone Harbours SPA;Chichester Harbour,1,6,0.34,0.451663591625449,NA,0.451663591625449
+Site,Sandwich Tern,Chichester and Langstone Harbours SPA;Langstone Harbour,1,18,0.365555555555556,0.303047700035377,NA,0.303047700035377
+Site,Sandwich Tern,Coquet Island SPA;Coquet Island,1,19,0.552631578947368,0.23201633336334,NA,0.23201633336334
+Site,Sandwich Tern,Duddon Estuary SPA;Hodbarrow RSPB,1,22,0.404545454545455,0.439553098506797,NA,0.439553098506797
+Site,Sandwich Tern,Dungeness to Pett Level SPA;Dungeness RSPB Reserve - breeding success,1,9,0.903333333333333,0.382066748095146,NA,0.382066748095146
+Site,Sandwich Tern,Dungeness to Pett Level SPA;Rye Harbour SSSI,1,22,0.501363636363636,0.536800889348364,NA,0.536800889348364
+Site,Sandwich Tern,Havergate Island;Havergate Island,1,10,0.506,0.298298880692205,NA,0.298298880692205
+Site,Sandwich Tern,Loch of Strathbeg SPA;Loch of Strathbeg RSPB,1,14,0.317142857142857,0.191850445416719,NA,0.191850445416719
+Site,Sandwich Tern,Lower Lough Erne;Lower Lough Erne RSPB,1,15,0.33,0.2502284670342,NA,0.2502284670342
+Site,Sandwich Tern,Morecambe Bay SPA;Foulney Island,1,9,0.537777777777778,0.375059254577786,NA,0.375059254577786
+Site,Sandwich Tern,NA;Foulness Point/ Maplin Bank,1,9,0.712222222222222,0.429731828521515,NA,0.429731828521515
+Site,Sandwich Tern,NA;Hurst Point - Pitts Deep,1,5,0.024,0.0482700735445887,NA,0.0482700735445887
+Site,Sandwich Tern,North Norfolk Coast SPA;Blakeney Point,1,27,0.599259259259259,0.301303909008903,NA,0.301303909008903
+Site,Sandwich Tern,North Norfolk Coast SPA;Scolt Head Island NNR,1,27,0.525185185185185,0.448299096331991,NA,0.448299096331991
+Site,Sandwich Tern,North Solent National Nature Reserve ;North Solent National Nature Reserve,1,13,0.501538461538462,0.763651820245393,NA,0.763651820245393
+Site,Sandwich Tern,Poole Harbour SPA;Brownsea Island,1,25,0.5684,0.325738647794005,NA,0.325738647794005
+Site,Sandwich Tern,Ynys Feurig. Cemlyn Bay and The Skerries SPA;Cemlyn Lagoon,1,27,0.728888888888889,0.332800856754321,NA,0.332800856754321
+Site,Sandwich Tern,Ythan Estuary SPA;Sands of Forvie,1,26,0.584615384615385,0.363749702616849,NA,0.363749702616849
+Site,European Shag,Aberdaron Coast and Bardsey Island SPA;Bardsey Island,1,22,2.08045454545455,0.483001304077183,NA,0.483001304077183
+Site,European Shag,Ailsa Craig SPA;Ailsa Craig,1,10,2.189,0.245150747273772,NA,0.245150747273772
+Site,European Shag,Arisaig to Loch Ailort;An Glas-eilean,1,16,0.93125,0.709204953921408,NA,0.709204953921408
+Site,European Shag,Canna and Sanday SPA;Canna and Sanday,1,32,1.164375,0.474715109812055,NA,0.474715109812055
+Site,European Shag,Fair Isle SPA;Fair Isle,1,30,1.224,0.518842212410777,NA,0.518842212410777
+Site,European Shag,Farne Islands SPA;Farne Islands,1,29,1.07655172413793,0.405614840723041,NA,0.405614840723041
+Site,European Shag,Foula SPA;Foula,1,16,0.875625,0.485468416411751,NA,0.485468416411751
+Site,European Shag,Hermaness;Hermaness,1,5,1.054,0.704506919767294,NA,0.704506919767294
+Site,European Shag,Hoy and Southwalls;Whaness,1,10,2.011,0.294069152864877,NA,0.294069152864877
+Site,European Shag,Isle of Colonsay;Isle of Colonsay - breeding success,1,6,1.69166666666667,0.270955100831608,NA,0.270955100831608
+Site,European Shag,Lady Isle;Lady Isle 1,1,5,1.432,0.516013565713151,NA,0.516013565713151
+Site,European Shag,Lismore;Eilean Dubh,1,9,1.72555555555556,0.734304281464965,NA,0.734304281464965
+Site,European Shag,Loch Craignish - Loch Crinan;Eilean na Cille steep islet,1,14,1.41214285714286,0.706259688254078,NA,0.706259688254078
+Site,European Shag,Loch Craignish - Loch Crinan;Ruadh Sgeir,1,14,0.859285714285714,0.512196841454147,NA,0.512196841454147
+Site,European Shag,Loch Fyne;Eilean Aoghainn,1,7,1.29,0.635400136397006,NA,0.635400136397006
+Site,European Shag,Loch Fyne;Eilean Buidhe (Portavadie),1,14,1.61571428571429,0.83024291427467,NA,0.83024291427467
+Site,European Shag,Mull;Eileanan Glasa,1,5,1.094,0.645739885712506,NA,0.645739885712506
+Site,European Shag,NA;Sanda Islands,1,5,1.612,0.407639546658565,NA,0.407639546658565
+Site,European Shag,NA;Troswick Ness,1,5,1.352,0.504747461608278,NA,0.504747461608278
+Site,European Shag,North Sutor to Shandwick;North Sutor Of Cromarty/Castlecraig,1,26,1.40038461538462,0.406600351886033,NA,0.406600351886033
+Site,European Shag,Puffin Island SPA;Puffin Island,1,8,1.8575,0.644132861184044,NA,0.644132861184044
+Site,European Shag,Rum SPA;Rum,1,10,1.131,0.379310778474151,NA,0.379310778474151
+Site,European Shag,Scarvister to Culswick;Westerwick,1,5,1.596,0.327307195154644,NA,0.327307195154644
+Site,European Shag,Skokholm and Skomer SPA;Middleholm,1,17,2.18823529411765,0.392893676681708,NA,0.392893676681708
+Site,European Shag,Sound of Jura;Carraig an Daimh,1,8,0.85,0.912531799837291,NA,0.912531799837291
+Site,European Shag,Sound of Jura;Corr Eilean,1,8,0.25375,0.405249041595765,NA,0.405249041595765
+Site,European Shag,St Abbs to Fast Castle SPA;St Abb's Head NNR,1,28,1.31892857142857,0.514352086399063,NA,0.514352086399063
+Site,European Shag,Sumburgh Head SPA;Sumburgh Head,1,28,1.11214285714286,0.377951174025283,NA,0.377951174025283
+Global,Arctic Skua,Global,24,235,0.398230865558452,0.326100238314318,0.230723705238166,0.326100238314318
+Global,Atlantic Puffin,Global,11,114,0.573638743953993,0.139889561739452,0.2109782642288,0.2109782642288
+Global,Common Guillemot,Global,30,309,0.582683233409524,0.185205072312166,0.189451673509955,0.189451673509955
+Global,Common Tern,Global,195,1356,0.564299233867392,0.431752532013275,0.445091929776657,0.445091929776657
+Global,Northern Fulmar,Global,84,940,0.390766495889322,0.127354170251866,0.13065999269927,0.13065999269927
+Global,Great Black-Backed Gull,Global,53,411,0.970737314832004,0.426105297129259,0.435336957542148,0.435336957542148
+Global,Great Cormorant,Global,35,183,1.85333405139834,0.462814658323557,0.530917672488858,0.530917672488858
+Global,Herring Gull,Global,120,905,0.614685336935811,0.324299318220957,0.475926321413683,0.475926321413683
+Global,Black-Legged Kittiwake,Global,114,1387,0.603627798023719,0.325782996862089,0.308404604477025,0.325782996862089
+Global,Lesser Black-Backed Gull,Global,41,230,0.400047441217361,0.27285292195662,0.375909272479959,0.375909272479959
+Global,Little Tern,Global,4,5,0.19125,0.502045814642449,0.225328463951332,0.502045814642449
+Global,Northern Gannet,Global,9,185,0.697131461636445,0.0857670139545681,0.0717610112110956,0.0857670139545681
+Global,Razorbill,Global,22,157,0.496534451659452,0.165690317197317,0.172167512650982,0.172167512650982
+Global,Sandwich Tern,Global,34,341,0.419778223393394,0.298278868517192,0.2727954409986,0.298278868517192
+Global,European Shag,Global,65,468,1.42320865672356,0.452783573987538,0.548777356715176,0.548777356715176
+Country,Arctic Skua,Scotland,24,235,0.398230865558452,0.326100238314318,0.230723705238166,0.326100238314318
+Country,Atlantic Puffin,England,3,30,0.75219696969697,0.12888421879593,0.0581215656291585,0.12888421879593
+Country,Atlantic Puffin,Scotland,5,48,0.415496578690127,0.211951721644163,0.212092715459537,0.212092715459537
+Country,Atlantic Puffin,Wales,2,34,0.665476190476191,0.0716114354972433,0.125595633039325,0.125595633039325
+Country,Common Guillemot,England,6,60,0.715855586679116,0.13178413809185,0.0848192711608079,0.13178413809185
+Country,Common Guillemot,Scotland,18,204,0.501724376087075,0.208005657146158,0.195376503398976,0.208005657146158
+Country,Common Guillemot,Wales,5,42,0.686198275862069,0.209531944262421,0.120648670688911,0.209531944262421
+Country,Common Tern,England,76,629,0.712005514747438,0.48303226505946,0.48558964602125,0.48558964602125
+Country,Common Tern,Northern Ireland,6,23,0.513333333333333,0.367072873946854,0.513227305067323,0.513227305067323
+Country,Common Tern,Scotland,104,602,0.439516392557756,0.390398430019965,0.369537669854223,0.390398430019965
+Country,Common Tern,Wales,7,99,0.842318093904228,0.537042400228862,0.469098131247951,0.537042400228862
+Country,Northern Fulmar,Channel Islands,1,7,0.564285714285714,0.16621844491082,NA,0.16621844491082
+Country,Northern Fulmar,England,12,99,0.412180120439989,0.12527217137028,0.0988976475515213,0.12527217137028
+Country,Northern Fulmar,Isle of Man,8,94,0.291146133380508,0.126749313611952,0.0707705015473413,0.126749313611952
+Country,Northern Fulmar,Northern Ireland,4,7,0.339583333333333,0.115737818493834,0.212526142182817,0.212526142182817
+Country,Northern Fulmar,Scotland,55,673,0.390747389535099,0.124380414885191,0.126603128147047,0.126603128147047
+Country,Northern Fulmar,Wales,4,60,0.533832417582418,0.164130899627994,0.148259653846692,0.164130899627994
+Country,Great Black-Backed Gull,England,4,15,1.26848214285714,0.575280703640047,0.605844295837899,0.605844295837899
+Country,Great Black-Backed Gull,Northern Ireland,1,5,1.772,0.297859027058104,NA,0.297859027058104
+Country,Great Black-Backed Gull,Scotland,43,342,0.930219775870686,0.43285491324097,0.40932569551156,0.43285491324097
+Country,Great Black-Backed Gull,Wales,4,47,1.07717468805704,0.243723371076447,0.221851024930511,0.243723371076447
+Country,Great Cormorant,England,5,29,1.74508333333333,0.32485493824594,0.306512982324295,0.32485493824594
+Country,Great Cormorant,Isle of Man,2,11,1.496,0.141484196212078,1.29541962313375,1.29541962313375
+Country,Great Cormorant,Scotland,20,115,1.85122208994709,0.547863422466976,0.531539274475335,0.547863422466976
+Country,Great Cormorant,Wales,7,27,1.99354761904762,0.375401867374772,0.517959285493147,0.517959285493147
+Country,Herring Gull,England,20,62,0.846381746031746,0.259124080776086,0.675519062090923,0.675519062090923
+Country,Herring Gull,Northern Ireland,2,6,1.172,0.321449840566145,0.709935208311294,0.709935208311294
+Country,Herring Gull,Scotland,91,769,0.553422737890396,0.333116804528224,0.410462962720373,0.410462962720373
+Country,Herring Gull,Wales,6,67,0.643189393939394,0.348596416977579,0.302235153394933,0.348596416977579
+Country,Black-Legged Kittiwake,England,36,402,0.682642766544818,0.269256395858207,0.318681761995228,0.318681761995228
+Country,Black-Legged Kittiwake,Isle of Man,2,22,0.28017094017094,0.231979425291436,0.0410968043766541,0.231979425291436
+Country,Black-Legged Kittiwake,Northern Ireland,4,28,0.61974358974359,0.294760377623893,0.288124361344651,0.294760377623893
+Country,Black-Legged Kittiwake,Scotland,63,798,0.586012608486414,0.370400154227529,0.31329788652117,0.370400154227529
+Country,Black-Legged Kittiwake,Wales,9,137,0.475590978347796,0.30016455797067,0.178452664690404,0.30016455797067
+Country,Lesser Black-Backed Gull,England,9,28,0.201018518518519,0.248750612838613,0.180447831112171,0.248750612838613
+Country,Lesser Black-Backed Gull,Scotland,24,135,0.437406111550558,0.315935836899142,0.396877784014647,0.396877784014647
+Country,Lesser Black-Backed Gull,Wales,5,63,0.323006349206349,0.185771861673255,0.223540013795516,0.223540013795516
+Country,Little Tern,England,4,5,0.19125,0.502045814642449,0.225328463951332,0.502045814642449
+Country,Northern Gannet,Channel Islands,1,6,0.653333333333333,0.0871014733897577,NA,0.0871014733897577
+Country,Northern Gannet,England,1,20,0.7975,0.0663225769291748,NA,0.0663225769291748
+Country,Northern Gannet,Scotland,6,147,0.679863859121335,0.0920597005668778,0.0709981566130637,0.0920597005668778
+Country,Northern Gannet,Wales,1,12,0.744166666666667,0.066120871870913,NA,0.066120871870913
+Country,Razorbill,England,2,29,0.649194444444444,0.0918032986304774,0.0428585276819179,0.0918032986304774
+Country,Razorbill,Scotland,15,88,0.440174603174603,0.188693388199978,0.174605128725408,0.188693388199978
+Country,Razorbill,Wales,3,36,0.593138888888889,0.180742090859052,0.124321389432271,0.180742090859052
+Country,Sandwich Tern,England,21,239,0.415602180860076,0.326626624473175,0.254088465090438,0.326626624473175
+Country,Sandwich Tern,Northern Ireland,2,18,0.368333333333333,0.302971854476488,0.0542115198909686,0.302971854476488
+Country,Sandwich Tern,Scotland,10,57,0.407925824175824,0.196468355304628,0.343025948074304,0.343025948074304
+Country,Sandwich Tern,Wales,1,27,0.728888888888889,0.332800856754321,NA,0.332800856754321
+Country,European Shag,England,3,34,1.32551724137931,0.296881858972655,0.315258420318079,0.315258420318079
+Country,European Shag,Isle of Man,2,7,1.73583333333333,0.424657681898724,0.0695321668166772,0.424657681898724
+Country,European Shag,Scotland,51,369,1.35436250568604,0.460982612678173,0.524324599432461,0.524324599432461
+Country,European Shag,Wales,5,52,1.93023796791444,0.439255729811912,0.229239505884304,0.439255729811912
+MSFD,Arctic Skua,Celtic Seas,17,170,0.395338967095559,0.315874746317633,0.231062673361723,0.315874746317633
+MSFD,Arctic Skua,Greater North Sea,7,65,0.405254047539762,0.353368216972144,0.248207593026398,0.353368216972144
+MSFD,Atlantic Puffin,Celtic Seas,7,85,0.572276467771859,0.167719577628657,0.139442615785076,0.167719577628657
+MSFD,Atlantic Puffin,Greater North Sea,4,29,0.576022727272727,0.0749528579979745,0.330866084243277,0.330866084243277
+MSFD,Common Guillemot,Celtic Seas,21,236,0.53495708458708,0.208362177448846,0.19829892112297,0.208362177448846
+MSFD,Common Guillemot,Greater North Sea,9,73,0.694044247328561,0.119593274424905,0.108956384166859,0.119593274424905
+MSFD,Common Tern,Celtic Seas,85,538,0.452414108466185,0.430435104255647,0.342601506991827,0.430435104255647
+MSFD,Common Tern,Greater North Sea,110,818,0.650755921677417,0.432763581222616,0.494806794582977,0.494806794582977
+MSFD,Northern Fulmar,Celtic Seas,57,623,0.409804867747881,0.132818704501194,0.128869065218475,0.132818704501194
+MSFD,Northern Fulmar,Greater North Sea,27,317,0.350574377521254,0.113692834628545,0.127505265730093,0.127505265730093
+MSFD,Great Black-Backed Gull,Celtic Seas,47,371,0.915917053098299,0.420900599175219,0.415270461872372,0.420900599175219
+MSFD,Great Black-Backed Gull,Greater North Sea,6,40,1.4001626984127,0.464273082125549,0.36731077637838,0.464273082125549
+MSFD,Great Cormorant,Celtic Seas,28,124,1.80211267006803,0.51936718229298,0.534263743178942,0.534263743178942
+MSFD,Great Cormorant,Greater North Sea,7,59,2.05821957671958,0.309314950406552,0.501593159422908,0.501593159422908
+MSFD,Herring Gull,Celtic Seas,102,817,0.540811577943715,0.32014784927182,0.396406902367939,0.396406902367939
+MSFD,Herring Gull,Greater North Sea,18,88,1.03330330455769,0.356001444741642,0.658529116225577,0.658529116225577
+MSFD,Black-Legged Kittiwake,Celtic Seas,69,732,0.54114982580614,0.358015602969745,0.282303644562805,0.358015602969745
+MSFD,Black-Legged Kittiwake,Greater North Sea,45,655,0.699427355424006,0.282806188718547,0.324954517217131,0.324954517217131
+MSFD,Lesser Black-Backed Gull,Celtic Seas,34,196,0.385753802954062,0.266657701560043,0.330023558083411,0.330023558083411
+MSFD,Lesser Black-Backed Gull,Greater North Sea,7,34,0.469473684210526,0.306926634137792,0.579857976052331,0.579857976052331
+MSFD,Northern Gannet,Celtic Seas,4,79,0.700018206256109,0.101738461952723,0.090426497623753,0.101738461952723
+MSFD,Northern Gannet,Greater North Sea,5,106,0.694822065940714,0.0729898555560442,0.0644326929873766,0.0729898555560442
+MSFD,Razorbill,Celtic Seas,17,105,0.477727591036415,0.166847617233953,0.182113474223255,0.182113474223255
+MSFD,Razorbill,Greater North Sea,5,52,0.560477777777778,0.161929092078249,0.127840730869061,0.161929092078249
+MSFD,Sandwich Tern,Celtic Seas,10,84,0.472954545454545,0.277648109531855,0.258183435429528,0.277648109531855
+MSFD,Sandwich Tern,Greater North Sea,24,257,0.39762142253458,0.304843200921618,0.280975403205017,0.304843200921618
+MSFD,European Shag,Celtic Seas,49,352,1.41872512468191,0.454580200872957,0.536884039525745,0.536884039525745
+MSFD,European Shag,Greater North Sea,16,116,1.43693947360111,0.445956391822945,0.60190172875971,0.60190172875971
+ICES,Arctic Skua,IVa,22,214,0.368802358386998,0.322974244078634,0.20769645611364,0.322974244078634
+ICES,Arctic Skua,VIa,2,21,0.721944444444444,0.35736018067116,0.299734707802964,0.35736018067116
+ICES,Atlantic Puffin,IVa,3,35,0.358100358422939,0.150239919212031,0.270515374516584,0.270515374516584
+ICES,Atlantic Puffin,IVb,2,26,0.784545454545455,0.101822685279164,0.0218560277821297,0.101822685279164
+ICES,Atlantic Puffin,VIa,2,13,0.501590909090909,0.273663524076295,0.0941737667671174,0.273663524076295
+ICES,Atlantic Puffin,VIIg,2,34,0.665476190476191,0.0716114354972433,0.125595633039325,0.125595633039325
+ICES,Common Guillemot,IVa,13,168,0.493413238684668,0.213392457849439,0.185936524768179,0.213392457849439
+ICES,Common Guillemot,IVb,4,28,0.75297385620915,0.129109471955689,0.041879515297211,0.129109471955689
+ICES,Common Guillemot,VIa,4,37,0.5975,0.138450386442348,0.123419639472036,0.138450386442348
+ICES,Common Guillemot,VIIe,2,23,0.737619047619048,0.0859490473366814,0.125932350554176,0.125932350554176
+ICES,Common Guillemot,VIIf,3,13,0.664333333333333,0.16036376671438,0.0587905888160115,0.16036376671438
+ICES,Common Guillemot,VIIg,2,37,0.765495689655172,0.107936904802761,0.110668307003808,0.110668307003808
+ICES,Common Tern,IVa,29,196,0.417199549035006,0.342797431378252,0.482579132529419,0.482579132529419
+ICES,Common Tern,IVb,27,162,0.676343752612271,0.41736719288553,0.465528967219686,0.465528967219686
+ICES,Common Tern,IVc,38,291,0.687320840899502,0.536246744839188,0.429036345500709,0.536246744839188
+ICES,Common Tern,VIa,58,315,0.442914323506108,0.446849933471423,0.301537376102113,0.446849933471423
+ICES,Common Tern,VIIa,21,205,0.529086253019726,0.423769255099212,0.466652796190793,0.466652796190793
+ICES,Common Tern,VIId,12,140,0.837017426246593,0.357365267103043,0.635098166380389,0.635098166380389
+ICES,Common Tern,VIIe,10,47,0.671603921568627,0.4383331242879,0.478654359424928,0.478654359424928
+ICES,Northern Fulmar,IVa,42,516,0.38813361997223,0.132593457599303,0.117225768200338,0.132593457599303
+ICES,Northern Fulmar,IVb,8,108,0.374736914530951,0.109110404599558,0.157378635896466,0.157378635896466
+ICES,Northern Fulmar,IVc,2,11,0.386,0.145281336264046,0.00848528137423858,0.145281336264046
+ICES,Northern Fulmar,VIa,8,104,0.473897147661964,0.10115902711872,0.118712463086865,0.118712463086865
+ICES,Northern Fulmar,VIIa,15,117,0.339525801050801,0.126922848250903,0.171276016376363,0.171276016376363
+ICES,Northern Fulmar,VIIe,5,34,0.40777380952381,0.149129033507691,0.116064251914887,0.149129033507691
+ICES,Northern Fulmar,VIIg,3,47,0.459981684981685,0.140506502298189,0.0157417662326019,0.140506502298189
+ICES,Great Black-Backed Gull,IVa,11,67,0.970406926406926,0.417603743046578,0.347698956479956,0.417603743046578
+ICES,Great Black-Backed Gull,VIa,31,273,0.89596690877301,0.444204022987565,0.423862665528645,0.444204022987565
+ICES,Great Black-Backed Gull,VIIa,6,24,0.922515873015873,0.396141803117861,0.512451044432819,0.512451044432819
+ICES,Great Black-Backed Gull,VIId,2,6,1.70875,0.516883681886079,0.415425233947097,0.516883681886079
+ICES,Great Black-Backed Gull,VIIg,2,39,1.24851604278075,0.290225072172409,0.0644525940391696,0.290225072172409
+ICES,Great Cormorant,IVa,4,44,2.20500925925926,0.382622918012447,0.389649151478975,0.389649151478975
+ICES,Great Cormorant,VIa,14,67,1.61960034013605,0.635544295724038,0.385954775136865,0.635544295724038
+ICES,Great Cormorant,VIIa,10,38,2.02540833333333,0.397919873890585,0.69410870823135,0.69410870823135
+ICES,Great Cormorant,VIId,1,8,1.3575,0.211305466091154,NA,0.211305466091154
+ICES,Great Cormorant,VIIe,2,9,1.99833333333333,0.450356080528975,0.289913780286484,0.450356080528975
+ICES,Great Cormorant,VIIf,1,5,2.158,0.196900990347941,NA,0.196900990347941
+ICES,Great Cormorant,VIIg,1,5,1.376,0.187696563633967,NA,0.187696563633967
+ICES,Herring Gull,IVa,11,38,1.10558213716108,0.352434899423347,0.593229600828688,0.593229600828688
+ICES,Herring Gull,IVb,4,32,0.765994152046784,0.341915977793856,0.202693660692219,0.341915977793856
+ICES,Herring Gull,IVc,4,16,0.560047619047619,0.271432691619723,0.619749572714511,0.619749572714511
+ICES,Herring Gull,VIa,76,707,0.466381288420472,0.328851931328712,0.316698187894238,0.328851931328712
+ICES,Herring Gull,VIIa,13,48,0.626807692307692,0.335853621446544,0.496084230854564,0.496084230854564
+ICES,Herring Gull,VIId,4,7,1.11875,0.462922239999477,0.545655187213806,0.545655187213806
+ICES,Herring Gull,VIIe,5,19,0.953111111111111,0.158026777055435,0.808544512315223,0.808544512315223
+ICES,Herring Gull,VIIg,2,37,0.691318181818182,0.286670984826123,0.0103494719791849,0.286670984826123
+ICES,Black-Legged Kittiwake,IVa,39,513,0.505616415020879,0.374673639090071,0.307249040518628,0.374673639090071
+ICES,Black-Legged Kittiwake,IVb,24,410,0.820712048375122,0.266141404717572,0.240388824494178,0.266141404717572
+ICES,Black-Legged Kittiwake,IVc,1,31,1.06064516129032,0.251686782646884,NA,0.251686782646884
+ICES,Black-Legged Kittiwake,VIa,17,155,0.765854526089264,0.381068468236949,0.310134672720454,0.381068468236949
+ICES,Black-Legged Kittiwake,VIIa,13,118,0.502288764317104,0.287497165199198,0.20610027001874,0.287497165199198
+ICES,Black-Legged Kittiwake,VIIe,9,49,0.419617283950617,0.362145431125396,0.282665165915342,0.362145431125396
+ICES,Black-Legged Kittiwake,VIIf,8,60,0.395228260869565,0.25282534081343,0.151056276283824,0.25282534081343
+ICES,Black-Legged Kittiwake,VIIg,2,50,0.554565972222222,0.30111746549254,0.113308951221386,0.30111746549254
+ICES,Lesser Black-Backed Gull,IVa,3,6,0.596666666666667,0.403071540382928,0.527288662246149,0.527288662246149
+ICES,Lesser Black-Backed Gull,IVb,3,25,0.882105263157895,0.37521127699995,0.70068585316099,0.70068585316099
+ICES,Lesser Black-Backed Gull,IVc,3,7,0.213333333333333,0.477283982551269,0.231804515342849,0.477283982551269
+ICES,Lesser Black-Backed Gull,VIa,20,111,0.386071544386986,0.292094685507085,0.360173848821566,0.360173848821566
+ICES,Lesser Black-Backed Gull,VIIa,8,32,0.325902777777778,0.256862139210821,0.225544987143917,0.256862139210821
+ICES,Lesser Black-Backed Gull,VIIg,2,43,0.257238095238095,0.140556463319382,0.113002397983907,0.140556463319382
+ICES,Northern Gannet,IVa,5,122,0.659036630945601,0.0861063648421541,0.0552052719578123,0.0861063648421541
+ICES,Northern Gannet,IVb,1,20,0.7975,0.0663225769291748,NA,0.0663225769291748
+ICES,Northern Gannet,VIa,1,25,0.784,0.121826379190497,NA,0.121826379190497
+ICES,Northern Gannet,VIIe,1,6,0.653333333333333,0.0871014733897577,NA,0.0871014733897577
+ICES,Northern Gannet,VIIg,1,12,0.744166666666667,0.066120871870913,NA,0.066120871870913
+ICES,Razorbill,IVa,10,78,0.453428571428571,0.210880588623237,0.17030856350378,0.210880588623237
+ICES,Razorbill,IVb,4,32,0.535847222222222,0.143697990225415,0.133216270949457,0.143697990225415
+ICES,Razorbill,VIa,3,9,0.518888888888889,0.0521234800383614,0.23357923550534,0.23357923550534
+ICES,Razorbill,VIIg,2,34,0.594708333333333,0.193331390358058,0.175774960689956,0.193331390358058
+ICES,Sandwich Tern,IVa,5,18,0.301428571428571,0.191850445416719,0.272389277262059,0.272389277262059
+ICES,Sandwich Tern,IVb,7,60,0.362106709080393,0.204444007732908,0.314247561287707,0.314247561287707
+ICES,Sandwich Tern,IVc,7,83,0.498119047619048,0.32462177857717,0.248546964356351,0.32462177857717
+ICES,Sandwich Tern,VIa,2,17,0.6375,0.16400510648236,0.434870670429727,0.434870670429727
+ICES,Sandwich Tern,VIIa,5,64,0.452909090909091,0.323105310751653,0.199204652614089,0.323105310751653
+ICES,Sandwich Tern,VIId,8,99,0.400523873348873,0.40160563866976,0.294823888012513,0.40160563866976
+ICES,European Shag,IVa,23,154,1.46576749880554,0.369647335585399,0.490308381274507,0.490308381274507
+ICES,European Shag,IVb,4,59,1.57887007389163,0.459983463561052,0.709040043615962,0.709040043615962
+ICES,European Shag,VIa,23,180,1.17297420634921,0.526525840317813,0.498570080898615,0.526525840317813
+ICES,European Shag,VIIa,9,48,1.92745791245791,0.451002399728767,0.426431709286112,0.451002399728767
+ICES,European Shag,VIIe,3,5,0.898888888888889,0.555187655962678,0.30222017973166,0.555187655962678
+ICES,European Shag,VIIg,2,18,1.88911764705882,0.392893676681708,0.423016233215717,0.423016233215717
+Reg.Seas,Arctic Skua,Minches & Western Scotland,2,21,0.721944444444444,0.35736018067116,0.299734707802964,0.35736018067116
+Reg.Seas,Arctic Skua,Northern North Sea,7,84,0.377383917669632,0.348762580085882,0.234710995468879,0.348762580085882
+Reg.Seas,Arctic Skua,Scottish Continental Shelf,15,130,0.364797630721769,0.311922100075528,0.202590825731568,0.311922100075528
+Reg.Seas,Atlantic Puffin,Irish Sea,2,34,0.665476190476191,0.0716114354972433,0.125595633039325,0.125595633039325
+Reg.Seas,Atlantic Puffin,Northern North Sea,4,60,0.638347996089932,0.126031302245597,0.203726046285826,0.203726046285826
+Reg.Seas,Atlantic Puffin,Scottish Continental Shelf,2,12,0.329090909090909,0.158418318499988,0.338125606276476,0.338125606276476
+Reg.Seas,Atlantic Puffin,Western Channel & Celtic Sea,2,6,0.66625,0.10211024463253,0.0300520382004283,0.10211024463253
+Reg.Seas,Common Guillemot,Eastern Channel,1,9,0.826666666666667,0.0492442890089805,NA,0.0492442890089805
+Reg.Seas,Common Guillemot,Irish Sea,4,40,0.548997844827586,0.248734631831811,0.293964420429325,0.293964420429325
+Reg.Seas,Common Guillemot,Minches & Western Scotland,3,36,0.583333333333333,0.138450386442348,0.147120509938093,0.147120509938093
+Reg.Seas,Common Guillemot,Northern North Sea,9,108,0.646109256526187,0.175222260419756,0.119380712524429,0.175222260419756
+Reg.Seas,Common Guillemot,Scottish Continental Shelf,9,89,0.472364913222401,0.222028916819524,0.21887751214525,0.222028916819524
+Reg.Seas,Common Guillemot,Western Channel & Celtic Sea,4,27,0.660392857142857,0.147793779697714,0.0486449548530273,0.147793779697714
+Reg.Seas,Common Tern,Eastern Channel,16,164,0.840557187332004,0.39148286772925,0.591257540163474,0.591257540163474
+Reg.Seas,Common Tern,Irish Sea,28,237,0.569068658018763,0.45798939686345,0.475128913175889,0.475128913175889
+Reg.Seas,Common Tern,Minches & Western Scotland,55,289,0.449743993677149,0.45183316506074,0.304321273369071,0.45183316506074
+Reg.Seas,Common Tern,Northern North Sea,53,344,0.543871907541309,0.361834342990327,0.496635184029903,0.496635184029903
+Reg.Seas,Common Tern,Scottish Continental Shelf,2,9,0.301428571428571,0.414969565739508,0.0262639661583575,0.414969565739508
+Reg.Seas,Common Tern,Southern North Sea,35,290,0.662291198690888,0.527843392877955,0.412486556452779,0.527843392877955
+Reg.Seas,Common Tern,Western Channel & Celtic Sea,6,23,0.551888888888889,0.364329730527937,0.456219326721341,0.456219326721341
+Reg.Seas,Northern Fulmar,Irish Sea,19,172,0.376991161616162,0.12923341982603,0.174941871592803,0.174941871592803
+Reg.Seas,Northern Fulmar,Minches & Western Scotland,5,72,0.462780890804598,0.0913862919669776,0.092395188139448,0.092395188139448
+Reg.Seas,Northern Fulmar,Northern North Sea,23,323,0.338500302675946,0.101077596576914,0.129996883554675,0.129996883554675
+Reg.Seas,Northern Fulmar,Scottish Continental Shelf,29,325,0.424181831751973,0.148301880102697,0.0993662476527056,0.148301880102697
+Reg.Seas,Northern Fulmar,Southern North Sea,2,11,0.386,0.145281336264046,0.00848528137423858,0.145281336264046
+Reg.Seas,Northern Fulmar,Western Channel & Celtic Sea,6,37,0.414811507936508,0.141189013864896,0.105232616862542,0.141189013864896
+Reg.Seas,Great Black-Backed Gull,Eastern Channel,2,6,1.70875,0.516883681886079,0.415425233947097,0.516883681886079
+Reg.Seas,Great Black-Backed Gull,Irish Sea,16,131,1.01101213410772,0.424233820613757,0.472458479741433,0.472458479741433
+Reg.Seas,Great Black-Backed Gull,Minches & Western Scotland,22,204,0.869586697722567,0.430071728452259,0.39204351826461,0.430071728452259
+Reg.Seas,Great Black-Backed Gull,Northern North Sea,4,34,1.24586904761905,0.437967782245284,0.268532765918578,0.437967782245284
+Reg.Seas,Great Black-Backed Gull,Scottish Continental Shelf,9,36,0.860111111111111,0.39057659462573,0.376965331444566,0.39057659462573
+Reg.Seas,Great Cormorant,Eastern Channel,1,8,1.3575,0.211305466091154,NA,0.211305466091154
+Reg.Seas,Great Cormorant,Irish Sea,17,64,1.81304411764706,0.432428047778604,0.635030442810869,0.635030442810869
+Reg.Seas,Great Cormorant,Minches & Western Scotland,8,46,1.68534226190476,0.696930126021899,0.349647906091438,0.696930126021899
+Reg.Seas,Great Cormorant,Northern North Sea,5,47,2.28400740740741,0.35496550130144,0.38088499969203,0.38088499969203
+Reg.Seas,Great Cormorant,Western Channel & Celtic Sea,3,14,2.05155555555556,0.365871050468631,0.22477280710712,0.365871050468631
+Reg.Seas,Herring Gull,Eastern Channel,5,8,0.919,0.462922239999477,0.650234573058062,0.650234573058062
+Reg.Seas,Herring Gull,Irish Sea,25,195,0.637587068878834,0.378958383968483,0.36855955825048,0.378958383968483
+Reg.Seas,Herring Gull,Minches & Western Scotland,64,595,0.437444336900334,0.313577979849184,0.329270689503904,0.329270689503904
+Reg.Seas,Herring Gull,Northern North Sea,8,55,1.19983918128655,0.354924364587593,0.542963140095929,0.542963140095929
+Reg.Seas,Herring Gull,Scottish Continental Shelf,9,17,0.740740740740741,0.343634081281406,0.430934958284432,0.430934958284432
+Reg.Seas,Herring Gull,Southern North Sea,4,16,0.560047619047619,0.271432691619723,0.619749572714511,0.619749572714511
+Reg.Seas,Herring Gull,Western Channel & Celtic Sea,5,19,1.34511111111111,0.158026777055435,0.778212913993447,0.778212913993447
+Reg.Seas,Black-Legged Kittiwake,Eastern Channel,2,17,0.6975,0.336650164612069,0.0601040764008565,0.336650164612069
+Reg.Seas,Black-Legged Kittiwake,Irish Sea,16,197,0.50842174684577,0.289822284258807,0.187522811732184,0.289822284258807
+Reg.Seas,Black-Legged Kittiwake,Minches & Western Scotland,12,94,0.785490591397849,0.414589546981437,0.237481122886904,0.414589546981437
+Reg.Seas,Black-Legged Kittiwake,Northern North Sea,40,618,0.683725459311812,0.290076505128253,0.337765037281819,0.337765037281819
+Reg.Seas,Black-Legged Kittiwake,Scottish Continental Shelf,27,337,0.561662546374909,0.394695166893583,0.317804428881214,0.394695166893583
+Reg.Seas,Black-Legged Kittiwake,Southern North Sea,1,31,1.06064516129032,0.251686782646884,NA,0.251686782646884
+Reg.Seas,Black-Legged Kittiwake,Western Channel & Celtic Sea,16,93,0.392711352657005,0.305241941458439,0.221614299290201,0.305241941458439
+Reg.Seas,Lesser Black-Backed Gull,Irish Sea,16,104,0.437765873015873,0.281842032396841,0.356474781871059,0.356474781871059
+Reg.Seas,Lesser Black-Backed Gull,Minches & Western Scotland,14,82,0.274205380870297,0.255291636023998,0.243647454435528,0.255291636023998
+Reg.Seas,Lesser Black-Backed Gull,Northern North Sea,3,25,0.882105263157895,0.37521127699995,0.70068585316099,0.70068585316099
+Reg.Seas,Lesser Black-Backed Gull,Scottish Continental Shelf,3,6,0.596666666666667,0.403071540382928,0.527288662246149,0.527288662246149
+Reg.Seas,Lesser Black-Backed Gull,Southern North Sea,3,7,0.213333333333333,0.477283982551269,0.231804515342849,0.477283982551269
+Reg.Seas,Northern Gannet,Irish Sea,2,37,0.764083333333333,0.0939736255307048,0.0281664201172642,0.0939736255307048
+Reg.Seas,Northern Gannet,Northern North Sea,4,102,0.714910600594228,0.0758330037087645,0.0629468614401598,0.0758330037087645
+Reg.Seas,Northern Gannet,Scottish Continental Shelf,2,40,0.616520376175549,0.0967611931524436,0.0580758547557603,0.0967611931524436
+Reg.Seas,Northern Gannet,Western Channel & Celtic Sea,1,6,0.653333333333333,0.0871014733897577,NA,0.0871014733897577
+Reg.Seas,Razorbill,Irish Sea,5,38,0.537883333333333,0.180742090859052,0.202645280532812,0.202645280532812
+Reg.Seas,Razorbill,Minches & Western Scotland,3,9,0.518888888888889,0.0521234800383614,0.23357923550534,0.23357923550534
+Reg.Seas,Razorbill,Northern North Sea,7,85,0.517933106575964,0.194904589275082,0.128827741106746,0.194904589275082
+Reg.Seas,Razorbill,Scottish Continental Shelf,7,25,0.436020408163265,0.18974222880233,0.187363037116067,0.18974222880233
+Reg.Seas,Sandwich Tern,Eastern Channel,8,99,0.400523873348873,0.40160563866976,0.294823888012513,0.40160563866976
+Reg.Seas,Sandwich Tern,Irish Sea,7,81,0.505649350649351,0.277648109531855,0.257073056071656,0.277648109531855
+Reg.Seas,Sandwich Tern,Northern North Sea,9,75,0.316876646745068,0.202869812443384,0.297329860706927,0.297329860706927
+Reg.Seas,Sandwich Tern,Southern North Sea,7,83,0.498119047619048,0.32462177857717,0.248546964356351,0.32462177857717
+Reg.Seas,European Shag,Irish Sea,16,107,1.82900442449707,0.477779582114289,0.399873184760075,0.477779582114289
+Reg.Seas,European Shag,Minches & Western Scotland,18,139,1.04664958112875,0.526412233522307,0.465231386372622,0.526412233522307
+Reg.Seas,European Shag,Northern North Sea,15,165,1.5197671845396,0.409666272893554,0.556228736852821,0.556228736852821
+Reg.Seas,European Shag,Scottish Continental Shelf,12,48,1.43596875,0.342207695944118,0.473130015660336,0.473130015660336
+Reg.Seas,European Shag,Western Channel & Celtic Sea,4,9,1.09416666666667,0.371668266592473,0.461979436771811,0.461979436771811
+CRA,Arctic Skua,Orkney,8,73,0.42838987162263,0.324082724619573,0.188810500501894,0.324082724619573
+CRA,Arctic Skua,Shetland,14,141,0.334752350823779,0.322377369941205,0.216920993016673,0.322377369941205
+CRA,Arctic Skua,West.Scotland.and.East.Ireland,2,21,0.721944444444444,0.35736018067116,0.299734707802964,0.35736018067116
+CRA,Atlantic Puffin,East.Scotland.and.NE.England,2,26,0.784545454545455,0.101822685279164,0.0218560277821297,0.101822685279164
+CRA,Atlantic Puffin,Shetland,3,35,0.358100358422939,0.150239919212031,0.270515374516584,0.270515374516584
+CRA,Atlantic Puffin,West.England.and.Wales,4,40,0.665863095238095,0.0868608400648864,0.0745609075850697,0.0868608400648864
+CRA,Atlantic Puffin,West.Scotland.and.East.Ireland,2,13,0.501590909090909,0.273663524076295,0.0941737667671174,0.273663524076295
+CRA,Common Guillemot,East.Scotland.and.NE.England,6,46,0.712276688453159,0.147527970411875,0.0832962102796949,0.147527970411875
+CRA,Common Guillemot,Orkney,8,88,0.451410527375201,0.222028916819524,0.224131565308781,0.224131565308781
+CRA,Common Guillemot,Shetland,3,62,0.513774392672242,0.202916550427638,0.0160689154478224,0.202916550427638
+CRA,Common Guillemot,West.England.and.Wales,8,75,0.688028684318555,0.176975646228222,0.111562722980888,0.176975646228222
+CRA,Common Guillemot,West.Scotland.and.East.Ireland,5,38,0.51,0.138450386442348,0.22294742778412,0.22294742778412
+CRA,Common Tern,East.and.South.England,47,388,0.721359203204717,0.473272397431037,0.487340060886412,0.487340060886412
+CRA,Common Tern,East.Scotland.and.NE.England,55,365,0.551463545135877,0.37841526774635,0.501361582330991,0.501361582330991
+CRA,Common Tern,Orkney,1,7,0.282857142857143,0.377390791519626,NA,0.377390791519626
+CRA,Common Tern,Shetland,5,16,0.330071428571429,0.43126804410821,0.211746623711126,0.43126804410821
+CRA,Common Tern,West.England.and.Wales,25,258,0.634294761904762,0.462046232639968,0.449891758027182,0.462046232639968
+CRA,Common Tern,West.Scotland.and.East.Ireland,62,322,0.451828866737311,0.436944467180323,0.325635400812026,0.436944467180323
+CRA,Northern Fulmar,East.and.South.England,2,11,0.386,0.145281336264046,0.00848528137423858,0.145281336264046
+CRA,Northern Fulmar,East.Scotland.and.NE.England,16,174,0.309668804487698,0.110238080897332,0.146255119287592,0.146255119287592
+CRA,Northern Fulmar,Orkney,18,197,0.422204679274582,0.163681911631082,0.104278780120114,0.163681911631082
+CRA,Northern Fulmar,Shetland,12,235,0.422712568980349,0.099249533052907,0.0674540943945281,0.099249533052907
+CRA,Northern Fulmar,West.England.and.Wales,19,192,0.391229883420673,0.140641345705001,0.135208526033826,0.140641345705001
+CRA,Northern Fulmar,West.Scotland.and.East.Ireland,17,131,0.411298937835322,0.108554695957843,0.156043189549906,0.156043189549906
+CRA,Great Black-Backed Gull,East.Scotland.and.NE.England,2,17,1.46066666666667,0.557555206040928,0.126336411571997,0.557555206040928
+CRA,Great Black-Backed Gull,Orkney,9,36,0.860111111111111,0.39057659462573,0.376965331444566,0.39057659462573
+CRA,Great Black-Backed Gull,Shetland,2,17,1.03107142857143,0.318380358449639,0.12576399179675,0.318380358449639
+CRA,Great Black-Backed Gull,West.England.and.Wales,9,64,1.07529192485075,0.410356588862893,0.50086862956967,0.50086862956967
+CRA,Great Black-Backed Gull,West.Scotland.and.East.Ireland,31,277,0.936999166837526,0.439157643817583,0.445280358452022,0.445280358452022
+CRA,Great Cormorant,East.Scotland.and.NE.England,5,47,2.28400740740741,0.35496550130144,0.38088499969203,0.38088499969203
+CRA,Great Cormorant,West.England.and.Wales,13,63,1.84940384615385,0.343143852965928,0.582030218930137,0.582030218930137
+CRA,Great Cormorant,West.Scotland.and.East.Ireland,16,69,1.73590029761905,0.635544295724038,0.499344258152194,0.635544295724038
+CRA,Herring Gull,East.and.South.England,7,21,0.751455782312925,0.33780845630138,0.610557312576301,0.610557312576301
+CRA,Herring Gull,East.Scotland.and.NE.England,9,51,1.15917200408428,0.378649019089672,0.528896885142064,0.528896885142064
+CRA,Herring Gull,Orkney,7,14,0.891666666666667,0.420703766836926,0.341027858099599,0.420703766836926
+CRA,Herring Gull,Shetland,2,21,0.574868421052632,0.22240898682309,0.777631378573311,0.777631378573311
+CRA,Herring Gull,West.England.and.Wales,19,100,0.784615364167996,0.268379643108469,0.638262039478715,0.638262039478715
+CRA,Herring Gull,West.Scotland.and.East.Ireland,76,698,0.47066324330769,0.325857205726812,0.334264067080542,0.334264067080542
+CRA,Black-Legged Kittiwake,East.and.South.England,2,32,0.900322580645161,0.251686782646884,0.226730367903041,0.251686782646884
+CRA,Black-Legged Kittiwake,East.Scotland.and.NE.England,31,468,0.78737025967393,0.273248631622882,0.30204019189367,0.30204019189367
+CRA,Black-Legged Kittiwake,Orkney,13,164,0.573613313123658,0.415832888242007,0.287280796609069,0.415832888242007
+CRA,Black-Legged Kittiwake,Shetland,16,274,0.32932810343058,0.363462009463139,0.145300343478286,0.363462009463139
+CRA,Black-Legged Kittiwake,West.England.and.Wales,27,253,0.441566413485353,0.294475114285169,0.205362135108338,0.294475114285169
+CRA,Black-Legged Kittiwake,West.Scotland.and.East.Ireland,25,196,0.718237194956817,0.370228231050465,0.294411806559275,0.370228231050465
+CRA,Lesser Black-Backed Gull,East.and.South.England,4,9,0.16,0.238641991275634,0.217255609824004,0.238641991275634
+CRA,Lesser Black-Backed Gull,East.Scotland.and.NE.England,4,30,0.719078947368421,0.345592991755143,0.658496338971995,0.658496338971995
+CRA,Lesser Black-Backed Gull,Orkney,2,5,0.895,0.403071540382928,0.148492424049175,0.403071540382928
+CRA,Lesser Black-Backed Gull,West.England.and.Wales,10,78,0.306419841269841,0.196296042405547,0.198097122386872,0.198097122386872
+CRA,Lesser Black-Backed Gull,West.Scotland.and.East.Ireland,20,107,0.401571544386986,0.292536090448743,0.359774013031568,0.359774013031568
+CRA,Northern Gannet,East.Scotland.and.NE.England,2,39,0.721907894736842,0.0841572176680213,0.106903380471493,0.106903380471493
+CRA,Northern Gannet,Orkney,1,11,0.575454545454545,0.137866865951441,NA,0.137866865951441
+CRA,Northern Gannet,Shetland,3,92,0.691137606599926,0.0635576999508204,0.0312352803019089,0.0635576999508204
+CRA,Northern Gannet,West.England.and.Wales,2,18,0.69875,0.0766111726303354,0.0642288659577781,0.0766111726303354
+CRA,Northern Gannet,West.Scotland.and.East.Ireland,1,25,0.784,0.121826379190497,NA,0.121826379190497
+CRA,Razorbill,East.Scotland.and.NE.England,5,52,0.560477777777778,0.161929092078249,0.127840730869061,0.161929092078249
+CRA,Razorbill,Orkney,6,22,0.450357142857143,0.21538329128521,0.200995862481529,0.21538329128521
+CRA,Razorbill,Shetland,3,36,0.391047619047619,0.202963048736103,0.050289231478728,0.202963048736103
+CRA,Razorbill,West.England.and.Wales,4,37,0.617354166666667,0.180742090859052,0.112469509757089,0.180742090859052
+CRA,Razorbill,West.Scotland.and.East.Ireland,4,10,0.444166666666667,0.0521234800383614,0.242294204391028,0.242294204391028
+CRA,Sandwich Tern,East.and.South.England,14,157,0.437330308580309,0.365988713302655,0.277159600853482,0.365988713302655
+CRA,Sandwich Tern,East.Scotland.and.NE.England,9,75,0.316876646745068,0.202869812443384,0.297329860706927,0.297329860706927
+CRA,Sandwich Tern,West.England.and.Wales,5,86,0.485255757575758,0.317109991926698,0.202915147631347,0.317109991926698
+CRA,Sandwich Tern,West.Scotland.and.East.Ireland,3,20,0.560555555555556,0.227908484961165,0.335138169405683,0.335138169405683
+CRA,European Shag,East.Scotland.and.NE.England,8,88,1.79323311386889,0.442189093002712,0.609921922037516,0.609921922037516
+CRA,European Shag,Orkney,8,20,1.546375,0.218474178359462,0.516743356443575,0.516743356443575
+CRA,European Shag,Shetland,11,105,1.21011525974026,0.421260027640228,0.273174789061723,0.421260027640228
+CRA,European Shag,West.England.and.Wales,11,68,1.59086574299141,0.418709352028755,0.495989047851571,0.495989047851571
+CRA,European Shag,West.Scotland.and.East.Ireland,27,187,1.29558913874192,0.524982383576513,0.592562408607723,0.592562408607723
+CRB,Arctic Skua,NW.Scotland.Orkney.Shetland,23,232,0.393371337974037,0.325892905241802,0.234649967848372,0.325892905241802
+CRB,Atlantic Puffin,Eastern.UK,2,26,0.784545454545455,0.101822685279164,0.0218560277821297,0.101822685279164
+CRB,Atlantic Puffin,NW.Scotland.Orkney.Shetland,5,48,0.415496578690127,0.211951721644163,0.212092715459537,0.212092715459537
+CRB,Atlantic Puffin,Western.UK,4,40,0.665863095238095,0.0868608400648864,0.0745609075850697,0.0868608400648864
+CRB,Common Guillemot,Eastern.UK,6,46,0.712276688453159,0.147527970411875,0.0832962102796949,0.147527970411875
+CRB,Common Guillemot,NW.Scotland.Orkney.Shetland,14,184,0.487091004548929,0.209975714631317,0.176096407314173,0.209975714631317
+CRB,Common Guillemot,Western.UK,10,79,0.638756280788177,0.162178022046047,0.195194119993693,0.195194119993693
+CRB,Common Tern,Eastern.UK,102,753,0.629748799344068,0.421641301526714,0.499803514138101,0.499803514138101
+CRB,Common Tern,NW.Scotland.Orkney.Shetland,27,161,0.434167882528994,0.489383053938555,0.306378746198444,0.489383053938555
+CRB,Common Tern,Western.UK,66,442,0.516385458223694,0.42255480115214,0.386628951313618,0.42255480115214
+CRB,Northern Fulmar,Eastern.UK,18,185,0.318150048433509,0.113158352177891,0.139597854063327,0.139597854063327
+CRB,Northern Fulmar,NW.Scotland.Orkney.Shetland,39,538,0.419811546954884,0.134294583415657,0.0870695750375823,0.134294583415657
+CRB,Northern Fulmar,Western.UK,27,217,0.397223498209609,0.124199185736866,0.160367928336785,0.160367928336785
+CRB,Great Black-Backed Gull,Eastern.UK,2,17,1.46066666666667,0.557555206040928,0.126336411571997,0.557555206040928
+CRB,Great Black-Backed Gull,NW.Scotland.Orkney.Shetland,19,125,0.900249373433584,0.401040643036096,0.420147518782336,0.420147518782336
+CRB,Great Black-Backed Gull,Western.UK,32,269,0.98196894554765,0.432380762324378,0.442975908704005,0.442975908704005
+CRB,Great Cormorant,Eastern.UK,6,51,2.17500617283951,0.325649864459118,0.432835212542,0.432835212542
+CRB,Great Cormorant,NW.Scotland.Orkney.Shetland,3,18,1.85833333333333,0.780102284078225,0.498606391187812,0.780102284078225
+CRB,Great Cormorant,Western.UK,26,114,1.77852518315018,0.473282075638963,0.543445858911753,0.543445858911753
+CRB,Herring Gull,Eastern.UK,16,72,0.980796157059315,0.360497657850431,0.584755062693477,0.584755062693477
+CRB,Herring Gull,NW.Scotland.Orkney.Shetland,31,238,0.507335951541384,0.338318577092069,0.377145721337943,0.377145721337943
+CRB,Herring Gull,Western.UK,73,595,0.580028594815964,0.312794555099054,0.455955031899234,0.455955031899234
+CRB,Black-Legged Kittiwake,Eastern.UK,33,500,0.794215854884308,0.272529903323682,0.296449035838956,0.296449035838956
+CRB,Black-Legged Kittiwake,NW.Scotland.Orkney.Shetland,45,562,0.569140359366164,0.390326591190179,0.317267689531598,0.390326591190179
+CRB,Black-Legged Kittiwake,Western.UK,36,325,0.472031377556789,0.30028234576573,0.215867714596451,0.30028234576573
+CRB,Lesser Black-Backed Gull,Eastern.UK,8,39,0.439539473684211,0.302812591563339,0.543479638743285,0.543479638743285
+CRB,Lesser Black-Backed Gull,NW.Scotland.Orkney.Shetland,5,10,0.488,0.351535770191464,0.446060534008558,0.446060534008558
+CRB,Lesser Black-Backed Gull,Western.UK,28,181,0.373058189301362,0.256686393298552,0.317238632065317,0.317238632065317
+CRB,Northern Gannet,Eastern.UK,2,39,0.721907894736842,0.0841572176680213,0.106903380471493,0.106903380471493
+CRB,Northern Gannet,NW.Scotland.Orkney.Shetland,4,103,0.662216841313581,0.0821349914509757,0.0632144852810704,0.0821349914509757
+CRB,Northern Gannet,Western.UK,3,43,0.727166666666667,0.0916829081503891,0.0669715943101584,0.0916829081503891
+CRB,Razorbill,Eastern.UK,5,52,0.560477777777778,0.161929092078249,0.127840730869061,0.161929092078249
+CRB,Razorbill,NW.Scotland.Orkney.Shetland,11,64,0.443510822510823,0.179057499905301,0.181575380036317,0.181575380036317
+CRB,Razorbill,Western.UK,6,41,0.540458333333333,0.139375381223419,0.181361163229005,0.181361163229005
+CRB,Sandwich Tern,Eastern.UK,23,232,0.390196266992606,0.30384817964198,0.284872515005402,0.30384817964198
+CRB,Sandwich Tern,Western.UK,8,106,0.513493181818182,0.283659426814624,0.239035196285524,0.283659426814624
+CRB,European Shag,Eastern.UK,8,88,1.79323311386889,0.442189093002712,0.609921922037516,0.609921922037516
+CRB,European Shag,NW.Scotland.Orkney.Shetland,24,188,1.30224553571429,0.418189237717298,0.385961434794917,0.418189237717298
+CRB,European Shag,Western.UK,33,192,1.42147893693749,0.481730380721909,0.607174596286327,0.607174596286327

@@ -1,0 +1,151 @@
+---
+title: "NE PVA Parameter log"
+output: 
+   word_document:
+     reference_docx: "NEPVA-styles.docx"
+params: 
+  d: NA
+  ui_ver: NA
+  pva_ver: NA
+---
+
+# Set up 
+The log file was created on: `r params$d`  
+
+R version `r getRversion()`, NEPVA package version: `r pva_ver` (with UI version `r ui_ver`)
+
+```{r Package information, echo=FALSE}
+packinfo <- installed.packages(fields = c("Package", "Version"))
+packinfo[c("popbio","shiny","shinyjs","shinydashboard","shinyWidgets","DT","plotly","rmarkdown","dplyr","tidyr"),c("Package", "Version")]
+```
+
+# Basic information
+This run had reference name `r input$runrefname`.  
+PVA model run type: `r input$run_type`.      
+Model to use for environmental stochasticity: `r input$model_envstoch`.    
+Model for density dependence: `r input$model_dd`.    
+Include demographic stochasticity in model?: `r ifelse(input$model_demostoch,"Yes","No")`.   
+Number of simulations: `r input$sim_n`.      
+Random seed: `r input$sim_seed`.    
+Case study selected: `r input$case_studies`.  
+
+# Baseline demographic rates
+Species chosen to set initial values: `r input$species`.    
+Region type to use for breeding success data: `r input$poolregtypeBS`.   
+Sector to use within breeding success region: `r input$poolregionBS`.  
+Age at first breeding: `r input$afb`.    
+Is there an upper constraint on productivity in the model?: `r ifelse(input$model_prodmax,paste0("Yes, constrained to ",input$mbs," per pair"),"No")`.      
+Number of subpopulations: `r input$npop`.    
+Format for initial population size: `r input$inipop_inputformat`  
+Are demographic rates applied separately to each subpopulation?: `r ifelse(input$demobase_splitpops,"Yes","No")`.    
+Are baseline demographic rates specified separately for immatures?: `r ifelse(input$demobase_splitimmat,"Yes","No")`.    
+
+```{r demobase, echo=FALSE, results="asis"}
+for (i in 1:input$npop) {
+   cat("### Population ",i,"  \n")
+   cat("**Initial population values:** \n")
+   cat("Initial population ", input[[paste0("inipopval_",i)]], " in ", input[[paste0("inipopyrs_",i)]],"\n\n")
+   cat("**Productivity rates:** \n")
+   if (input$model_dd == "nodd") {
+   cat("mean: ",input[[paste0("pr_mn_",i)]],", sd: ", input[[paste0("pr_sd_",i)]], "\n\n")
+   cat("**Adult survival rates:** \n")
+   cat("mean: ",input[[paste0("ad_mn_",i)]],", sd: ", input[[paste0("ad_sd_",i)]], "\n\n")
+   } else {
+   cat("mean: ",input[[paste0("pr_mn_",i)]],", sd: ", input[[paste0("pr_sd_",i)]], ", DD:", input[[paste0("pr_idd_",i)]],"\n\n")
+   cat("**Adult survival rates:** \n")
+   cat("mean: ",input[[paste0("ad_mn_",i)]],", sd: ", input[[paste0("ad_sd_",i)]], ", DD:", input[[paste0("ad_idd_",i)]],"\n\n")
+   }
+   if (input$demobase_splitimmat){
+      cat("**Immatures survival rates:** \n\n")
+      for (j in 1:input$afb) {
+         cat("Age class ",j-1," to ",j," - ")
+         cat("mean: ",input[[paste0("im_mn_",i,"_",j)]],
+            ", sd: ", input[[paste0("im_sd_",i,"_",j)]], 
+            ", DD: ", input[[paste0("im_idd_",i,"_",j)]],"\n\n")
+      }
+      cat("\n")}
+}
+```
+
+# Impacts
+Number of impact scenarios: `r input$nscen`.    
+
+```{r impact, eval={input$nscen>0}, echo=FALSE, results="asis"}
+cat("Are impacts applied separately to each subpopulation?: ", ifelse(input$impacts_splitpops,"Yes","No"),"\n\n")   
+cat("Are impacts of scenarios specified separately for immatures?: ", ifelse(input$impacts_splitimmat,"Yes","No"),"\n\n")    
+cat("Are standard errors of impacts available?: ", ifelse(input$impacts_provideses,"Yes","No"),"\n\n")    
+cat("Should random seeds be matched for impact scenarios?: ", ifelse(input$impacts_matchscens,"Yes","No"),"\n\n")    
+cat("Are impacts specified as a relative value or absolute harvest?: ", input$impacts_relative,"\n\n")    
+cat("Years in which impacts are assumed to begin and end: ", input$impacts_year[1], " to ", input$impacts_year[2],"\n\n")   
+
+cat("## Impact on Demographic Rates","\n\n")
+ for (s in 1:input$nscen) {
+   cat("### Scenario ",LETTERS[s]," - Name: ",input[[paste0("scn_nm_str_",s)]],"\n\n")
+   ifelse (input$impacts_splitpops, np <- input$npop, np <- 1)
+   for (i in 1:np) {
+      if (input$impacts_splitpops) {
+         cat("#### Population ",i,"  \n")
+      } else {
+         cat("#### All subpopulations \n") 
+      } 
+      if (input$impacts_relative == "relative") {
+         cat("**Impact on productivity rate **")
+      } else {
+         cat("**Number of chicks harvested **")
+      }
+      cat("mean: ",input[[paste0("imp_pr_mn_",s,"_",i)]],", se: ", input[[paste0("imp_pr_se_",s,"_",i)]],"\n\n")
+      if (input$impacts_relative == "relative") {
+         cat("**Impact on adult survival rate **")
+      } else {
+         cat("**Number of adults harvested **")
+      }
+      cat("mean: ",input[[paste0("imp_ad_mn_",s,"_",i)]],", se: ", input[[paste0("imp_ad_se_",s,"_",i)]],"\n\n")
+      if (input$impacts_splitimmat) {
+         if (input$impacts_relative == "relative") {
+            cat("**Impact on immature survival rate **")
+         } else {
+            cat("**Number of immatures harvested **")
+         }
+         cat("mean: ",input[[paste0("imp_im_mn_",s,"_",i)]],", se: ", input[[paste0("imp_im_se_",s,"_",i)]],"\n\n")
+      }
+      cat("\n")
+   }
+}
+```
+
+## Output:
+```{r outputyear, echo=FALSE, results="asis"}
+output_yr_end <- input$output_year_end
+if (input$nscen > 0 & (input$output_year_end < input$impacts_year[1] + 1)) {
+   output_yr_end <- input$impacts_year[1] + 1
+}
+output_yr_start <- input$output_year_start
+if (input$run_type == 'simplescenarios' & !is.na(output_yr_start)) {
+   if (output_yr_start >= output_yr_end) {
+      output_yr_start <- max(minyr, output_yr_end - 1)
+   }
+}
+
+```
+First year to include in outputs: `r output_yr_start`    
+Final year to include in outputs: `r output_yr_end`    
+How should outputs be produced, in terms of ages?: `r input$output_agetype`    
+Target population size to use in calculating impact metrics: `r input$output_popsize_target`    
+Quasi-extinction threshold to use in calculating impact metrics: `r input$output_popsize_qe`    
+
+```{r Sensitivity-only, eval={input$run_type=="sensitivity.local"}, echo=FALSE, results="asis"}
+cat("## Sensitivity parameters","\n")
+cat("**sens_npvlocal** = ", input$sens_npvlocal,"\n\n")
+cat("**sens_pcr** = c(", input$sens_pcr_1,", ",input$sens_pcr_2,", ",input$sens_pcr_3,", ",input$sens_pcr_4,", ",input$sens_pcr_5,")")
+```
+
+
+```{r validation-only, eval={input$run_type=="validation"}, echo=FALSE, results="asis"}
+cat("## Validation data","\n")
+for (i in 1:20) {
+   if (!is.na(input[[paste0("output_validation_years_",i)]])){
+      cat(input[[paste0("output_validation_counts_",i)]]," in ",input[[paste0("output_validation_years_",i)]],"\n\n")
+   } 
+}
+```
+
