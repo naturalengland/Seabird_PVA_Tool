@@ -11,6 +11,6 @@ A user manual for the Shiny tool is available via this link (see Section 7 of th
 
 http://publications.naturalengland.org.uk/publication/4926995073073152
 
-The online version of the tool can be accessed via this link: 
+The online version of the tool can be accessed via this link (works best in Chrome): 
 
 http://ec2-54-229-75-12.eu-west-1.compute.amazonaws.com/shiny/seabirds/
