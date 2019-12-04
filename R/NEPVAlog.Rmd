@@ -7,12 +7,13 @@ params:
   d: NA
   ui_ver: NA
   pva_ver: NA
+  release_ver: NA
 ---
 
 # Set up 
 The log file was created on: `r params$d`  
 
-R version `r getRversion()`, NEPVA package version: `r pva_ver` (with UI version `r ui_ver`)
+R version `r getRversion()`, NEPVA package version: `r release_ver` (with code version `r pva_ver`, UI version `r ui_ver`)
 
 ```{r Package information, echo=FALSE}
 packinfo <- installed.packages(fields = c("Package", "Version"))

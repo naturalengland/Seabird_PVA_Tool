@@ -44,6 +44,7 @@ modeoptions <<- read.csv("ModeOptions.csv")
 # Version numbers
 pva_ver <- 3.6
 ui_ver <- 1.4
+release_ver <- 1.0
 
 # Set some global values
 maxnpop <- 10
@@ -78,20 +79,21 @@ ui <- dashboardPage(skin = "green",
 
    # ##############################################################################
    # ## THE SIDEBAR
-   dashboardSidebar(width = 280,
-      sidebarMenu(id = "sidebar",
-         menuItem("1. Basic Information", tabName = "par1", icon = icon("wrench", lib = "glyphicon"),selected = FALSE),
-         menuItem("2. Baseline demographic rates", tabName = "par2", icon = icon("wrench", lib = "glyphicon"),selected = FALSE),
-         menuItem("3. Impacts", tabName = "par3", icon = icon("wrench", lib = "glyphicon"), selected = FALSE),
-         menuItem("4. Run", tabName = "runtab", icon = icon("play", lib = "glyphicon"),selected = FALSE),
-         menuItem("5. Tables", tabName = "table", icon = icon("list-alt", lib = "glyphicon"), selected = FALSE),
-         menuItem("6. Charts", tabName = "charts", icon = icon("eye-open", lib = "glyphicon"), selected = FALSE)
-      ),
-      br()
-      # img(src='puffin27.png', align = "left", width="270")
-      # tags$footer("Copyright and disclaimer text could go here")
 
+   dashboardSidebar(width = 280,
+     sidebarMenu(id = "sidebarinfo",
+        menuItem("Tool Information",tabName = "documentation", icon = icon("info-sign",lib="glyphicon"),selected = TRUE)
+     ),
+     sidebarMenu(id = "sidebar",
+        menuItem("1. Basic PVA Information", tabName = "par1", icon = icon("wrench", lib = "glyphicon"),selected = FALSE),
+        menuItem("2. Baseline demographic rates", tabName = "par2", icon = icon("wrench", lib = "glyphicon"),selected = FALSE),
+        menuItem("3. Impacts", tabName = "par3", icon = icon("wrench", lib = "glyphicon"), selected = FALSE),
+        menuItem("4. Run", tabName = "runtab", icon = icon("play", lib = "glyphicon"),selected = FALSE),
+        menuItem("5. Tables", tabName = "table", icon = icon("list-alt", lib = "glyphicon"), selected = FALSE),
+        menuItem("6. Charts", tabName = "charts", icon = icon("stats", lib = "glyphicon"), selected = FALSE)
+     )
    ), # end dashboardSidebar
+
 
    # ##############################################################################
    # ## THE BODY
@@ -807,7 +809,48 @@ ui <- dashboardPage(skin = "green",
                   DT::dataTableOutput("resultstableC")
                )
             )
+         ), # end tabItem
+
+         ### ##############################################################################
+         ### TAB OUTPUT Front Page Information
+         ###
+         tabItem(tabName = "documentation",
+                 h3("A Population Viability Analysis Modelling Tool for Seabird Species"),
+                 div(id = "InfoTAB",
+                     fluidRow(
+                        shinydashboard::box(title="Description", status = "info", width = 12, solidHeader = FALSE, collapsible = FALSE, collapsed = FALSE,
+                             tags$h4("This tool allows users to run Population Viability Analyses (PVAs), applicable to seabirds at a
+                             variety of scales and may be used to set-up and run bespoke PVA models for seabird species without the need
+                                     for access to specific software."),
+                             tags$p("The tool allows users the flexibility to explore population management-oriented objectives (e.g.
+                             assessment of impacts, evaluation of management options etc.), as well as being able to explicitly highlight
+                             the effects on model predictions of different assumptions about the model, data, species and populations concerned.
+                             It can be used to assess any type of impact that changes survival or productivity rates, including as a cull or harvest
+                             of a fixed size per year. Impacts may also be positive, meaning that mitigation or conservation measures aimed at
+                             increasing demographic rates may also be modelled. The tool also allows users  to conduct PVAs at a range of scales
+                             (breeding colony to SPA or region)."),
+                             tags$p("The tool produces a range of tabular and graphical outputs for interpreting outputs from PVAs, and a facility
+                             for using pre-set demographic rates for 15 species of seabirds based on currently available demographic data."))
+                     ),
+                     fluidRow(
+                        shinydashboard::box(title="Version ", status = "warning", width = 6, solidHeader = FALSE, collapsible = FALSE, collapsed = FALSE,
+                             tags$p("This is the most recent experimental version of the PVA tool. This version is currently undergoing testing
+                             and is available on a use-at-your-own-risk basis, with no support or guarantee provided during this phase.
+                             For documentation of changes and comments, see", tags$a("Github", href = "https://github.com/naturalengland/Seabird_PVA_Tool", target="_blank",
+                             style="font-weight: bold;color:#000;"), "(opens in a new browser tab)"), tags$p("Tool v",release_ver," (Code: v",pva_ver," Interface: v",ui_ver,")")
+                        ),
+                        shinydashboard::box(title="Licence", status = "info", width = 6, solidHeader = FALSE, collapsible = FALSE, collapsed = FALSE,
+                             tags$p("This tool is published by Natural England under the Open Government Licence - OGLv3.0
+                             for public sector information. You are encouraged to use, and reuse, information subject to certain
+                             conditions. For details of the licence visit",
+                             tags$a("OGL v3.0",href = "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/", target="_blank",
+                             style="font-weight: bold;color:#000;"), "(opens in a new browser tab)")
+                        )
+                     )
+
+                 )
          ) # end tabItem
+
       ), # end tabItems
       busyIndicator(text = "...Please wait...", img = "busyIndicator/hover.gif", wait = 600)
    ) # dashboardbody
