@@ -112,6 +112,7 @@ demomods$es$betagamma.ddu <- list(npes = 1,
                              sim.con = function(ru, pars, popsize, ddfn) { 
                                mu <- ddfn(pars[-2], popsize)
                                newpars <- revreparam.beta(mu, pars[2])
+                               ## if(any(is.na(newpars)|is.nan(newpars)|(newpars<0))){browser()}
                                qbeta(pnorm(ru), newpars[,1], newpars[,2])
                              },
                              sim.unc = function(ru, pars, popsize, ddfn){

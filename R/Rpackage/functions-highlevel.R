@@ -282,6 +282,7 @@ getsurvdefaults <- function(dat, ref, age.lo, age.hi){
 #'   only the baseline is considered) or a positive integer. Outputs are produced for each
 #'   scenario.
 #' @param include.baseline Should a baseline run be included? A logical value.
+#' @param nburn Number of years to use for burn-in; a non-negative integer. If zero no burn-in period is used.
 #' @param sim.n Number of simulations to use. A positive integer. Defaults to 1000. If all inputs are
 #'         specified to be deterministic (e.g. "model.envstoch = "none"" and "model.demostoch = FALSE"
 #'         and "scen.sds = NULL") then the value of "sim.n" is ignored, and a single simulation is used. 
@@ -409,11 +410,15 @@ getsurvdefaults <- function(dat, ref, age.lo, age.hi){
 ## ############################################################################
 #' @seealso A function that is directly called by the user. Calls the internal function \code{\link{nepva.calcs.dummy}}.
 ## ############################################################################
+## Version 4.2: added "nburn" argument
+## Version 4.11: added "changetablenames" argument
+## ############################################################################
 #' @export
 
 nepva.fullrun <- function(model.envstoch = "deterministic", model.demostoch = FALSE, 
                       trans.dd = FALSE, model.dd = "nodd", model.prodmax = TRUE, mbs = NULL, afb,
-                      npop = 1, nscen = 0, include.baseline = TRUE, sim.n = 1000, sim.seed = NULL,
+                      npop = 1, nscen = 0, include.baseline = TRUE, nburn = 0, 
+                      sim.n = 1000, sim.seed = NULL,
                       demobase.specify.as.params = TRUE,
                       demobase.splitpops = FALSE, demobase.splitimmat = FALSE, 
                       demobase.prod, demobase.survimmat = NULL,
@@ -436,7 +441,7 @@ nepva.fullrun <- function(model.envstoch = "deterministic", model.demostoch = FA
                       output.validation.years = NULL, 
                       sens.npvlocal = 1, sens.npvglobal = 10,
                       sens.pcr = rep(20,5),
-                      silent = FALSE, output.raw = FALSE){
+                      silent = FALSE, output.raw = FALSE, changetablenames = FALSE){
 
   ## ######################################################
   ## Added Version 2.1, updated Version 2.2
@@ -483,7 +488,7 @@ nepva.fullrun <- function(model.envstoch = "deterministic", model.demostoch = FA
 
 nepva.simplescenarios <- function(model.envstoch = "deterministic", model.demostoch = FALSE, 
                       model.dd = "nodd", model.prodmax = TRUE, mbs = NULL, afb,
-                      npop = 1, nscen = 0, sim.n = 1000, sim.seed = NULL,
+                      npop = 1, nscen = 0, sim.n = 1000, nburn, sim.seed = NULL,
                       demobase.specify.as.params,
                       demobase.splitpops = FALSE, demobase.splitimmat = FALSE, 
                       demobase.prod, demobase.survimmat = NULL,
@@ -499,7 +504,7 @@ nepva.simplescenarios <- function(model.envstoch = "deterministic", model.demost
                       output.agetype = "breeding.pairs", 
                       output.year.start, output.year.end,
                       output.popsize.target = NULL,
-                      output.popsize.qe = 10, silent = FALSE){
+                      output.popsize.qe = 10, silent = FALSE, output.raw = FALSE, changetablenames = FALSE){
   
   ## ######################################################
 
@@ -533,7 +538,16 @@ nepva.simplescenarios <- function(model.envstoch = "deterministic", model.demost
   
   if(! inputs$silent){
     
-    nepva.plot.timeseries(out)
+    if(output.raw){
+      
+      bob <- out$tab
+    }
+    else{
+      
+      bob <- out
+    }
+    
+    nepva.plot.timeseries(bob, changetablenames = inputs$changetablenames)
   }
   
   ## ######################################################
@@ -566,7 +580,7 @@ nepva.simplescenarios <- function(model.envstoch = "deterministic", model.demost
 
 nepva.validation <- function(model.envstoch = "deterministic", model.demostoch = FALSE, 
                                model.dd = "nodd", model.prodmax = TRUE, mbs = NULL, afb,
-                               sim.n = 1000, sim.seed = NULL, demobase.specify.as.params = TRUE,
+                               sim.n = 1000, sim.seed = NULL, nburn, demobase.specify.as.params = TRUE,
                                demobase.splitimmat = FALSE, demobase.prod, 
                                demobase.survimmat = NULL, demobase.survadult, 
                                inipop.years, inipop.inputformat = "breeding.pairs",
@@ -575,7 +589,7 @@ nepva.validation <- function(model.envstoch = "deterministic", model.demostoch =
                                output.year.end,
                                output.popsize.target = NULL,
                                output.popsize.qe = 10, output.validation.counts = NULL,
-                               output.validation.years = NULL, silent = FALSE){
+                               output.validation.years = NULL, silent = FALSE, changetablenames = FALSE){
   
   ## ######################################################
   ## Check errors for "output.validation.*" 
@@ -632,7 +646,8 @@ nepva.validation <- function(model.envstoch = "deterministic", model.demostoch =
     
     nepva.plot.validation(out, output.validation.counts = output.validation.counts, 
                           output.validation.years = output.validation.years,
-                          inipop.years = inipop.years, inipop.vals = inipop.vals)
+                          inipop.years = inipop.years, inipop.vals = inipop.vals,
+                          changetablenames = inputs$changetablenames)
   }
   
   ## ######################################################
@@ -679,7 +694,7 @@ nepva.validation <- function(model.envstoch = "deterministic", model.demostoch =
 
 nepva.sensitivity.local <- function(model.envstoch = "deterministic",
                                     model.demostoch = FALSE, model.prodmax = TRUE, 
-                                    mbs, afb, sim.n, sim.seed, 
+                                    mbs, afb, sim.n, sim.seed, nburn, 
                                     demobase.specify.as.params = TRUE,
                                     demobase.prod,
                                     demobase.survadult,
@@ -690,7 +705,7 @@ nepva.sensitivity.local <- function(model.envstoch = "deterministic",
                                     output.year.end, 
                                     sens.npvlocal = 1,
                                     sens.pcr = c(20,20,20,20,20), 
-                                    silent = FALSE){
+                                    silent = FALSE, changetablenames = FALSE){
 
   ## ##############################################################
   # Error checking
@@ -736,7 +751,7 @@ nepva.sensitivity.local <- function(model.envstoch = "deterministic",
   ## ##############################################################
   ## Produce plot
   
-  nepva.plot.localsens(out) ## Bug fix: Version 2.4
+  nepva.plot.localsens(out, changetablenames = inputs$changetablenames) ## Bug fix: Version 2.4
   
   ## ##############################################################
   
@@ -776,7 +791,7 @@ nepva.sensitivity.local <- function(model.envstoch = "deterministic",
 nepva.sensitivity.global <- function(demobase.specify.as.params = TRUE,
                                     model.envstoch = "deterministic",
                                     model.demostoch = FALSE, model.prodmax = TRUE, 
-                                    mbs, afb, sim.n, sim.seed, 
+                                    mbs, afb, sim.n, sim.seed, nburn,
                                     demobase.prod, 
                                     demobase.survadult, 
                                     inipop.years, inipop.vals,
@@ -785,7 +800,7 @@ nepva.sensitivity.global <- function(demobase.specify.as.params = TRUE,
                                     output.popsize.qe = 10, output.popsize.target,
                                     output.year.end, 
                                     sens.npvglobal = 1,
-                                    sens.pcr = c(20,20,20,20,20), silent = TRUE){
+                                    sens.pcr = c(20,20,20,20,20), silent = TRUE, changetablenames = FALSE){
 
   ## ##############################################################
   # Error checking
@@ -844,7 +859,7 @@ nepva.sensitivity.global <- function(demobase.specify.as.params = TRUE,
 #' @seealso An internal function that is called by \code{\link{nepva.run}}.
 #' @export
 
-nepva.plot.timeseries <- function(out){
+nepva.plot.timeseries <- function(out, changetablenames){
 
   par(mfrow=c(1,1))
   
@@ -861,7 +876,14 @@ nepva.plot.timeseries <- function(out){
   
   cols <- c("black", rainbow(ceiling(ns*1.2))[(ns-1):1])
   
-  ylim <- range(c(out[,c("popsize.q2.5%", "popsize.q97.5%")]), na.rm=TRUE)
+  if(changetablenames){
+    
+    ylim <- range(c(out[,c("Popsize_2.5%_quantile", "Popsize_97.5%_quantile")]))
+  }
+  else{
+    
+    ylim <- range(c(out[,c("popsize.q2.5%", "popsize.q97.5%")]), na.rm=TRUE)
+  }
   
   ## ###################################################
   
@@ -874,9 +896,22 @@ nepva.plot.timeseries <- function(out){
     
     tmp <- out[out$Scenario == scen.names[k],]
     
-    lines(tmp$Year, tmp$popsize.median, lwd=1.8, col=cols[k])
-    lines(tmp$Year, tmp[,"popsize.q2.5%"], lty=3, lwd=1.8, col=cols[k])
-    lines(tmp$Year, tmp[,"popsize.q97.5%"], lty=3, lwd=1.8, col=cols[k])
+    if(changetablenames){
+      
+      ym <- tmp[,"Popsize_Median"]
+      yl <- tmp[,"Popsize_2.5%_quantile"] 
+      yu <- tmp[,"Popsize_97.5%_quantile"]
+    }
+    else{
+    
+      ym <- tmp$popsize.median
+      yl <- tmp[,"popsize.q2.5%"]
+      yu <- tmp[,"popsize.q97.5%"]
+    }
+    
+    lines(tmp$Year, ym, lwd=1.8, col=cols[k])
+    lines(tmp$Year, yl, lty=3, lwd=1.8, col=cols[k])
+    lines(tmp$Year, yu, lty=3, lwd=1.8, col=cols[k])
   }}
   
   legend(min(years), ylim[1] + (ylim[2] - ylim[1])*0.27, scen.names, fill = cols,
@@ -901,20 +936,31 @@ nepva.plot.timeseries <- function(out){
 #' 
 
 nepva.plot.validation <- function(out, output.validation.counts, output.validation.years,
-                                  inipop.vals, inipop.years){
+                                  inipop.vals, inipop.years, changetablenames){
   
   par(mfrow=c(1,1))
   
   years <- sort(unique(out$Year))
 
-  ylim <- range(c(out[,c("popsize.q2.5%", "popsize.q97.5%")], output.validation.counts), na.rm=TRUE)
+  if(changetablenames){
+   
+    pvnames <- c("Popsize_2.5%_quantile", "Popsize_Median", "Popsize_97.5%_quantile")
+  }
+  else{
+    
+    pvnames <- c("popsize.q2.5%", "popsize.median", "popsize.q97.5%")
+  }
+  
+  pv <- out[,pvnames]
+            
+  ylim <- range(c(pv[,c(1,3)], output.validation.counts), na.rm=TRUE)
   
   plot(years, rep(0,length(years)), col="white", ylim=ylim,
        xlab="Year", ylab="Projected population size")
 
-  lines(out$Year, out$popsize.median, lwd=1.8, col=gray(0.3))
-  lines(out$Year, out[,"popsize.q2.5%"], lty=3, lwd=1.8, col=gray(0.3))
-  lines(out$Year, out[,"popsize.q97.5%"], lty=3, lwd=1.8, col=gray(0.3))
+  lines(out$Year, pv[,2], lwd=1.8, col=gray(0.3))
+  lines(out$Year, pv[,1], lty=3, lwd=1.8, col=gray(0.3))
+  lines(out$Year, pv[,3], lty=3, lwd=1.8, col=gray(0.3))
   
   points(output.validation.years, output.validation.counts, pch=20)
   
@@ -1257,16 +1303,25 @@ errfn7 <- function(x,n){ ! ((is.numeric(x) & is.vector(x) & (length(x) == n)) | 
 ## Added 16 Jan 2019
 ## ############################################################################
 
-nepva.plot.localsens <- function(obj){
+nepva.plot.localsens <- function(obj, changetablenames){
   
   pars <- c("inipop.vals", "demobase.prod.mean", "demobase.survadult.mean",
             "impact.prod.mean", "impact.survadult.mean")
   
   cols <- c("blue", "orange", "red", "green", "darkgreen")
     
-  cnames <- c("m1.median", "m2.median", "m3", "m4", "m5", "m6")
+  if(changetablenames){
+    
+    cnames <- c("CGR_Median", "CPS_Median", "QuantileUNIMP50pcIMP", "QuantileIMP50pcUNIMP", "Quasi_Extinction", "pc_ImpSims_above_TPS")
+      
+    mnames <- c("CGR (median)", "CPS (median)", "QuantileUNIMP50pcIMP", "QuantileIMP50pcUNIMP", "Quasi_Extinction", "pc_ImpSims_above_TPS")
+  }
+  else{
   
-  mnames <- c("M1 (median)", "M2 (median)", "M3", "M4", "M5", "M6")
+    cnames <- c("m1.median", "m2.median", "m3", "m4", "m5", "m6")
+  
+    mnames <- c("M1 (median)", "M2 (median)", "M3", "M4", "M5", "M6")
+  }
   
   npp <- length(pars)
   
@@ -1398,6 +1453,7 @@ nepva.setinputs <- function(run.type, modeoptions){
 
 ## ###################################################################################################################
 ## >> nepva.calcs
+## Version 4.11 on 13 Jan 2020: added "changetablenames" option
 
 nepva.calcs <- function(inputs, demomods, run.type){
   
@@ -1434,8 +1490,109 @@ nepva.calcs <- function(inputs, demomods, run.type){
   if(is.null(out)){ stop("Invalid choice for 'run.type'...")}
   
   ## ######################################################################
+  ## Added Version 4.11, revised Version 4.13
+  
+  if(inputs$changetablenames){
+    
+    if(run.type == "sensitivity.global"){
+      
+      out$tab <- change.table.names.globalsens(out$tab)
+    }
+    
+    if(run.type == "sensitivity.local"){
+      
+      out <- change.table.names.sen(out)
+    }
+    
+    if(run.type == "simplescenarios" | run.type == "validation"){
+    
+      if(inputs$output.raw){ 
+      
+        out$tab <- change.table.names(out$tab)
+      }
+      else{
+      
+        out <- change.table.names(out)
+      }
+    }
+  }
+ 
+  ## ######################################################################
   
   out
 }
 
+## ###################################################################################################################
+## Added Version 4.11:
+
+change.table.names <- function(tab){
+  
+  qs <- c(1, 2.5, 5, 10, 20, 25, 33, 66, 75, 80, 90, 95, 97.5, 99)
+  
+  old.names <- c("Year", "Age", "Scenario", "Baseyear", "Currently.Impacted", "Impact.year",
+                 paste("popsize", c("mean", "sd", "median", paste0("q", qs, "%")), sep="."),
+                 paste(rep(c("pgr", "agr", "ppc", "m1", "m2"), 1, each = 5),
+                       rep(c("median", "mean", "sd", "cilo", "cihi"), 5), sep="."),
+                 paste0("m", 3:6))
+  
+  new.names <- c("Year", "Age_Class", "Scenario", "Base_Year", "Currently_Impacted", "YRS_From_First_Imp",
+                 paste("Popsize", c("Mean", "SD", "Median", paste0(qs, "%_quantile")), sep="_"),
+                 paste(rep(c("pgr", "Annual_GR", "pc_Pop_Change", "CGR", "CPS"), 1, each = 5),
+                       rep(c("Median", "Mean", "SD", "LCI", "UCI"), 5), sep="_"),
+                 "QuantileUNIMP50pcIMP", "QuantileIMP50pcUNIMP", "Quasi_Extinction", "pc_ImpSims_above_TPS")
+  
+  colnames(tab)[match(colnames(tab), old.names)] <- new.names
+  
+  tab
+}
+
+## ###################################################################################################################
+## Added Version 4.13:
+
+change.table.names.sen <- function(tab){
+  
+  qs <- c(1, 2.5, 5, 10, 20, 25, 33, 66, 75, 80, 90, 95, 97.5, 99)
+  
+  old.names <- c("parname","pcchange.inipop.vals", "pcchange.demobase.prod.mean",
+                 "pcchange.demobase.survadult.mean", "pcchange.impact.prod.mean",
+                 "pcchange.impact.survadult.mean", "inipop.vals", "demobase.prod.mean",
+                 "demobase.survadult.mean", "impact.prod.mean", "impact.survadult.mean",
+                 "Year", "Age", "Scenario", "Baseyear", "Currently.Impacted", "Impact.year",
+                 paste("popsize", c("mean", "sd", "median", paste0("q", qs, "%")), sep="."),
+                 paste(rep(c("pgr", "agr", "ppc", "m1", "m2"), 1, each = 5),
+                       rep(c("median", "mean", "sd", "cilo", "cihi"), 5), sep="."),
+                 paste0("m", 3:6))
+  
+  new.names <- c("parname","pcchange.inipop.vals", "pcchange.demobase.prod.mean",
+                 "pcchange.demobase.survadult.mean", "pcchange.impact.prod.mean",
+                 "pcchange.impact.survadult.mean", "inipop.vals", "demobase.prod.mean",
+                 "demobase.survadult.mean", "impact.prod.mean", "impact.survadult.mean",
+                 "Year", "Age_Class", "Scenario", "Base_Year", "Currently_Impacted", "YRS_From_First_Imp",
+                 paste("Popsize", c("Mean", "SD", "Median", paste0(qs, "%_quantile")), sep="_"),
+                 paste(rep(c("pgr", "Annual_GR", "pc_Pop_Change", "CGR", "CPS"), 1, each = 5),
+                       rep(c("Median", "Mean", "SD", "LCI", "UCI"), 5), sep="_"),
+                 "QuantileUNIMP50pcIMP", "QuantileIMP50pcUNIMP", "Quasi_Extinction", "pc_ImpSims_above_TPS")
+  
+  colnames(tab)[match(colnames(tab), old.names)] <- new.names
+  
+  tab
+}
+
 ## ############################################################################
+
+change.table.names.globalsens <- function(tab){
+  
+  qs <- c(1, 2.5, 5, 10, 20, 25, 33, 66, 75, 80, 90, 95, 97.5, 99)
+  
+  old.names <- c(paste("popsize", c("mean", "sd", "median", paste0("q", qs, "%")), sep="."),
+                 paste(rep(c("pgr", "agr", "ppc"), 1, each = 5),
+                       rep(c("median", "mean", "sd", "cilo", "cihi"), 3), sep="."))
+
+  new.names <- c(paste("Popsize", c("Mean", "SD", "Median", paste0(qs, "%_quantile")), sep="_"),
+                 paste(rep(c("pgr", "Annual_GR", "pc_Pop_Change"), 1, each = 5),
+                       rep(c("Median", "Mean", "SD", "LCI", "UCI"), 3), sep="_"))
+
+  colnames(tab)[5+(match(colnames(tab)[-(1:5)], old.names))] <- new.names
+  
+  tab
+}

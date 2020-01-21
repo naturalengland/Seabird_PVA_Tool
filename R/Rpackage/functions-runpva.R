@@ -1,20 +1,17 @@
 ## ###################################################################################################################
-## Technical functions used for calculations within the NE PVA tool, Version 3.3
+## Technical functions used for calculations within the NE PVA tool
+##    Last edited Version 4.7
 ## ###################################################################################################################
-## --- Contents ---
-## nepva.calcs                       --- function to run PVA calculations
-##      getpars.demorates            --- use moment matching to calculate the parameters associated with mean and SD
-##          mom.numeric              --- perform moment matching using numeric optimisation
-##      mean.demorates               --- find the mean demographic rates associated with a statistical model for rates
-##          pred.numeric             --- find mean values via simulation
-##      make.leslie.matrix           --- construct the Leslie matrix associated with a particular set of demographic rates
-##      split.deathss              --- simulate the (absolute or relative) impacts associated with an impact
-##          split.deaths      --- split the absolute number of birds killed into separate subpopulations
-##      leslie.update                --- update the population sizes over one year using the Leslie matrix model
+## --- Contents (updated v4.3) ---
 ##
-## vbgs.siminputs                    --- global sensitivty analysis: simulate sets of inputs to use
-## vbgs.calctable                    --- global sensitivty analysis: produce table to summarise output
-## vbgs.decomposition                --- global sensitivty analysis: produce variance decomposition
+## nepva.sim                     --- function to run PVA calculations
+##    leslie.calcs               --- core function to run Leslie matrix updating
+##         leslie.update         --- update the population sizes over one year using the Leslie matrix model
+##         inits.burned          --- calculate age-specific initial population sizes using results from burn-in
+##         split.deaths          --- simulate the (absolute or relative) impacts associated with an impact
+##    make.impactmetrics.table   --- summarize PVA metrics and other outputs
+##
+## Version 4.7: updated to deal with changes requested by PSG to the calculation of metrics
 ## ###################################################################################################################
 
 ## ##############################################################################
@@ -67,17 +64,17 @@
 #'   "m1.median", "m1.mean", "m1.sd", "m2.median", "m2.mean", "m2.sd", "m3", "m4", "m5", "m6":
 #'    impact metrics; the values in these columns will be missing (NA) if "Impact.year" is missing (NA).
 ## ############################################################################
+## Version 4.2: added "nburn" as an additional argument, and revised code to 
+##   include "burn-in" period
+## ############################################################################
 #' @seealso A function that is directly called by the user. Calls the internal functions
-#'   \code{\link{getpars.demorates}}, 
-#'   \code{\link{mean.demorates}}, \code{\link{make.leslie.matrix}}, 
-#'   \code{\link{split.deathss}}, \code{\link{leslie.update}} and
-#'   \code{\link{make.impactmetrics.table}}
+#'   \code{\link{leslie.calcs}}, \code{\link{inits.burned}} and \code{\link{make.impactmetrics.table}}
 #' @export
 
 nepva.sim <- function(fn.sim.con, fn.sim.unc, ddfn,
                       model.demostoch, model.prodmax, afb, mbs, 
                       npop, nscen, sim.n, sim.seed, 
-                      year.first, 
+                      year.first, nburn,
                       inipop.years, inipop.counts, 
                       demobase.ests, demobase.cormat, demobase.bskippc,
                       impacts.year.start, impacts.year.end,
@@ -88,16 +85,16 @@ nepva.sim <- function(fn.sim.con, fn.sim.unc, ddfn,
                       output.year.start, output.year.end,
                       output.agetype, output.popsize.qe, output.popsize.target,
                       silent, output.raw, noround){
-                      
+       
   ## #########################################
   ## Print out
-  ## Version 3.1: added "output.raw" argument
+  ## Version 4.2: added "output.raw" argument
   
   if(! silent){
   
     print.noquote("-------------------------------------------------")
   
-    print.noquote("Running the NE PVA tool, Version 3.1")
+    print.noquote("Running the NE PVA tool, Version 4.2")
   
     print.noquote("-------------------------------------------------")
   
@@ -115,6 +112,7 @@ nepva.sim <- function(fn.sim.con, fn.sim.unc, ddfn,
   
   nyears <- length(years)
   
+  ## ############################################
   ## Added Version 1.8: reference "baseline" year against which impact metrics are calculated
   ##   -- fixed to be the year before the impact begins (NOTE: a key assumption of the package
   ##      is that impacts apply to the same set of years for all scenarios and subpopulations, 
@@ -139,8 +137,9 @@ nepva.sim <- function(fn.sim.con, fn.sim.unc, ddfn,
   ## Step 3. Number of ages and demographic rates
   
   ## ############################################
-  ## Number of ages: 
+  ## Number of age classes:
   ## 0 (chicks), 1,...(afb-1) (immatures), afb+ (adults)
+  ## #########################################
   
   na <- afb + 1
   
@@ -150,8 +149,10 @@ nepva.sim <- function(fn.sim.con, fn.sim.unc, ddfn,
   ##   [1] Productivity
   ##   [2:na] age-specific immature survival (0 to 1,1 to 2,(afb-1) to afb)
   ##   [nd] adult survival (afb+)
+  ## Note: key assumption here is that adult survival (above age "afb") is independent of age
+  ## #########################################
   
-  nd <- afb + 2 
+  nd <- afb + 2 ## note: could equivalently define as "nd = na + 1"
 
   ## #################################################################
   ## Step 4. Set seed
@@ -161,6 +162,7 @@ nepva.sim <- function(fn.sim.con, fn.sim.unc, ddfn,
   ## #################################################################
   ## Step 5. Random number generation for baseline simulations
   ## Added Version 0.4, 2 Nov 2018
+  ## Note: generating these in advance helps to ensure that matching works correctly
   ## ############################################
   
   if(is.null(demobase.cormat)){
@@ -191,6 +193,9 @@ nepva.sim <- function(fn.sim.con, fn.sim.unc, ddfn,
   
   if(is.null(demobase.bskippc)){ demobase.bskippc <- c(0,0) }
   
+  ## (note: running it this way ensures that matching is preserved even
+  ##   if demobase.bskippc is zero in some runs and non-zero in others)
+  
   sim.bskippc <- array(dim=c(nyears, sim.n), 
                        data = rnorm(nyears * sim.n, demobase.bskippc[1], demobase.bskippc[2]))
   
@@ -201,19 +206,21 @@ nepva.sim <- function(fn.sim.con, fn.sim.unc, ddfn,
   
   if(impacts.matchscens){
     
-    ru <- array(dim=c(nscen, npop, sim.n, nd))
+    ru.scen <- array(dim=c(nscen, npop, sim.n, nd))
     
-    ro <- rnorm(npop * sim.n * nd)
+    ## note: "rnorm" is run BEFORE looping over scenarios, to ensure matching
+    
+    ro <- rnorm(npop * sim.n * nd) 
     
     for(i in 1:nscen){
       
-      ru[i,,,] <- ro
+      ru.scen[i,,,] <- ro
     }
     
   }
   else{
     
-    ru <- array(dim=c(nscen, npop, sim.n, nd), data = rnorm(nscen * npop * sim.n * nd))
+    ru.scen <- array(dim=c(nscen, npop, sim.n, nd), data = rnorm(nscen * npop * sim.n * nd))
   }
   
   impacts.demochange <- array(dim=c(nscen, npop, sim.n, nd))
@@ -226,26 +233,91 @@ nepva.sim <- function(fn.sim.con, fn.sim.unc, ddfn,
       
       for(k in 1:nd){
         
-        impacts.demochange[i,j,,k] <- impacts.demochange.mean[i,j,k] + impacts.demochange.se[i,j,k] * ru[i,j,,k]
+        impacts.demochange[i,j,,k] <- impacts.demochange.mean[i,j,k] + impacts.demochange.se[i,j,k] * ru.scen[i,j,,k]
         
-        if(k < nd){
+        ## NOTE: a restriction is needed (k < nb) because relative impacts relate to rates (of which there 
+        ##  are "nd"), whereas absolute impacts relate to age classes (of which there are "na = nd - 1");
+        ##  important to double check that this is correct - i.e. that it is the final class that is not used
+        
+        if(k < nd){ 
      
-          impacts.abschange[i,j,,k] <- impacts.abschange.mean[i,j,k] + impacts.abschange.se[i,j,k] * ru[i,j,,k]
+          impacts.abschange[i,j,,k] <- impacts.abschange.mean[i,j,k] + impacts.abschange.se[i,j,k] * ru.scen[i,j,,k]
         }
       }
     }
   }
   
-  impacts.abschange <- round(impacts.abschange)
+  impacts.abschange <- round(impacts.abschange) ## to ensure the number of birds killed in each category is an integer
+
+  ## #########################################
+  ## Step 9a. Running burn-in - added Version 4.2
+  
+  ## !! Note: the order of dimensions here is different from that in "nbyage"
+  ##      - this is because the order in "inipop.counts" was already different
+   
+  inipop.origcounts <- array(dim=c(na, sim.n, npop))
+  
+  for(z in 1:sim.n){ inipop.origcounts[,z,] <- inipop.counts }
+  
+  ## ####################
+  
+  if(nburn < 1){ ## no burn-in in this case
+    
+    inipop.newcounts <- inipop.origcounts
+    
+    nbyage.burned <- NULL
+  }
+  else{ ## do use a burn-in, of length "nburn" years
+
+    if(! silent){
+    
+      print.noquote("-------------------------------------------------")
+    
+      print.noquote(paste("Running burn-in...     ", date()))
+      print.noquote("        ")
+    }
+  
+    ## Number of years to use for burn-in: this is the value of "nburn" specified by the user,
+    ##  plus the number of years needed for all subpopulations to have been initialized:
+    
+    nburn.adj <- max(inipop.relyears) + nburn
+    
+    ## Run burn-in: a baseline-only run of the Leslie matrix models, for "nburn.adj" years
+  
+    nbyage.burned <- leslie.calcs(npop = npop, nyears = nburn.adj, na = na, 
+                               inipop.counts = inipop.origcounts, inipop.relyears = inipop.relyears, 
+                               demobase.ests = demobase.ests,
+                               ddfn = ddfn, fn.sim.con = fn.sim.con, fn.sim.unc = fn.sim.unc,
+                               model.demostoch = model.demostoch, model.prodmax = model.prodmax,
+                               ru.base = ru.base, 
+                               sim.bskippc = sim.bskippc, 
+                               sim.n = sim.n, afb = afb, mbs = mbs, noround = noround,
+                               nscen = 1, impacts.relyears = 10000:10001,
+                               impacts.demochange = NULL, impacts.abschange = NULL,
+                               impacts.infillpops = NULL, impacts.infillages = NULL,
+                               silent = silent)
+    
+    ## Total initial population size for each subpopulation:
+    
+    inipop.totals <- apply(inipop.counts, 2, sum)
+    
+    ## Use output from burn-in to create age-specific initial counts:
+    
+    inipop.newcounts <- inits.burned(nbyage.burned = nbyage.burned, inipop.totals = inipop.totals)
+  }  
   
   ## #########################################
-  ## Step 9. Run main PVA calculations
+  ## Step 9b. Run main PVA calculations
   ## Loop over scenarios, and colonies, and run "nepva.sim"
   
   ## Version 0.4: change so that random uniform numbers are already generated,
   ##   and are inputted here
   ## - means that "demobase.cormat", "sim.n" and "sim.seed" no longer need to be
   ##    inputs to "nepva.sim"
+  ##
+  ## Version 4.2: revised to: 
+  ##    a) use "leslie.calcs" function
+  ##    b) use "inipop.newcounts"
   ## #########################################
   
   if(! silent){
@@ -256,179 +328,128 @@ nepva.sim <- function(fn.sim.con, fn.sim.unc, ddfn,
     print.noquote("        ")
   }
   
-  ## ###########################################
-  ## Version 1.2: changed order to loop over time first...
-  
-  ## #####################
-  ## Each time point  
-  ## Version 0.8: changed to use "inipop.relyears+1" rather than "2"
-  ## Version 1.8: changed order of loops: now: scenario > time > population
-  
-  out <- NULL
-  
-  nbyage <- array(dim=c(nscen, npop, nyears, sim.n, na), data = NA)
-  
-  for(i in 1:nscen){
+  nbyage <- leslie.calcs(npop = npop, nyears = nyears, na = na, 
+                         inipop.counts = inipop.newcounts, inipop.relyears = inipop.relyears, 
+                         demobase.ests = demobase.ests,
+                         ddfn = ddfn, fn.sim.con = fn.sim.con, fn.sim.unc = fn.sim.unc,
+                         model.demostoch = model.demostoch, model.prodmax = model.prodmax,
+                         ru.base = ru.base, 
+                         sim.bskippc = sim.bskippc, 
+                         sim.n = sim.n, afb = afb, mbs = mbs, noround = noround,
+                         nscen = nscen, impacts.relyears = impacts.relyears,
+                         impacts.demochange = impacts.demochange,
+                         impacts.abschange = impacts.abschange,
+                         impacts.infillpops = impacts.infillpops,
+                         impacts.infillages = impacts.infillages, silent = silent)
 
-    ## #########################################
-    ## Set up output, and initialize
-    ## ############################################
+  ## Plot convergence of burn-in - added Version 4.2: 
   
-    for(j in 1:npop){
-        
-      for(a in 1:na){ 
-          
-        ## Version 3.3: bug fix: "inipop.relyears" > "inipop.relyears[j]"
-        nbyage[i,j,inipop.relyears[j],,a] <- inipop.counts[a,j] ## 30 Oct 2018: changed from "a" to "a+1"
-      }
-    }
+  if(! silent){
   
-    ## ############################################
-    
-    for(tt in 2:nyears){
-
-      ## if(tt == 53){ browser() }
-      
-      ## ######################################################
-      
-      if(! silent){
-        
-        print.noquote(paste0("Scenario:", i, " Year: (", tt, "/",nyears,")    ", date()))
-      }
-      
-      ## ######################################################
-      ## Is the impact active in this year
-      
-      impacted <- (tt >= min(impacts.relyears)) & (tt <= max(impacts.relyears))
-       
-      ## ######################################################
-      ## Number of birds from previous year: array of [subpopulations, years, ages]
-      
-      nprev <- d(nbyage[i,,tt-1,,,drop=FALSE], c(2,4,5))
-      
-      ## print(paste(nprev[1,1,], collapse=" "))
-      
-      ## ######################################################
-      ## Simulate scenarios
-      
-      if(impacted){
-  
-        impacts.demochange.tt <- d(impacts.demochange[i,,,,drop=FALSE], 2:4)
-        
-        impacts.abschange.tt <- d(impacts.abschange[i,,,,drop=FALSE], 2:4)
-  
-        impacts.abschange.tt <- split.deaths(impacts.abschange = impacts.abschange.tt,
-                                             nprev = nprev, 
-                                             impacts.infillpops = impacts.infillpops,
-                                             impacts.infillages = impacts.infillages)
-      }
-      else{
-        
-        impacts.demochange.tt <- NULL
-        
-        impacts.abschange.tt <- NULL
-      }
-      
-      ## ##################################################
-      ## Loop through subpopulations and update size of each
-      
-      for(j in 1:npop){
-        
-        ## ##################################################
-        ## Leslie matrix updating for each subpopulation
-        
-        if(tt > inipop.relyears[j]){
-        
-          if(any(is.na(mean(apply(nbyage[i,j,tt-1,,,drop=FALSE],2,sum))))){browser()} ## Version 2.6: Added drop=FALSE
-        
-          ## print(paste(i,"  ", j, "   ", tt,"         ",mean(apply(nbyage[i,j,tt-1,,],1,sum))))
-          
-          nbyage.prev <- apply(nbyage[i,j,tt-1,,,drop=FALSE], 4:5, identity) ## Added Version 2.6, to get right # dimensions
-          
-          ruij.base <- apply(ru.base[j,tt,,,drop=FALSE], 3:4, identity) ## Added Version 2.6, to get right # dimensions
-          
-          if(is.null(impacts.demochange.tt)){
-            
-            impacts.demochange.ij <- NULL
-          }
-          else{
-          
-            impacts.demochange.ij <- apply(impacts.demochange.tt[j,,,drop=FALSE], 2:3, identity)
-          }
-  
-          if(is.null(impacts.abschange.tt)){
-            
-            impacts.abschange.ij <- NULL
-          }
-          else{
-            
-            impacts.abschange.ij <- apply(impacts.abschange.tt[j,,,drop=FALSE], 2:3, identity)
-          }
-         
-          simbsk <- apply(sim.bskippc[tt,,drop=FALSE], 2, unique) ## Version 2.6: bug fix
-           
-          nbyage[i,j,tt,,] <- leslie.update(demobase.ests = demobase.ests[j,,],
-                                          nbyage.prev = nbyage.prev,
-                                          ddfn = ddfn,
-                                          fn.sim.con = fn.sim.con,
-                                          fn.sim.unc = fn.sim.unc,
-                                          model.demostoch = model.demostoch, 
-                                          model.prodmax = model.prodmax,
-                                          ru.base = ruij.base, 
-                                          impacts.demochange = impacts.demochange.ij,
-                                          impacts.abschange = impacts.abschange.ij,
-                                          sim.bskippc = simbsk, impacted = impacted,
-                                          sim.n = sim.n, afb = afb, mbs = mbs, noround = noround)
-        }
-        
-        ## ##################################################
-      }
-    }
-    
-    ## ##################################################
+    par(ask = TRUE)
+    plot.burnconv(nbyage, nbyage.burned = nbyage.burned, year.first = min(years), afb = afb)
+    par(ask = FALSE)
   }
   
   ## ####################################################
-  ## Stage 8: Aggregate output - sum across populations
+  ## Stage 9a. Baseline reference year
+  ## Added Version 4.7: fixed "baserefyear" to try to work correctly when doing baseline-only runs
   
-  age.names <- output.agetype
-  
-  if(output.agetype == "age.separated"){
+  if(all(impacts.scennames == "baseline")){ ## Added Version 4.7
     
-    age.names <- c("chicks", paste0("immatures.age", 1:(afb - 1)), "breeding.adults")
-    
-    ia <- 1:na
-    
-    mf <- 1
+    baserefyear <- max(inipop.relyears)
   }
   else{
     
-    age.names <- output.agetype
-    
-    ia <- na
-    
-    mf <- (1/2)^(output.agetype == "breeding.pairs") ## Version 2.6: changed "2" to "1/2"
+    baserefyear <- (impacts.year.start - 1)
   }
   
-  aggvals <- mf * apply(nbyage[,,,,ia,drop=FALSE], c(1,3,4,5), sum)
-    
   ## ####################################################
-  ## Stage 9. Create impact metrics table
+  ## Stage 10: Aggregate output - sum across populations
+  ## Extract number of birds for relevant age classes, and sum across subpopulations:
+  ## Rewritten Version 4.7 to a) add option for "whole population";
+  ##                          b) remove M5-M7 calculations for individual age classes
+  ##                          c) add "whole population" results when running individual age classes
+  
+  
+  ## print(output.agetype)
+  
+  if(output.agetype == "age.separated"){
+ 
+    if(afb == 1){ ## Version 4.8 - clause added to deal with "afb = 1"
+      
+      immat.names <- NULL
+    }
+    else{
+      
+      immat.names <- paste0("immatures.age", 1:(afb - 1))
+    }
+      
+    age.names <- c("chicks", immat.names, "breeding.adults", "whole.population") ## names of age classes
+
+    popsize.qe <- popsize.target <- rep(NA, na + 1)
+    
+    if(! is.null(output.popsize.qe)){ popsize.qe[na+1] <- output.popsize.qe }
+    
+    if(! is.null(output.popsize.target)){ popsize.target[na+1] <- output.popsize.target }
+ 
+    aggvals <- array(dim=c(dim(nbyage)[c(1,3,4)],na+1))
+    
+    aggvals[,,,1:na] <- apply(nbyage[,,,,1:na,drop=FALSE], c(1,3,4,5), sum)
+    
+    aggvals[,,,na+1] <- apply(nbyage[,,,,,drop=FALSE], c(1,3,4), sum)
+  }
+  else{
+
+    age.names <- output.agetype
+   
+    popsize.qe <- popsize.target <- NA
+    
+    if(! is.null(output.popsize.qe)){ popsize.qe <- output.popsize.qe }
+    
+    if(! is.null(output.popsize.target)){ popsize.target <- output.popsize.target }
+    
+    if(output.agetype == "whole.population"){
+    
+      aggvals <- array(dim=c(dim(nbyage)[c(1,3,4)],1))
+    
+      aggvals[,,,1] <- apply(nbyage[,,,,,drop=FALSE], c(1,3,4), sum)
+    }
+    
+    if(output.agetype == "breeding.pairs" | output.agetype == "breeding.adults" ){
+      
+      aggvals <- apply(nbyage[,,,,na,drop=FALSE], c(1,3,4,5), sum)
+    }
+    
+    if(output.agetype == "breeding.pairs"){
+      
+      aggvals <- aggvals * (1/2) ## conversion factor that needs to be applied: ## Version 2.6: changed "2" to "1/2"
+    } 
+  }
+
+  ## ####################################################
+  ## Stage 11. Create impact metrics table
   
   ## Version 0.5: added "popsize.qe" and "popsize.target" arguments
   ## Version 0.8: changed to use "baseref.relyear", and "nyears"
+  ## Version 4.7: rewritten to use "popsize.qe" rather than "output.popsize.qe", and ditto for ".target"
+ 
+  if(is.null(aggvals)){ browser() }
   
-  out <- make.impactmetrics.table(ntot= aggvals, scen.names = impacts.scennames, 
+  out <- make.impactmetrics.table(ntot = aggvals, scen.names = impacts.scennames, 
                                   age.names = age.names, 
                                   year.first = year.first, impacts.year.start = impacts.year.start,
-                                  impacts.year.end, 
+                                  impacts.year.end = impacts.year.end,
+                                  baserefyear = baserefyear,
                                   output.year.start = output.year.start,
                                   output.year.end = output.year.end,
-                                  popsize.qe = output.popsize.qe, 
-                                  popsize.target = output.popsize.target)  
+                                  popsize.qe = popsize.qe, 
+                                  popsize.target = popsize.target)  
 
+  ## browser()
+  
   ## ####################################################
-  ## Stage 10. Raw outputs - added Version 3.1
+  ## Stage 12. Raw outputs - added Version 3.1
   
   if(output.raw){
   
@@ -444,7 +465,251 @@ nepva.sim <- function(fn.sim.con, fn.sim.unc, ddfn,
   
   out
 }
+
+## ###################################################################################################################
+## >> leslie.calcs
+## ############################################################################
+#' @title Update Leslie matrix model for all years, scenarios and subpopulations
+## ############################################################################
+## Version 0.8: changed to use "inipop.relyears+1" rather than "2"
+## Version 1.2: changed order to loop over time first...
+## Version 1.8: changed order of loops: now: scenario > time > population
+## Version 4.2: changed so that code is now within new "leslie.calcs" function
+##   (previous was all just in "nepva.sim")
+## Version 4.2: also changed so that counts are initialized to be zero, NOT "NA"
+## ############################################################################
+#' @inheritParams nepva.sim
+#' @param demobase.ests Parameter estimates for the model associated with each demographic rate;
+#'   a matrix of dimension equal to [npop, afb+2, npars], where "npars" denotes the number of parameters
+#'   associated with the parametric model selected using "model.dd", "model.envstoch" and "model.prodmax".
+#'   The first row corresponds to "productivity", the next "afb" rows to survival rates for each
+#'   age from 0 up to afb, and the final row to annual survival rates for individuals beyond age "afb"
+#' @param impacts.demochange Impacts of each scenario on demographic rates for each subpopulation. 
+#'   A four-dimensional array of numeric values of dimension [nscen, npop, sim.n, afb+2].
+#' @param impacts.abschange Impacts of the scenario on numbers in each age class, as an absolute harvest.
+#'   A four-dimensional array of numeric values of dimension [nscen, npop, sim.n, afb+1]..
+#' @param impacts.relyears Years, relative to the year associated with the first initial count, 
+#'   for which the PVA should be run. A vector of integer values.
+## ############################################################################
+#' @return A five-dimensional array, of dimension [nscen, npop, nyears, sim.n, afb+1],
+#' containing the simulated number of individuals of
+#'  each age (0,1,...,afb+), post-breeding (i.e. at the end of the current breeding season), for
+#'  each of "sim.n" simulation runs, for each year, subpopulation and scenario
+## ############################################################################
+#' @export
+
+leslie.calcs <- function(npop, nyears, na, inipop.counts, inipop.relyears, 
+                         demobase.ests, ddfn, fn.sim.con, fn.sim.unc,
+                         model.demostoch, model.prodmax, ru.base, 
+                         sim.bskippc, sim.n, afb, mbs, noround, nscen, 
+                         impacts.relyears, impacts.demochange, impacts.abschange,
+                         impacts.infillpops, impacts.infillages, silent){
   
+  ## ############################################
+  ## Initialize values - NOTE: changed Version 4.2 so values are initialized to zero,
+  ##   not NA. This avoids some technical complexities in dealing with missing values,
+  ##   but means resulting values need to be treated carefully, as colony sizes are 
+  ##   assumed to be zero prior to initialization (which is clearly not plausible - 
+  ##   it is only valid to do this because these values are never actually used in calculations)
+  ## ############################################
+  
+  nbyage <- array(dim=c(nscen, npop, nyears, sim.n, na), data = 0) 
+  
+  for(i in 1:nscen){
+    
+    ## #########################################
+    ## Set up output, and initialize
+    ## ############################################
+    
+    for(j in 1:npop){
+      
+      for(a in 1:na){ 
+        
+        ## Version 3.3: bug fix: "inipop.relyears" > "inipop.relyears[j]"
+        ## Version 4.2: "inipop.counts[a,j]" changed to "inipop.counts[a,,j]"
+        ##    (since now also includes "sim.n" as a dimension)
+        
+        nbyage[i,j,inipop.relyears[j],,a] <- inipop.counts[a,,j] ## 30 Oct 2018: changed from "a" to "a+1"
+      }
+    }
+    
+    ## ############################################
+    
+    for(tt in 2:nyears){
+
+      ## ######################################################
+      
+      if(! silent){
+        
+        print.noquote(paste0("Scenario:", i, " Year: (", tt, "/",nyears,")    ", date()))
+      }
+      
+      ## ######################################################
+      ## Is the impact active in this year
+      
+      impacted <- (tt >= min(impacts.relyears)) & (tt <= max(impacts.relyears))
+      
+      ## ######################################################
+      ## Number of birds from previous year: array of [subpopulations, years, ages]
+      
+      nprev <- d(nbyage[i,,tt-1,,,drop=FALSE], c(2,4,5))
+      
+      ## print(paste(nprev[1,1,], collapse=" "))
+      
+      ## ######################################################
+      ## Simulate scenarios
+      
+      if(impacted){
+        
+        impacts.demochange.tt <- d(impacts.demochange[i,,,,drop=FALSE], 2:4)
+        
+        impacts.abschange.tt <- d(impacts.abschange[i,,,,drop=FALSE], 2:4)
+        
+        if(any(nprev < 0)){print("ZIT"); browser()}
+        
+        impacts.abschange.tt <- try(split.deaths(impacts.abschange = impacts.abschange.tt,
+                                                 nprev = nprev, 
+                                                 impacts.infillpops = impacts.infillpops,
+                                                 impacts.infillages = impacts.infillages), silent = TRUE)
+      }
+      else{
+        
+        impacts.demochange.tt <- NULL
+        
+        impacts.abschange.tt <- NULL
+      }
+      
+      ## ##################################################
+      ## Loop through subpopulations and update size of each
+      
+      if(inherits(impacts.abschange.tt, "try-error")){
+        
+        print.noquote("Leslie matrix calculations truncated prematurely, due to failure to split absolute harvest!")
+      }
+      else{
+        
+        for(j in 1:npop){
+        
+         ## ##################################################
+         ## Leslie matrix updating for each subpopulation
+        
+         if(tt > inipop.relyears[j]){
+          
+           ## if(any(is.na(mean(apply(nbyage[i,j,tt-1,,,drop=FALSE],2,sum))))){browser()} ## Version 2.6: Added drop=FALSE
+          
+          ## print(paste(i,"  ", j, "   ", tt,"         ",mean(apply(nbyage[i,j,tt-1,,],1,sum))))
+
+          nbyage.prev <- apply(nbyage[i,j,tt-1,,,drop=FALSE], 4:5, identity) ## Added Version 2.6, to get right # dimensions
+          
+          ## if(any(is.na(nbyage.prev)|is.nan(nbyage.prev))){ browser() }
+          
+          ruij.base <- apply(ru.base[j,tt,,,drop=FALSE], 3:4, identity) ## Added Version 2.6, to get right # dimensions
+          
+          ret3minus1 <- function(y,m){ out <- y ;  if(! is.null(y)){ out <- apply(y[m,,,drop=FALSE], 2:3, identity) } ; out }
+          
+          ret2minus1 <- function(y,m){ out <- y ;  if(! is.null(y)){ out <- apply(y[m,,drop=FALSE], 2, unique) } ; out }
+          
+          impacts.demochange.ij <- ret3minus1(impacts.demochange.tt, m = j) ## Tidied Version 4.2
+          
+          impacts.abschange.ij <- ret3minus1(impacts.abschange.tt, m = j) ## Tidied Version 4.2
+          
+          simbsk <- ret2minus1(sim.bskippc, m = tt) ## Version 2.6: bug fix; tidied Version 4.2; bug fix Version 4.3
+ 
+          nbyage[i,j,tt,,] <- leslie.update(demobase.ests = demobase.ests[j,,],
+                                            nbyage.prev = nbyage.prev,
+                                            ddfn = ddfn,
+                                            fn.sim.con = fn.sim.con,
+                                            fn.sim.unc = fn.sim.unc,
+                                            model.demostoch = model.demostoch, 
+                                            model.prodmax = model.prodmax,
+                                            ru.base = ruij.base, 
+                                            impacts.demochange = impacts.demochange.ij,
+                                            impacts.abschange = impacts.abschange.ij,
+                                            sim.bskippc = simbsk, impacted = impacted,
+                                            sim.n = sim.n, afb = afb, mbs = mbs, noround = noround)
+          }
+        
+          ## ##################################################
+        }
+      }
+    }
+    
+    ## ##################################################
+  }
+  
+  ## ##################################################
+  
+  nbyage
+}
+
+## ###################################################################################################################
+## >> inits.burned
+## ############################################################################
+#' @title Calculate initial population sizes for a "full" run of the Leslie matrix
+#'   PVA, based on outputs from a burn-in PVA
+## ############################################################################
+## Created 12 August 2019, last modified 12 August 2019
+## ############################################################################
+#' @param nbyage.burned Number of birds in a baseline simulation for a burn-in period.
+#'   An array of dimension [nscen, npop, nburn.adj, sim.n, na], where 
+#'     'nscen' = number of simulations (must be one for this function to make sense);
+#'     'npop' = number of subpopulations
+#'     'nburn.adj' = number of years in burn-in period
+#'     'sim.n' = number of simulation runs
+#'     'na' = number of age classes within Leslie matrix model
+#' @param inipop.totals Total initial population size (summed across all ages);
+#'     a vector of length 'npop', containing one (integer) value for each subpopulation 
+## ############################################################################
+#' @return An array of dimension [na, sim.n, npop], containing the initial population
+#'     sizes for each age class, in each simulation, in each subpopulation
+## ############################################################################
+#' @export
+
+inits.burned <- function(nbyage.burned, inipop.totals){
+  
+  ## ########################################
+  ## Extract dimensions
+  
+  npop <- dim(nbyage.burned)[2]
+  
+  nburn.adj <- dim(nbyage.burned)[3]
+  
+  sim.n <- dim(nbyage.burned)[4]
+  
+  na <- dim(nbyage.burned)[5]
+  
+  ## ########################################
+  ## Simulated number of birds in each combination age class, subpopulation and simulation run,
+  ##   in the final year of the burn-in period
+  
+  nbyage.burn <- apply(nbyage.burned[1,,nburn.adj,,,drop=FALSE], c(2,4,5), unique)
+  
+  ## ########################################
+  ## If there are zero values during the burn-in then it cannot be used to fix the age structure
+  
+  if(any(nbyage.burn == 0)){ stop("Error! Zero values during burn-in...") } ## Version 4.4: error message updated
+  
+  ## ########################################
+  ## Calculate proportion of birds in each age class, for each subpopulation and simulation run
+  
+  pbyage.burn <- apply(nbyage.burn, 1:2, function(x){x/sum(x)})
+  
+  ## ########################################
+  ## Multiply these by total initial counts for each subpopulation, in order to obtain age-specific
+  ##  initial counts
+  
+  out <- array(dim = c(na, sim.n, npop))
+  
+  for(i in 1:npop){ for(z in 1:sim.n){ 
+    
+    out[,z,i] <- round(inipop.totals[i] * pbyage.burn[,i,z])
+  }}
+ 
+  ## ########################################
+  
+  out
+}
+
 ## ###################################################################################################################
 ## >> leslie.update
 ## ############################################################################
@@ -481,6 +746,8 @@ leslie.update <- function(demobase.ests, nbyage.prev,
                           ru.base, impacts.abschange, impacts.demochange,
                           sim.bskippc, impacted, afb, mbs, sim.n, noround){
 
+  ## if(any(demobase.ests[,,2] < 0)){ print("TIM!") ; browser() ; stop("Missing population sizes in output!") } ## error message added Version 4.4
+  
   ## #################################################################
   ## "Maybe round": added Version 3.2 to allow option to run without rounding
   
@@ -522,11 +789,14 @@ leslie.update <- function(demobase.ests, nbyage.prev,
     
   for(k in 1:na){
       
-    ## Simulate survival probabilities:
+    ## "Simulate" survival probabilities:
     
     psim <- fn.sim.con(ru = ru.base[,k+1], pars = as.numeric(c(demobase.ests[k+1,])), 
                        popsize = nadult.prev, ddfn = ddfn) 
       
+    ## Version 4.6: added error message:
+    if(any(is.nan(psim)|is.na(psim))){ stop("Invalid survival probabilities simulated!")}
+    
     ## If there are no adults alive, automatically set 
     ##   all survival probabilities to zero:
     
@@ -552,7 +822,7 @@ leslie.update <- function(demobase.ests, nbyage.prev,
   p.surv[p.surv < 0] <- 0  ## Added Version 0.5 ## Changed Version 0.7
     
   p.surv[p.surv > 1] <- 1 ## Changed Version 0.7
-    
+ 
   ## #####################
   ## Step 1d. Simulate number of individuals surviving from previous winter
     
@@ -570,6 +840,8 @@ leslie.update <- function(demobase.ests, nbyage.prev,
     }
   }
     
+  ## if(any(is.na(nbyage[,-1]))){ print("NOOOOOOOOOO") ; browser() }
+  
   ## Individuals that were previously adults (age "afb" or higher):
   
   if(! model.demostoch){
@@ -582,9 +854,14 @@ leslie.update <- function(demobase.ests, nbyage.prev,
   }
   
   ## Sum together existing adults and newly recruited adults:
-    
-  nbyage[,na] <- nbyage[,na,drop=FALSE] + nextra ## 4 Jan 2019: added " '- nremoved' term"
-    
+  
+  frot <- nbyage[,na,drop=FALSE]
+  
+  ## Version 4.6: added error message
+  if(max(frot) > 1e+08){ stop("Population size explosion - will lead to numerical overflow")}
+  
+  nbyage[,na] <- frot + nextra ## 4 Jan 2019: added " '- nremoved' term"
+  
   ## #####################
   ## Stage 1e. Absolute harvest of adults and immatures
   ## Note that the absolute harvest is specified as a *reduction* in numbers,
@@ -611,8 +888,9 @@ leslie.update <- function(demobase.ests, nbyage.prev,
   ##   based on number that skip breeding
   ## Added Version 1.1, on 4 Jan 2019
   ## Version 2.7: moved
+  ## Version 4.1: added "floor"
   
-  ntotal.actualbreedpairs <- ntotal.breedpairs * (1 - (sim.bskippc/100))
+  ntotal.actualbreedpairs <- floor(ntotal.breedpairs * (1 - (sim.bskippc/100)))
   
   ## #####################
   ## Step 2c. Number of adults
@@ -640,6 +918,9 @@ leslie.update <- function(demobase.ests, nbyage.prev,
     p.prod <- fn.sim.unc(ru = ru.base[,1], pars = as.numeric(c(demobase.ests[1,])), popsize = ntotal.adults, ddfn = ddfn)
   }
     
+  ## Version 4.6: added error message:
+  if(any(is.nan(p.prod)|is.na(p.prod))){ stop("Invalid productivity rates simulated!")}
+
   p.prod[ntotal.adults == 0] <- 0 ## Added Version 0.7
     
   ## #####################
@@ -708,6 +989,15 @@ leslie.update <- function(demobase.ests, nbyage.prev,
   ## #####################
   
   ## print(paste(mean(p.surv), mean(p.prod)))
+  
+  if(any(is.na(nbyage))){ stop("Missing population sizes in output!") } ## error message added Version 4.4
+  
+  ## #####################
+  ## Stage 3f. Get rid of negative values - added Version 4.6
+  
+  nbyage <- nbyage * (nbyage > 0)
+  
+  ## #####################
   
   nbyage
 }
@@ -779,6 +1069,9 @@ split.deaths <- function(impacts.abschange, nprev, impacts.infillpops, impacts.i
     
       sum.overpops <- c(apply(nprevs, 2, sum)) ## Total (summed across populations) in each simulation
        
+      ## Added Version 4.6:
+      if(any(sum.overpops == 0)){ stop("Cannot split absolute harvest - empty column sums...")}
+      
       ## ###############
       ## Proportion of individuals in each simulation, within this age class,
       ##   that arise from each population i=1,...,npop:
@@ -802,6 +1095,8 @@ split.deaths <- function(impacts.abschange, nprev, impacts.infillpops, impacts.i
       
         if(nkilled[k] > 0){
         
+          if(any(is.na(ppop[,k]) | ppop[,k] < 0)){ print("A") ; browser() }
+          
           tmp[,k,j] <- c(rmultinom(1, nkilled[k], ppop[,k]))
         }
       }
@@ -831,7 +1126,10 @@ split.deaths <- function(impacts.abschange, nprev, impacts.infillpops, impacts.i
       nprevs <- d(nprev[i,,-1,drop=FALSE], 2:3)
       
       sum.overages <- c(apply(nprevs, 1, sum))
-  
+
+      ## Added Version 4.6:
+      if(any(sum.overages == 0)){ stop("Cannot split absolute harvest - empty column sums...")}
+      
       ## ###############
       ## Proportion of individuals in each simulation, within the current subpopulation,
       ##   that arise from each age class
@@ -855,6 +1153,8 @@ split.deaths <- function(impacts.abschange, nprev, impacts.infillpops, impacts.i
         
         if(nkilled[k] > 0){
         
+          if(any(page[k,] < 0 | is.na(page[k,]))){ print("B") ; browser() }
+          
           tmp[i,k,-1] <- c(rmultinom(1, nkilled[k], page[k,]))
         }
       }
@@ -902,6 +1202,8 @@ split.deaths <- function(impacts.abschange, nprev, impacts.infillpops, impacts.i
 ##              4) changed to add in outputs for additional quantiles
 ## - Version 1.3: ntot has dimension [nscen, nsim, nages]
 ## - Version 2.8: bug fixes
+## - Version 4.7: added explicit "baserefyear" argument
+##              : changed so that "popsize.qe" and "popsize.target" are vectors, and never NULL
 ## #############################################################
 ## ####################################################################
 #' @inheritParams make.summary.table
@@ -923,8 +1225,9 @@ split.deaths <- function(impacts.abschange, nprev, impacts.infillpops, impacts.i
 
 make.impactmetrics.table <- function(ntot, scen.names, age.names, 
                                      year.first, impacts.year.start, impacts.year.end,
+                                     baserefyear,
                                      output.year.start, output.year.end,
-                                     popsize.qe = NULL, popsize.target = NULL){
+                                     popsize.qe, popsize.target){
   
   ## #############################################################
   ## Output years - added Version 1.3, reordered Version 2.8
@@ -955,7 +1258,9 @@ make.impactmetrics.table <- function(ntot, scen.names, age.names,
   
   if(! is.null(kb)){
   
-    brry <- impacts.relyear.start - 1 ## changed Version 0.8, renamed from "ib" in Version 1.3
+    brry <- baserefyear - year.first + 1 ## Changed Version 4.7
+    
+    ## brry <- impacts.relyear.start - 1 ## changed Version 0.8, renamed from "ib" in Version 1.3
   }
 
   ## #############################################################
@@ -964,7 +1269,19 @@ make.impactmetrics.table <- function(ntot, scen.names, age.names,
   nages <- length(age.names) # Added Version 1.3
   
   ## Version 3.1: changed to add "..." statement (needed to extend to quantiles)
-  fnrat <- function(x,y,fn,...){fn((x/y)[y > 0],...)} ## Version 1.3: generalized beyond "median"
+  fnrat <- function(x,y,fn,...){
+    
+    if(any(is.na(x) | is.na(y) | is.nan(x) | is.nan(y) | is.infinite(x) | is.infinite(y))){ ## Version 4.8 - added clause
+      
+      out <- NA
+    }
+    else{
+    
+      out <- fn((x/y)[y > 0],...) ## Version 1.3: generalized beyond "median"
+    } 
+    
+    out
+  }
   
   ## #############################################################
   
@@ -992,7 +1309,7 @@ make.impactmetrics.table <- function(ntot, scen.names, age.names,
       ## ###################
       ## "Reference" year
       
-      tmp$Baseyear <- (output.years[i] == (impacts.year.start - 1))
+      tmp$Baseyear <- baserefyear ## (output.years[i] == (impacts.year.start - 1)) ## Changed Version 4.7
       
       ## ###################
       ## Is the impact currently operating? (TRUE/FALSE)
@@ -1031,6 +1348,12 @@ make.impactmetrics.table <- function(ntot, scen.names, age.names,
       ## Projected population sizes for this age and year; this
       ##  lines yield a matrix of [scenarios, simulations]
       
+      ## print("-----------------------")
+      ## print(paste(dim(ntot), collapse = ";"))
+      ## print(paste(ic, collapse=";"))
+      ## print(j)
+      ## if((j > (dim(ntot)[4])) | any(ic > dim(ntot)[2])){ browser() }
+      
       ntots <- d(ntot[,ic,,j,drop=FALSE], c(1,3)) 
       
       ## Produce summary across simulations for each summary:
@@ -1040,6 +1363,17 @@ make.impactmetrics.table <- function(ntot, scen.names, age.names,
       colnames(sumy) <- sumynames
  
       tmp <- cbind(tmp, sumy)      
+
+      ## #############################################################
+      ## Moved
+      
+      tmp$pgr.median <- rep(NA,ns) ; tmp$pgr.mean <- rep(NA,ns) ; tmp$pgr.sd <- rep(NA,ns) ; tmp$pgr.cilo <- rep(NA,ns) ; tmp$pgr.cihi <- rep(NA,ns)
+      tmp$agr.median <- rep(NA,ns) ; tmp$agr.mean <- rep(NA,ns) ; tmp$agr.sd <- rep(NA,ns) ; tmp$agr.cilo <- rep(NA,ns) ; tmp$agr.cihi <- rep(NA,ns)
+      tmp$ppc.median <- rep(NA,ns) ; tmp$ppc.mean <- rep(NA,ns) ; tmp$ppc.sd <- rep(NA,ns) ; tmp$ppc.cilo <- rep(NA,ns) ; tmp$ppc.cihi <- rep(NA,ns)
+      
+      tmp$m1.median <- rep(NA,ns) ; tmp$m1.mean <- rep(NA,ns) ; tmp$m1.sd <- rep(NA,ns) ; tmp$m1.cilo <- rep(NA,ns) ; tmp$m1.cihi <- rep(NA,ns)
+      tmp$m2.median <- rep(NA,ns) ; tmp$m2.mean <- rep(NA,ns) ; tmp$m2.sd <- rep(NA,ns) ; tmp$m2.cilo <- rep(NA,ns) ; tmp$m2.cihi <- rep(NA,ns)
+      tmp$m3 <- rep(NA,ns) ; tmp$m4 <- rep(NA,ns) ; tmp$m5 <- rep(NA,ns) ; tmp$m6 <- rep(NA,ns)
       
       ## #############################################################
 
@@ -1084,43 +1418,52 @@ make.impactmetrics.table <- function(ntot, scen.names, age.names,
           ## Population growth rate summaries - added Version 3.1
           ## NOTE: this is overall growth, not annual growth rate
           
-          tmp$pgr.median[ks] <- median(pgr.scenario)
+          if(all(! (is.na(pgr.scenario) | is.nan(pgr.scenario)))){ ## Version 4.8 - added clause
           
-          tmp$pgr.mean[ks] <- mean(pgr.scenario)
+            tmp$pgr.median[ks] <- median(pgr.scenario) 
           
-          tmp$pgr.sd[ks] <- sd(pgr.scenario)
+            tmp$pgr.mean[ks] <- mean(pgr.scenario) 
           
-          tmp$pgr.cilo[ks] <- quantile(pgr.scenario, 0.025)
+            tmp$pgr.sd[ks] <- sd(pgr.scenario)
           
-          tmp$pgr.cihi[ks] <- quantile(pgr.scenario, 0.975)
-
+            tmp$pgr.cilo[ks] <- quantile(pgr.scenario, 0.025)
+          
+            tmp$pgr.cihi[ks] <- quantile(pgr.scenario, 0.975) ## added 3 Dec 2019
+          }
+  
           ## #############################################################
           ## Annualized growth rate summaries - added Version 3.2
 
-          tmp$agr.median[ks] <- median(agr.scenario)
+          if(all(! (is.na(agr.scenario) | is.nan(agr.scenario)))){ ## Version 4.8 - added clause
+            
+            tmp$agr.median[ks] <- median(agr.scenario)
           
-          tmp$agr.mean[ks] <- mean(agr.scenario)
+            tmp$agr.mean[ks] <- mean(agr.scenario)
           
-          tmp$agr.sd[ks] <- sd(agr.scenario)
+            tmp$agr.sd[ks] <- sd(agr.scenario)
           
-          tmp$agr.cilo[ks] <- quantile(agr.scenario, 0.025)
+            tmp$agr.cilo[ks] <- quantile(agr.scenario, 0.025)
           
-          tmp$agr.cihi[ks] <- quantile(agr.scenario, 0.975)
+            tmp$agr.cihi[ks] <- quantile(agr.scenario, 0.975)
+          }
           
           ## #############################################################
           ## Percentage population change - added Version 3.1
           
           ppc <- 100 * (ntot.scen.cur - ntot.scen.ref) / ntot.scen.ref
           
-          tmp$ppc.median[ks] <- median(ppc)
+          if(all(! (is.na(ppc) | is.nan(ppc)))){ # Version 4.8 - added clause
+          
+            tmp$ppc.median[ks] <- median(ppc)
 
-          tmp$ppc.mean[ks] <- median(ppc)
+            tmp$ppc.mean[ks] <- median(ppc)
           
-          tmp$ppc.sd[ks] <- sd(ppc)
+            tmp$ppc.sd[ks] <- sd(ppc)
           
-          tmp$ppc.cilo[ks] <- quantile(ppc, 0.025)
+            tmp$ppc.cilo[ks] <- quantile(ppc, 0.025)
           
-          tmp$ppc.cihi[ks] <- quantile(ppc, 0.975)
+            tmp$ppc.cihi[ks] <- quantile(ppc, 0.975)
+          }
           
           ## #############################################################
           ## Calculate metrics
@@ -1169,20 +1512,23 @@ make.impactmetrics.table <- function(ntot, scen.names, age.names,
           ## Metric M4. The probability of decline in population size (expressed as a %), 
           ##  over specified future time intervals
           
-          tmp$m4[ks] <- 100 * mean(ntot.scen.cur < ntot.base.cur) ## Version 0.6: fixed
+          ## Version 4.9: ** changed **
+          
+          tmp$m4[ks] <- 100 * mean(ntot.scen.cur <= median(ntot.base.cur)) ## Version 0.6: fixed
           
           ## ##################################
           ## Metric M5. The risk of extinction or quasi-extinction, over a 
           ##  specified future time interval
           ## ##################################
           
-          if(is.null(popsize.qe)){ ## Version 1.3: code reordered to improve internal logic
+          ## Version 4.7: changed so that "popsize.qe" is now a vector, and NA if not used
+          if(is.na(popsize.qe[j])){ ## Version 1.3: code reordered to improve internal logic
             
             tmp$m5[ks] <- NA
           }
           else{
           
-            tmp$m5[ks] <- 100 * mean(ntot.scen.cur < popsize.qe)
+            tmp$m5[ks] <- 100 * mean(ntot.scen.cur < popsize.qe[j]) ## Version 4.8: added "[j]" subscript
           }
           
           ## ##################################
@@ -1191,14 +1537,15 @@ make.impactmetrics.table <- function(ntot, scen.names, age.names,
           ## ##################################
           
           ## Version 3.1: bug fix: "popsize.target" was wrongly "popsize.qe" in "if" clause
+          ## Version 4.7: changed so that "popsize.qe" is now a vector, and NA if not used
           
-          if(is.null(popsize.target)){ ## Version 1.3: code reordered to improve internal logic  
+          if(is.na(popsize.target[j])){ ## Version 1.3: code reordered to improve internal logic  
           
             tmp$m6[ks] <- NA
           }
           else{
           
-            tmp$m6[ks] <- 100 * mean(ntot.scen.cur > popsize.target)
+            tmp$m6[ks] <- 100 * mean(ntot.scen.cur > popsize.target[j]) ## Version 4.8: added "[j]" subscript
           }
           
           ## ##################################
@@ -1206,14 +1553,7 @@ make.impactmetrics.table <- function(ntot, scen.names, age.names,
       }
       else{
         
-        tmp$pgr.median <- NA ; tmp$pgr.mean <- NA ; tmp$pgr.sd <- NA ; tmp$pgr.cilo <- NA ; tmp$pgr.cihi <- NA
-        tmp$agr.median <- NA ; tmp$agr.mean <- NA ; tmp$agr.sd <- NA ; tmp$agr.cilo <- NA ; tmp$agr.cihi <- NA
-        tmp$ppc.median <- NA ; tmp$ppc.mean <- NA ; tmp$ppc.sd <- NA ; tmp$ppc.cilo <- NA ; tmp$ppc.cihi <- NA
-      
-        tmp$m1.median <- NA ; tmp$m1.mean <- NA ; tmp$m1.sd <- NA ; tmp$m1.cilo <- NA ; tmp$m1.cihi <- NA
-        tmp$m2.median <- NA ; tmp$m2.mean <- NA ; tmp$m2.sd <- NA ; tmp$m2.cilo <- NA ; tmp$m2.cihi <- NA
-        tmp$m3 <- NA ; tmp$m4 <- NA ; tmp$m5 <- NA ; tmp$m6 <- NA
-      }
+       }
       
       out <- rbind(out, tmp)
     }
@@ -1231,5 +1571,99 @@ make.impactmetrics.table <- function(ntot, scen.names, age.names,
 ##    a vector of integers
 
 d <- function(x,cp){ apply(x, cp, unique) }
+
+## ##############################################################################
+## >> plot.burnconv
+## ##############################################################################
+#' @title Plot convergence of the age structure, during and beyond the burn-in period
+## ##############################################################################
+## Added Version 4.2, on 12 August 2019
+## ##############################################################################
+#' @inheritParams nepva.fullrun
+#' @param nbyage A five-dimensional array, of dimension [nscen, npop, nyears, sim.n, na],
+#'   containing the simulated number of birds in each combination of scenario, subpopulation, year,
+#'   simulation run and age class, in the "main" PVA run - i.e. after the burn-in
+#' @param nbyage.burned A five-dimensional array, of dimension [nscen, npop, nburn.adj, sim.n, na],
+#'   containing the simulated number of birds in each combination of scenario, subpopulation, year,
+#'   simulation run and age class, in the "burn-in" run. Note that "nscen = 1" always for the
+#'   burn-in run. The number of years, "nburn.adj", is equal to the value of "nburn" specified by the
+#'   user, plus the number of years needed to ensure all subpopulations are initialized.
+#' @param year.first Year associated with the start of the main run; an integer   
+## ############################################################################
+#' @return The value returned is NULL; the function is run for the side-effect that
+#'  it produces a plot
+#' @export
+
+plot.burnconv <- function(nbyage, nbyage.burned, year.first, afb){
+  
+  ## ########################################
+  ## Calculate age structure for each year 
+  ##  (summed across subpopulations, and then averaged across simulation runs)
+  
+  pa <- baseagestruc(nbyage)
+  
+  nyears <- dim(nbyage)[3]
+  
+  if(! is.null(nbyage.burned)){
+    
+    pa <- cbind(baseagestruc(nbyage.burned), pa)
+    
+    nburn.adj <- dim(nbyage.burned)[3]
+  }
+  else{
+    
+    nburn.adj <- 0
+  }
+
+  ## ########################################
+  
+  years <- year.first + 0:(nyears-1)
+  
+  yo <- seq(ceiling(years[1]/5)*5, years[nyears], 5)
+  
+  xo <- nburn.adj + match(yo, years)
+  
+  {if(nburn.adj > 10){
+    
+    xo <- c(nburn.adj/2, xo)
+    yo <- c("Burn-in", yo)
+  }}
+  
+  ## ########################################
+  
+  cols <- rainbow(round((afb+1)*1.2))[1:(afb+1)]
+  
+  barplot(pa, space=0, col=cols, axes=FALSE, border = gray(0.8),
+          xlab = "Year", ylab="Age structure (%)", cex.axis=1.22, cex.lab=1.22)
+  
+  axis(1, at = xo, labels = yo)
+  
+  axis(2, at = seq(0,1,0.2), labels = seq(0,100,20), cex.axis = 1.22, cex.lab = 1.22)
+  
+  lines(rep(nburn.adj+0.5,2),c(0,1.1),lwd=2.5,lty=3)
+  lines(rep(nburn.adj,2),c(0,1.1),lwd=2.5,lty=3,col="white")
+  
+  legend(0.6 * nyears, 0.9, c(0:(afb-1), paste0(afb,"+")), 
+         bg="white", fill=cols, title="Age class") ## bug fix Version 4.13
+  
+  ## ########################################
+  
+  NULL
+}
+
+## ############################################################################
+## Calculate age structure for each year 
+##  (summed across subpopulations, and then averaged across simulation runs)
+## 
+## Added Version 4
+
+baseagestruc <- function(y){ 
+  
+  z <- apply(apply(y[1,,,,,drop=FALSE], 3:5, sum), c(1,3), mean)
+  
+  apply(z, 1, function(x){x/sum(x)})
+}
+
+## ############################################################################
 
 ## ############################################################################

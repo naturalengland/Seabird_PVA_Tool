@@ -17,7 +17,7 @@ nepva.calcs.main <- function(inputs, demomods){
   ## nepva.errorcheck(inputs)
   
   inputs.adj <- nepva.preprocess(inputs = inputs, demomods = demomods)
-  
+
   out <- nepva.sim(ddfn = inputs.adj$ddfn, fn.sim.con = inputs.adj$fn.sim.con,
                    fn.sim.unc = inputs.adj$fn.sim.unc,
                    model.demostoch = inputs.adj$model.demostoch, 
@@ -26,6 +26,7 @@ nepva.calcs.main <- function(inputs, demomods){
                    mbs = inputs.adj$mbs, 
                    npop = inputs.adj$npop, 
                    nscen = inputs.adj$nscen, 
+                   nburn = inputs.adj$nburn,
                    sim.n = inputs.adj$sim.n, 
                    sim.seed = inputs.adj$sim.seed, 
                    impacts.matchscens = inputs.adj$impacts.matchscens, 
@@ -54,5 +55,6 @@ nepva.calcs.main <- function(inputs, demomods){
   
   out
 }
+
 
 ## ###################################################################################################################
