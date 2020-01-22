@@ -7,12 +7,12 @@ params:
   d: NA
   ui_ver: NA
   pva_ver: NA
+  release_ver: NA
 ---
 
 # Set up 
-The log file was created on: `r params$d`  
-
-R version `r getRversion()`, PVA package version: `r pva_ver` (with UI version `r ui_ver`)
+The log file was created on: `r params$d` using Tool version `r release_ver`, 
+with R version `r getRversion()`, PVA package version: `r pva_ver` (with UI version `r ui_ver`)
 
 ```{r Package information, echo=FALSE}
 packinfo <- installed.packages(fields = c("Package", "Version"))

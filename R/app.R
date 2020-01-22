@@ -1,8 +1,8 @@
 ## ########################################################################################
 ## Project: NEC06986
 ## Script purpose: NE PVA Tool interface
-## Date v1 release: January 2020
-## Author: Centre for Ecology & Hydrology
+## Date v2.0 release: January 2020
+## Author: UK Centre for Ecology & Hydrology
 ## Author: BioSS
 ## ########################################################################################
 
@@ -42,7 +42,7 @@ modeoptions <<- read.csv(file.path("Rpackage","ModeOptions.csv",fsep=.Platform$f
 # Version numbers
 pva_ver <- 4.13
 ui_ver <- 1.6
-release_ver <- 1.0
+release_ver <- 2.0
 
 # Set some global values
 maxnpop <- 10
@@ -838,10 +838,9 @@ ui <- dashboardPage(skin = "green",
                                             style="font-weight: bold;color:#000;"), "(opens in a new browser tab)")
                         ),
                         shinydashboard::box(title="Version ", status = "warning", width = 4, solidHeader = FALSE, collapsible = FALSE, collapsed = FALSE,
-                                            tags$p("This is the most recent experimental version of the PVA tool. This version is currently undergoing testing
-                             and is available on a use-at-your-own-risk basis, with no support or guarantee provided during this phase.
-                             For documentation of changes and comments, see", tags$a("Github", href = "https://github.com/naturalengland/Seabird_PVA_Tool", target="_blank",
-                                                                                     style="font-weight: bold;color:#000;"), "(opens in a new browser tab)"), tags$p("Tool v",release_ver," (Code: v",pva_ver," Interface: v",ui_ver,")")
+                                            tags$p("Tool v",release_ver," (Code: v",pva_ver," Interface: v",ui_ver,")",
+                                            tags$p("This is the most recent version of the tool and is available on a use-at-your-own-risk basis. For documentation of changes, issues and comments, see",
+                                                   tags$a("Github", href = "https://github.com/naturalengland/Seabird_PVA_Tool", target="_blank", style="font-weight: bold;color:#000;"), "(opens in a new browser tab)"))
                         ),
                         shinydashboard::box(title="Licence", status = "info", width = 4, solidHeader = FALSE, collapsible = FALSE, collapsed = FALSE,
                                             tags$p("This tool is published by Natural England under the Open Government Licence - OGLv3.0
@@ -2264,11 +2263,11 @@ server <- function(input, output, session) {
       updateNumericInput(session, "imp_pr_mn_3_1", value = 0.0)
       updateNumericInput(session, "imp_pr_mn_4_1", value = 0.0)
       updateNumericInput(session, "imp_pr_mn_5_1", value = 0.0)
-      updateNumericInput(session, "imp_ad_mn_1_1", value = 0.05)
-      updateNumericInput(session, "imp_ad_mn_2_1", value = 0.097)
-      updateNumericInput(session, "imp_ad_mn_3_1", value = 0.19)
-      updateNumericInput(session, "imp_ad_mn_4_1", value = 0.29)
-      updateNumericInput(session, "imp_ad_mn_5_1", value = 0.49)
+      updateNumericInput(session, "imp_ad_mn_1_1", value = 0.0005)
+      updateNumericInput(session, "imp_ad_mn_2_1", value = 0.00097)
+      updateNumericInput(session, "imp_ad_mn_3_1", value = 0.0019)
+      updateNumericInput(session, "imp_ad_mn_4_1", value = 0.0029)
+      updateNumericInput(session, "imp_ad_mn_5_1", value = 0.0049)
       updateNumericInput(session, "imp_pr_se_1_1", value = NA)
       updateNumericInput(session, "imp_pr_se_2_1", value = NA)
       updateNumericInput(session, "imp_pr_se_3_1", value = NA)
@@ -2363,11 +2362,11 @@ server <- function(input, output, session) {
       updateNumericInput(session, "imp_pr_mn_3_1", value = 0.0)
       updateNumericInput(session, "imp_pr_mn_4_1", value = 0.0)
       updateNumericInput(session, "imp_pr_mn_5_1", value = 0.0)
-      updateNumericInput(session, "imp_ad_mn_1_1", value = 0.05)
-      updateNumericInput(session, "imp_ad_mn_2_1", value = 0.097)
-      updateNumericInput(session, "imp_ad_mn_3_1", value = 0.19)
-      updateNumericInput(session, "imp_ad_mn_4_1", value = 0.29)
-      updateNumericInput(session, "imp_ad_mn_5_1", value = 0.49)
+      updateNumericInput(session, "imp_ad_mn_1_1", value = 0.0005)
+      updateNumericInput(session, "imp_ad_mn_2_1", value = 0.00097)
+      updateNumericInput(session, "imp_ad_mn_3_1", value = 0.0019)
+      updateNumericInput(session, "imp_ad_mn_4_1", value = 0.0029)
+      updateNumericInput(session, "imp_ad_mn_5_1", value = 0.0049)
       updateNumericInput(session, "imp_pr_se_1_1", value = NA)
       updateNumericInput(session, "imp_pr_se_2_1", value = NA)
       updateNumericInput(session, "imp_pr_se_3_1", value = NA)
@@ -2537,11 +2536,11 @@ server <- function(input, output, session) {
       updateNumericInput(session, "imp_pr_mn_3_1", value = 0.0)
       updateNumericInput(session, "imp_pr_mn_4_1", value = 0.0)
       updateNumericInput(session, "imp_pr_mn_5_1", value = 0.0)
-      updateNumericInput(session, "imp_ad_mn_1_1", value = 0.05)
-      updateNumericInput(session, "imp_ad_mn_2_1", value = 0.097)
-      updateNumericInput(session, "imp_ad_mn_3_1", value = 0.19)
-      updateNumericInput(session, "imp_ad_mn_4_1", value = 0.29)
-      updateNumericInput(session, "imp_ad_mn_5_1", value = 0.49)
+      updateNumericInput(session, "imp_ad_mn_1_1", value = 0.0005)
+      updateNumericInput(session, "imp_ad_mn_2_1", value = 0.00097)
+      updateNumericInput(session, "imp_ad_mn_3_1", value = 0.0019)
+      updateNumericInput(session, "imp_ad_mn_4_1", value = 0.0029)
+      updateNumericInput(session, "imp_ad_mn_5_1", value = 0.0049)
       updateNumericInput(session, "imp_pr_se_1_1", value = NA)
       updateNumericInput(session, "imp_pr_se_2_1", value = NA)
       updateNumericInput(session, "imp_pr_se_3_1", value = NA)
