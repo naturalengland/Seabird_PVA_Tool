@@ -453,7 +453,9 @@ create.impactmat <- function(prod, survimmat, survadult,
       ## Otherwise, if (impacts.relative = TRUE), assume adult survival rates
       ##  can also be applied to immatures:
       
-      if(is.null(survimmat) & (! impacts.relative)){ out[ids,idpa,j] <- survadult } 
+      ## VERSION 4.14 - bug fix - "! impacts.relative" changed to "impacts.relative"
+      
+      if(is.null(survimmat) & (impacts.relative)){ out[ids,idpa,j] <- survadult } 
     }
 
     ## ####################
