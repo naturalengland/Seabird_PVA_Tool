@@ -1,6 +1,6 @@
 ## ########################################################################################
 ## Project: NEC06986
-## Script purpose: NE PVA Tool interface
+## Script purpose: PVA Tool interface
 ## Date v2.0 release: January 2020
 ## Author: UK Centre for Ecology & Hydrology
 ## Author: BioSS
@@ -40,8 +40,8 @@ lookup <<- list(Spmeta = read.csv(file.path("Rpackage","lookup-spmeta.csv",fsep=
 modeoptions <<- read.csv(file.path("Rpackage","ModeOptions.csv",fsep=.Platform$file.sep))
 
 # Version numbers
-pva_ver <- 4.13
-ui_ver <- 1.6
+pva_ver <- 4.14
+ui_ver <- 1.7
 release_ver <- 2.0
 
 # Set some global values
@@ -71,7 +71,7 @@ ui <- dashboardPage(skin = "green",
 
    # ##############################################################################
    # ## THE HEADER
-   dashboardHeader(title = "NE PVA Tool",
+   dashboardHeader(title = "PVA Tool",
       titleWidth = 280
    ),
 
@@ -614,7 +614,7 @@ ui <- dashboardPage(skin = "green",
                         value = NA, min = 0, max = NA, step = NA, width = NULL),
                      numericInput("output_popsize_qe", label = "Quasi-extinction threshold to use in calculating impact metrics",
                         value = NA, min = NA, max = NA, step = NA, width = NULL),
-                     helpText("These values must be entered using the same units as specified for outputs. Can be left blank, but are required to calculate metrics 'Quasi_Extinction' (M5) , 'pc_ImpSims_above_TPS' (M6) and TPS_YR (M7).")
+                     helpText("These values must be entered using the same units as specified for outputs. Can be left blank, but are required to calculate metrics 'Quasi_Extinction', 'pc_ImpSims_above_TPS' and TPS_YR.")
                   ),
 
                   # Output.agetype
@@ -747,7 +747,7 @@ ui <- dashboardPage(skin = "green",
                   )
                )),
             conditionalPanel(condition = "input.run_type=='simplescenarios'",
-               shinydashboard::box(title = "Counterfactual of Population Growth Rate (CGR (M1))", status = "success", width = 12, height = "690px",
+               shinydashboard::box(title = "Counterfactual of Population Growth Rate (CGR)", status = "success", width = 12, height = "690px",
                   solidHeader = FALSE, collapsible = FALSE, collapsed = FALSE,
                   column(width = 12,
                      htmlOutput("M1_text"),
@@ -756,7 +756,7 @@ ui <- dashboardPage(skin = "green",
                )
             ),
             conditionalPanel(condition = "input.run_type=='simplescenarios'",
-               shinydashboard::box(title = "Counterfactual of Population size (CPS (M2))", status = "success", width = 12, height = "690px",
+               shinydashboard::box(title = "Counterfactual of Population size (CPS)", status = "success", width = 12, height = "690px",
                   solidHeader = FALSE, collapsible = FALSE, collapsed = FALSE,
                   column(width = 12,
                      htmlOutput("M2_text"),
@@ -788,7 +788,7 @@ ui <- dashboardPage(skin = "green",
                                   )
                  ),
                  conditionalPanel(condition = "input.run_type=='simplescenarios'",
-                                  shinydashboard::box(title = "Metric TPS_YR (M7)", status = "success", width = 12,
+                                  shinydashboard::box(title = "Metric TPS_YR", status = "success", width = 12,
                                                       solidHeader = FALSE, collapsible = FALSE, collapsed = TRUE,
                                                       column(width = 12,
                                                              DT::dataTableOutput("resultstableD")
@@ -818,19 +818,20 @@ ui <- dashboardPage(skin = "green",
                  h3("A Population Viability Analysis Modelling Tool for Seabird Species"),
                  div(id = "InfoTAB",
                      fluidRow(
-                        shinydashboard::box(title="Description", status = "info", width = 12, solidHeader = FALSE, collapsible = FALSE, collapsed = FALSE,
-                                            tags$h4("This tool allows users to run Population Viability Analyses (PVAs), applicable to seabirds at a
-                             variety of scales and may be used to set-up and run bespoke PVA models for seabird species without the need
-                                     for access to specific software."),
-                                            tags$p("The tool allows users the flexibility to explore population management-oriented objectives (e.g.
-                             assessment of impacts, evaluation of management options etc.), as well as being able to explicitly highlight
-                             the effects on model predictions of different assumptions about the model, data, species and populations concerned.
-                             It can be used to assess any type of impact that changes survival or productivity rates, including as a cull or harvest
-                             of a fixed size per year. Impacts may also be positive, meaning that mitigation or conservation measures aimed at
-                             increasing demographic rates may also be modelled. The tool also allows users  to conduct PVAs at a range of scales
-                             (breeding colony to SPA or region)."),
-                                            tags$p("The tool produces a range of tabular and graphical outputs for interpreting outputs from PVAs, and a facility
-                             for using pre-set demographic rates for 15 species of seabirds based on currently available demographic data."))
+                        shinydashboard::box(title=" ", status = "info", width = 12, solidHeader = FALSE, collapsible = FALSE, collapsed = FALSE,
+                                            tags$h4("This online version of the PVA Tool allows users to run Population Viability Analyses (PVAs) applicable
+                                                    to seabirds at a variety of scales, and can be used to set-up and run bespoke PVA models via the user-friendly
+                                                    interface accessed via a standard web browser."),
+                                            tags$h4("The tool allows users the flexibility to explore population management-oriented objectives (e.g.
+                                                    assessment of impacts, evaluation of management options etc.), as well as being able to explicitly
+                                                    highlight the effects on model predictions of different assumptions about the model, data, species
+                                                    and populations concerned. It can be used to assess any type of impact that changes survival or
+                                                    productivity rates, including as a cull or harvest of a fixed size per year. Impacts may also be
+                                                    positive, meaning that mitigation or conservation measures aimed at increasing demographic rates
+                                                    may also be modelled. The tool also allows users to conduct PVAs at a range of scales (e.g. breeding
+                                                    colony to SPA or wider region), and for non-seabird species."),
+                                            tags$h4("The tool produces a range of tabular and graphical outputs for interpreting outputs from PVAs, and a
+                                                    facility for using pre-set demographic rates for a number of seabird species, based on currently available demographic data."))
                      ),
                      fluidRow(
                         shinydashboard::box(title="Documentation ", status = "info", width = 4, solidHeader = FALSE, collapsible = FALSE, collapsed = FALSE,
@@ -838,16 +839,13 @@ ui <- dashboardPage(skin = "green",
                                             style="font-weight: bold;color:#000;"), "(opens in a new browser tab)")
                         ),
                         shinydashboard::box(title="Version ", status = "warning", width = 4, solidHeader = FALSE, collapsible = FALSE, collapsed = FALSE,
-                                            tags$p("Tool v",release_ver," (Code: v",pva_ver," Interface: v",ui_ver,")",
-                                            tags$p("This is the most recent version of the tool and is available on a use-at-your-own-risk basis. For documentation of changes, issues and comments, see",
-                                                   tags$a("Github", href = "https://github.com/naturalengland/Seabird_PVA_Tool", target="_blank", style="font-weight: bold;color:#000;"), "(opens in a new browser tab)"))
+                                            tags$p("Tool v",release_ver," (Code: v",pva_ver," Interface: v",ui_ver,"). For documentation of changes, issues and comments, see",
+                                                   tags$a("Github", href = "https://github.com/naturalengland/Seabird_PVA_Tool", target="_blank", style="font-weight: bold;color:#000;"), "(opens in a new browser tab)")
                         ),
-                        shinydashboard::box(title="Licence", status = "info", width = 4, solidHeader = FALSE, collapsible = FALSE, collapsed = FALSE,
-                                            tags$p("This tool is published by Natural England under the Open Government Licence - OGLv3.0
-                             for public sector information. You are encouraged to use, and reuse, information subject to certain
-                             conditions. For details of the licence visit",
-                                                   tags$a("OGL v3.0",href = "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/", target="_blank",
-                                                          style="font-weight: bold;color:#000;"), "(opens in a new browser tab)")
+                        shinydashboard::box(title="About the Tool", status = "info", width = 4, solidHeader = FALSE, collapsible = FALSE, collapsed = FALSE,
+                                            tags$p("This tool was developed by CEH and BioSS, under contract to Natural England and JNCC. See ",
+                                            tags$a("Github", href = "https://github.com/naturalengland/Seabird_PVA_Tool/blob/master/LICENCE.md", target="_blank", style="font-weight: bold;color:#000;"),
+                                            "(opens in a new browser tab) for licence details.")
                         )
                      )
 
@@ -1583,11 +1581,11 @@ server <- function(input, output, session) {
                "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
                "}")
             ),
-         callback = JS("var tips = ['tooltip1', 'tooltip2', 'tooltip3', 'tooltip4', 'tooltip5'],
-                            firstRow = $('#resultstableB thead tr th');
-                            for (var i = 0; i < tips.length; i++) {
-                              $(firstRow[i]).attr('title', tips[i]);
-                            }"),
+         # callback = JS("var tips = ['tooltip1', 'tooltip2', 'tooltip3', 'tooltip4', 'tooltip5'],
+         #                    firstRow = $('#resultstableB thead tr th');
+         #                    for (var i = 0; i < tips.length; i++) {
+         #                      $(firstRow[i]).attr('title', tips[i]);
+         #                    }"),
       ) %>%
          formatRound(c("Popsize_Median","Popsize_2.5%_quantile","Popsize_97.5%_quantile"), 0) %>%
          formatRound(c("Annual_GR_Median", "Annual_GR_LCI", "Annual_GR_UCI"),3) %>%
@@ -1639,11 +1637,16 @@ server <- function(input, output, session) {
       req(class(rv$results) == 'data.frame')
       req(input$run_type == "simplescenarios" | input$run_type == "validation")
 
-      # Only plot adult data even if juveniles are output separately
-      PVA <- rv$results[(rv$results$Age_Class == "whole.population" | rv$results$Age_Class == "breeding.adults" | rv$results$Age_Class == "breeding.pairs"),]
-      #PVA <- rv$results
-
-      outtype <-  ifelse(input$output_agetype == 'age.separated',paste0(input$output_agetype," (adults only)"),input$output_agetype)
+      if (input$output_agetype == 'breeding.adults'){
+         PVA <- rv$results[rv$results$Age_Class == "breeding.adults",]
+         outtype <-  "breeding adults"
+      } else if (input$output_agetype == 'breeding.pairs') {
+         PVA <- rv$results[rv$results$Age_Class == "breeding.pairs",]
+         outtype <-  "breeding pairs"
+      } else {
+         PVA <- rv$results[rv$results$Age_Class == "whole.population",]
+         outtype <-  "whole population"
+      }
 
       gg_pva <- ggplot(data = PVA) + theme_bw() +
          geom_line(aes(x = Year, y = Popsize_Median, colour = Scenario)) +
@@ -1687,8 +1690,16 @@ server <- function(input, output, session) {
       req(input$run_type == "sensitivity.local")
 
       # Only plot adult data even if juveniles are output separately
-      tabledata <- rv$results[(rv$results$Age_Class == "whole.population" | rv$results$Age_Class == "breeding.adults" | rv$results$Age_Class == "breeding.pairs")]
-      #tabledata <- rv$results
+      if (input$output_agetype == 'breeding.adults'){
+         tabledata <- rv$results[rv$results$Age_Class == "breeding.adults",]
+
+      } else if (input$output_agetype == 'breeding.pairs') {
+         tabledata <- rv$results[rv$results$Age_Class == "breeding.pairs",]
+
+      } else {
+         tabledata <- rv$results[rv$results$Age_Class == "whole.population",]
+
+      }
 
       baselinerun <- tabledata[tabledata$parname == "standard",] %>%
          slice(rep(1:n(), each = nlevels(tabledata$parname)))
@@ -1748,8 +1759,16 @@ server <- function(input, output, session) {
       req(input$nscen > 0)
 
       # Only plot adult data even if juveniles are output separately
-      PVA <- rv$results[(rv$results$Age_Class == "whole.population" | rv$results$Age_Class == "breeding.adults" | rv$results$Age_Class == "breeding.pairs"),]
-      #PVA <- rv$results
+      if (input$output_agetype == 'breeding.adults'){
+         PVA <- rv$results[rv$results$Age_Class == "breeding.adults",]
+
+      } else if (input$output_agetype == 'breeding.pairs') {
+         PVA <- rv$results[rv$results$Age_Class == "breeding.pairs",]
+
+      } else {
+         PVA <- rv$results[rv$results$Age_Class == "whole.population",]
+
+      }
 
       # If >1 scenario specified, and only one subpopulation, or multiple populations all with the same impact
       if (input$npop == 1 | input$impacts_splitpops == FALSE) {
@@ -1792,8 +1811,16 @@ server <- function(input, output, session) {
       req(input$nscen > 0)
 
       # Only plot adult data even if juveniles are output separately
-      PVA <- rv$results[(rv$results$Age_Class == "whole.population" | rv$results$Age_Class == "breeding.adults" | rv$results$Age_Class == "breeding.pairs"),]
-      #PVA <- rv$results
+      if (input$output_agetype == 'breeding.adults'){
+         PVA <- rv$results[rv$results$Age_Class == "breeding.adults",]
+
+      } else if (input$output_agetype == 'breeding.pairs') {
+         PVA <- rv$results[rv$results$Age_Class == "breeding.pairs",]
+
+      } else {
+         PVA <- rv$results[rv$results$Age_Class == "whole.population",]
+
+      }
 
       # If >1 scenario specified, and only one subpopulation, or multiple populations all with the same impact
       if (input$npop == 1 | input$impacts_splitpops == FALSE) {
@@ -2178,15 +2205,9 @@ server <- function(input, output, session) {
       if (!is.null(rv$results) && (class(rv$results)  == "data.frame")) {
 
          if (input$run_type == "sensitivity.local"){
-
             rv$results <- change.table.names.sen(rv$results)
-
          } else {
-            # Remove the pgr output
             rv$results <- change.table.names(rv$results)
-            #delc <- grepl(glob2rx("pgr*"),names(rv$results))
-            #rv$results <- rv$results[,!delc]
-
          }
 
          sendSweetAlert(session, title = "Finished", text = "See Table and Charts tab for results (log file is being written now)",
