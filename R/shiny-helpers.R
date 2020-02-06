@@ -24,6 +24,8 @@ change.table.names <- function(tab){
                   "QuantileUNIMP50pcIMP", "QuantileIMP50pcUNIMP", "Quasi_Extinction", "pc_ImpSims_above_TPS")
 
    colnames(tab)[match(colnames(tab), old.names)] <- new.names
+   delc <- grepl(glob2rx("pgr*"),names(tab))
+   tab <- tab[,!delc]
 
    tab
 }
@@ -53,6 +55,8 @@ change.table.names.sen <- function(tab){
                   "QuantileUNIMP50pcIMP", "QuantileIMP50pcUNIMP", "Quasi_Extinction", "pc_ImpSims_above_TPS")
 
    colnames(tab)[match(colnames(tab), old.names)] <- new.names
+   delc <- grepl(glob2rx("pgr*"),names(tab))
+   tab <- tab[,!delc]
 
    tab
 }
