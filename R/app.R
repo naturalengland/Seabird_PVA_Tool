@@ -40,7 +40,7 @@ lookup <<- list(Spmeta = read.csv(file.path("Rpackage","lookup-spmeta.csv",fsep=
 modeoptions <<- read.csv(file.path("Rpackage","ModeOptions.csv",fsep=.Platform$file.sep))
 
 # Version numbers
-pva_ver <- 4.14
+pva_ver <- 4.15
 ui_ver <- 1.7
 release_ver <- 2.0
 
