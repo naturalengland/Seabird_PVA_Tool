@@ -1507,7 +1507,7 @@ server <- function(input, output, session) {
                     fillContainer = FALSE,
                     options = list(dom = 'Bit', scrollY = TRUE,  scrollX = TRUE, pageLength = 20,
                                    searching = FALSE, buttons = list('copy',
-                                                                     list(extend = 'excel', filename = paste0("NEPVA_", rv$shortrunrefname,"_metrics_",Sys.Date())),
+                                                                     #excel#list(extend = 'excel', filename = paste0("NEPVA_", rv$shortrunrefname,"_metrics_",Sys.Date())),
                                                                      list(extend = 'csv', filename = paste0("NEPVA_", rv$shortrunrefname,"_metrics_",Sys.Date()))),
                                    initComplete = JS(
                                       "function(settings, json) {",
@@ -1530,7 +1530,7 @@ server <- function(input, output, session) {
          fillContainer = FALSE,
          options = list(dom = 'Bit', scrollY = TRUE,  scrollX = TRUE, pageLength = 10,
             searching = FALSE, buttons = list('copy',
-               list(extend = 'excel', filename = paste0("NEPVA_", rv$shortrunrefname,"_metrics_",Sys.Date())),
+               #excel#list(extend = 'excel', filename = paste0("NEPVA_", rv$shortrunrefname,"_metrics_",Sys.Date())),
                list(extend = 'csv', filename = paste0("NEPVA_", rv$shortrunrefname,"_metrics_",Sys.Date()))),
             initComplete = JS(
                "function(settings, json) {",
@@ -1551,7 +1551,7 @@ server <- function(input, output, session) {
                     fillContainer = FALSE,
                     options = list(dom = 'Bit', scrollY = TRUE,  scrollX = TRUE, pageLength = 10,
                                    searching = FALSE, buttons = list('copy',
-                                                                     list(extend = 'excel', filename = paste0("NEPVA_", rv$shortrunrefname,"_metrics_",Sys.Date())),
+                                                                     #excel#list(extend = 'excel', filename = paste0("NEPVA_", rv$shortrunrefname,"_metrics_",Sys.Date())),
                                                                      list(extend = 'csv', filename = paste0("NEPVA_", rv$shortrunrefname,"_metrics_",Sys.Date()))),
                                    initComplete = JS(
                                       "function(settings, json) {",
@@ -1575,7 +1575,7 @@ server <- function(input, output, session) {
          selection = 'multiple', rownames = FALSE, filter = 'none', class = 'compact row-border hover',
          fillContainer = FALSE,
          options = list(dom = 'Bit', scrollY = TRUE,  scrollX = TRUE, buttons = list(I('colvis'), 'copy',
-            list(extend = 'excel', filename = paste0("NEPVA_", rv$shortrunrefname,"_pop_",Sys.Date())),
+            #excel#list(extend = 'excel', filename = paste0("NEPVA_", rv$shortrunrefname,"_pop_",Sys.Date())),
             list(extend = 'csv', filename = paste0("NEPVA_", rv$shortrunrefname,"_pop_",Sys.Date()))),
             initComplete = JS(
                "function(settings, json) {",
@@ -1602,7 +1602,7 @@ server <- function(input, output, session) {
          options = list(dom = 'lBfiptp', scrollY = TRUE,  scrollX = TRUE, language = list(search = 'Find:'),
             pageLength = 20, lengthMenu = list(c(10, 20, 50, 100, -1), list('10', '20', '50', '100', 'All')),
             searching = TRUE, buttons = list(I('colvis'), 'copy',
-               list(extend = 'excel', filename = paste0("NEPVA_", rv$shortrunrefname,"_full_",Sys.Date())),
+               #excel#list(extend = 'excel', filename = paste0("NEPVA_", rv$shortrunrefname,"_full_",Sys.Date())),
                list(extend = 'csv', filename = paste0("NEPVA_", rv$shortrunrefname,"_full_",Sys.Date()))),
             initComplete = JS(
                "function(settings, json) {",
