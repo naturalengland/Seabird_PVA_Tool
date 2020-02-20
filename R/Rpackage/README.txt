@@ -1,4 +1,23 @@
 ========================================================
+NE PVA tool, R package -- Version 4.15, 19 February 2020
+
+- Changes to "functions-runpva.R" only; these are:
+
+    a) Bug fix resulting from error on line 360: "max(inipop.relyears)" changed to "max(inipop.years)",
+         which meant "Base_Year" was previously set incorrectly in baseline-only runs
+        
+    b) Changes within "make.impactmetrics.table" to make sure metrics and "YRS_From_First_Imp" 
+         are reported only after the start of impacts (i.e. not in baseline-only runs)
+
+- Also moved all testing files into a "Testing" directory, which replaces "Outputs"
+
+========================================================
+NE PVA tool, R package -- Version 4.14, 5 February 2020
+
+- Major bug fix, resulting from a typo in "create.impactmat" within "functions-preprocessing.R":
+   on line 458 "(! impacts.relative)" changed to "(impacts.relative)"
+ 
+========================================================
 NE PVA tool, R package -- Version 4.13, 20 January 2020
 
 - Fixed all code to work correctly when "changeoutputnames = TRUE"

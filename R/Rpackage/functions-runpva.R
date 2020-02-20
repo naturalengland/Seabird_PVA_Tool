@@ -1,6 +1,6 @@
 ## ###################################################################################################################
 ## Technical functions used for calculations within the NE PVA tool
-##    Last edited Version 4.7
+##    Last edited Version 4.13
 ## ###################################################################################################################
 ## --- Contents (updated v4.3) ---
 ##
@@ -12,6 +12,8 @@
 ##    make.impactmetrics.table   --- summarize PVA metrics and other outputs
 ##
 ## Version 4.7: updated to deal with changes requested by PSG to the calculation of metrics
+## Version 4.13: bug fix
+## Version 4.15: bug fix
 ## ###################################################################################################################
 
 ## ##############################################################################
@@ -119,7 +121,7 @@ nepva.sim <- function(fn.sim.con, fn.sim.unc, ddfn,
   ##      which means that it is also reasonable to use the same "baseref.year" for all scenarios
   ##      and subpopulations
   
-  baseref.year <- impacts.year.start - 1 
+  ## baseref.year <- impacts.year.start - 1 ## v4.15: this is now set later, at stage 9c
   
   ## #################################################################
   ## Stage 2. Relative years within PVA
@@ -129,7 +131,7 @@ nepva.sim <- function(fn.sim.con, fn.sim.unc, ddfn,
   
   impacts.relyears <- (impacts.year.start:impacts.year.end) - year.first + 1
   
-  baseref.relyear <- baseref.year - year.first + 1
+  ## baseref.relyear <- baseref.year - year.first + 1 ## v4.15: this is now set later, at stage 9c
 
   output.relyears <- (output.year.start:output.year.end) - year.first + 1
 
@@ -352,12 +354,12 @@ nepva.sim <- function(fn.sim.con, fn.sim.unc, ddfn,
   }
   
   ## ####################################################
-  ## Stage 9a. Baseline reference year
+  ## Stage 9c. Baseline reference year
   ## Added Version 4.7: fixed "baserefyear" to try to work correctly when doing baseline-only runs
   
   if(all(impacts.scennames == "baseline")){ ## Added Version 4.7
     
-    baserefyear <- max(inipop.relyears)
+    baserefyear <- max(inipop.years) ## v4.15: bug fix: changed "inipop.relyears" to "inipop.years"
   }
   else{
     
@@ -370,7 +372,6 @@ nepva.sim <- function(fn.sim.con, fn.sim.unc, ddfn,
   ## Rewritten Version 4.7 to a) add option for "whole population";
   ##                          b) remove M5-M7 calculations for individual age classes
   ##                          c) add "whole population" results when running individual age classes
-  
   
   ## print(output.agetype)
   
@@ -1316,6 +1317,8 @@ make.impactmetrics.table <- function(ntot, scen.names, age.names,
       
       tmp$Currently.Impacted <- (output.years[i] >= impacts.year.start) & (output.years[i] <= impacts.year.end)
       
+      tmp$Currently.Impacted[tmp$Scenario == "baseline"] <- FALSE ## added v4.15
+      
       ## ###################
       ## Years since start of impact (defined to be 1 in first year of impact)
       
@@ -1329,6 +1332,8 @@ make.impactmetrics.table <- function(ntot, scen.names, age.names,
       
         tmp$Impact.year <- xx
       }
+      
+      tmp$Impact.year[tmp$Scenario == "baseline"] <- NA ## added v4.15
       
       ## #############################################################
       ## Summaries of actual population sizes 
@@ -1379,7 +1384,7 @@ make.impactmetrics.table <- function(ntot, scen.names, age.names,
 
       ## print(kb)
             
-      if((! is.null(kb)) & ! is.na(tmp$Impact.year[1])){
+      if((! is.null(kb))){ ## changed version 4.15 - moved clause relating to impact year to further down
           
         ## #############################################################
         ## Calculate annualized growth rate under baseline
@@ -1469,83 +1474,86 @@ make.impactmetrics.table <- function(ntot, scen.names, age.names,
           ## Calculate metrics
           ## Version 1.3: changed to use "mean" and "SD" as well as "median" for M1 and M2
         
-          ## ##################################
-          ## Metric M1. The ratio of impacted to unimpacted final population size 
-          ## in each future year - mean, median and SD across the set of simulations
-          ## Version 3.1: added confidence interval limits (".cilo" and ".cihi")
-          ## ##################################
-        
-          tmp$m1.median[ks] <- fnrat(agr.scenario, agr.baseline, fn = median)
-        
-          tmp$m1.mean[ks] <- fnrat(agr.scenario, agr.baseline, fn = mean) ## Version 1.3: added
+          if(! is.na(tmp$Impact.year[ks])){ ## changed version 4.15
           
-          tmp$m1.sd[ks] <- fnrat(agr.scenario, agr.baseline, fn = sd) ## Version 1.3: added
+            ## ##################################
+            ## Metric M1. The ratio of impacted to unimpacted final population size 
+            ## in each future year - mean, median and SD across the set of simulations
+            ## Version 3.1: added confidence interval limits (".cilo" and ".cihi")
+            ## ##################################
+        
+            tmp$m1.median[ks] <- fnrat(agr.scenario, agr.baseline, fn = median)
           
-          tmp$m1.cilo[ks] <- fnrat(agr.scenario, agr.baseline, fn = quantile, probs = 0.025) ## Version 3.1: added
+            tmp$m1.mean[ks] <- fnrat(agr.scenario, agr.baseline, fn = mean) ## Version 1.3: added
+          
+            tmp$m1.sd[ks] <- fnrat(agr.scenario, agr.baseline, fn = sd) ## Version 1.3: added
+          
+            tmp$m1.cilo[ks] <- fnrat(agr.scenario, agr.baseline, fn = quantile, probs = 0.025) ## Version 3.1: added
 
-          tmp$m1.cihi[ks] <- fnrat(agr.scenario, agr.baseline, fn = quantile, probs = 0.975) ## Version 3.1: added
+            tmp$m1.cihi[ks] <- fnrat(agr.scenario, agr.baseline, fn = quantile, probs = 0.975) ## Version 3.1: added
           
-          ## ##################################
-          ## Metric M2. The ratio of impacted to unimpacted growth rate - mean, median and 
-          ## SD across the set of simulations
-          ## Version 3.1: added confidence interval limits (".cilo" and ".cihi")
-          ## ##################################
+            ## ##################################
+            ## Metric M2. The ratio of impacted to unimpacted growth rate - mean, median and 
+            ## SD across the set of simulations
+            ## Version 3.1: added confidence interval limits (".cilo" and ".cihi")
+            ## ##################################
           
-          tmp$m2.median[ks] <- fnrat(ntot.scen.cur, ntot.base.cur, fn = median)  ## Version 0.6: fixed
+            tmp$m2.median[ks] <- fnrat(ntot.scen.cur, ntot.base.cur, fn = median)  ## Version 0.6: fixed
         
-          tmp$m2.mean[ks] <- fnrat(ntot.scen.cur, ntot.base.cur, fn = mean)  ## Version 0.6: fixed
+            tmp$m2.mean[ks] <- fnrat(ntot.scen.cur, ntot.base.cur, fn = mean)  ## Version 0.6: fixed
         
-          tmp$m2.sd[ks] <- fnrat(ntot.scen.cur, ntot.base.cur, fn = sd)  ## Version 0.6: fixed
+            tmp$m2.sd[ks] <- fnrat(ntot.scen.cur, ntot.base.cur, fn = sd)  ## Version 0.6: fixed
          
-          tmp$m2.cilo[ks] <- fnrat(ntot.scen.cur, ntot.base.cur, fn = quantile, probs = 0.025) ## Version 3.1: added
+            tmp$m2.cilo[ks] <- fnrat(ntot.scen.cur, ntot.base.cur, fn = quantile, probs = 0.025) ## Version 3.1: added
           
-          tmp$m2.cihi[ks] <- fnrat(ntot.scen.cur, ntot.base.cur, fn = quantile, probs = 0.975) ## Version 3.1: added
+            tmp$m2.cihi[ks] <- fnrat(ntot.scen.cur, ntot.base.cur, fn = quantile, probs = 0.975) ## Version 3.1: added
           
-          ## ##################################
-          ## Metric M3. Quantile for unimpacted population which matches the 50th 
-          ##  centile for the impacted population
-          ## ##################################
+            ## ##################################
+            ## Metric M3. Quantile for unimpacted population which matches the 50th 
+            ##  centile for the impacted population
+            ## ##################################
           
-          tmp$m3[ks] <- 100 * mean(ntot.base.cur <= median(ntot.scen.cur))
+            tmp$m3[ks] <- 100 * mean(ntot.base.cur <= median(ntot.scen.cur))
         
-          ## ##################################
-          ## Metric M4. The probability of decline in population size (expressed as a %), 
-          ##  over specified future time intervals
-          
-          ## Version 4.9: ** changed **
-          
-          tmp$m4[ks] <- 100 * mean(ntot.scen.cur <= median(ntot.base.cur)) ## Version 0.6: fixed
-          
-          ## ##################################
-          ## Metric M5. The risk of extinction or quasi-extinction, over a 
-          ##  specified future time interval
-          ## ##################################
-          
-          ## Version 4.7: changed so that "popsize.qe" is now a vector, and NA if not used
-          if(is.na(popsize.qe[j])){ ## Version 1.3: code reordered to improve internal logic
+            ## ##################################
+            ## Metric M4. The probability of decline in population size (expressed as a %), 
+            ##  over specified future time intervals
             
-            tmp$m5[ks] <- NA
-          }
-          else{
+            ## Version 4.9: ** changed **
           
-            tmp$m5[ks] <- 100 * mean(ntot.scen.cur < popsize.qe[j]) ## Version 4.8: added "[j]" subscript
-          }
+            tmp$m4[ks] <- 100 * mean(ntot.scen.cur <= median(ntot.base.cur)) ## Version 0.6: fixed
           
-          ## ##################################
-          ## Metric M6. The probability that the population will have recovered 
-          ##  to this level over any particular number of years
-          ## ##################################
+            ## ##################################
+            ## Metric M5. The risk of extinction or quasi-extinction, over a 
+            ##  specified future time interval
+            ## ##################################
           
-          ## Version 3.1: bug fix: "popsize.target" was wrongly "popsize.qe" in "if" clause
-          ## Version 4.7: changed so that "popsize.qe" is now a vector, and NA if not used
+            ## Version 4.7: changed so that "popsize.qe" is now a vector, and NA if not used
+            if(is.na(popsize.qe[j])){ ## Version 1.3: code reordered to improve internal logic
+            
+              tmp$m5[ks] <- NA
+            }
+            else{
           
-          if(is.na(popsize.target[j])){ ## Version 1.3: code reordered to improve internal logic  
+              tmp$m5[ks] <- 100 * mean(ntot.scen.cur < popsize.qe[j]) ## Version 4.8: added "[j]" subscript
+            }
           
-            tmp$m6[ks] <- NA
-          }
-          else{
+            ## ##################################
+            ## Metric M6. The probability that the population will have recovered 
+            ##  to this level over any particular number of years
+            ## ##################################
           
-            tmp$m6[ks] <- 100 * mean(ntot.scen.cur > popsize.target[j]) ## Version 4.8: added "[j]" subscript
+            ## Version 3.1: bug fix: "popsize.target" was wrongly "popsize.qe" in "if" clause
+            ## Version 4.7: changed so that "popsize.qe" is now a vector, and NA if not used
+          
+            if(is.na(popsize.target[j])){ ## Version 1.3: code reordered to improve internal logic  
+          
+              tmp$m6[ks] <- NA
+            }
+            else{
+          
+              tmp$m6[ks] <- 100 * mean(ntot.scen.cur > popsize.target[j]) ## Version 4.8: added "[j]" subscript
+            }
           }
           
           ## ##################################
