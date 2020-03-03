@@ -185,6 +185,8 @@ nepva.preprocess <- function(inputs, demomods){
     demobase.ests <- demobase.vals
   }
 
+  ## if(any(demobase.ests[,,2] < 0)){ print("NOOO!") ; browser() }
+  
   inputs$demobase.prod <- inputs$demobase.survimmat <- inputs$demobase.survadult <- NULL
   
   inputs$demobase.splitimmat <- NULL
@@ -244,7 +246,7 @@ nepva.preprocess <- function(inputs, demomods){
                                                 model.prodmax = inputs$model.prodmax,
                                                 popsize.prev = inputs$inipop.vals[i], mbs = inputs$mbs)
       
-      demorates.deterministic[1] <- demorates.deterministic[1] / 2 ## Version 3.2: bug fix: indiv-to-pairs conversion
+      demorates.deterministic[1] <- demorates.deterministic[1] / 2 ## Version 3.2: bug fix: indiv-to-pairs conversion for productivity
       
       mmat <- make.leslie.matrix(demorates.deterministic, afb = afb)
       
@@ -274,7 +276,7 @@ nepva.preprocess <- function(inputs, demomods){
    
       ## ##############################
       ## Find initial values for each age
-      
+
       inipop.counts[,i] <- round(wts * inputs$inipop.vals[i])
       
       ## ##############################
@@ -308,7 +310,9 @@ nepva.preprocess <- function(inputs, demomods){
   idp <- 1:(npop^(inputs$impacts.splitpops|(inputs$impacts.relative)))
 
   inputs$baseonly <- (inputs$include.baseline) & (inputs$nscen == 1) ## Added Version 1.9
-  
+
+  ## if(length(inputs$impacts.prod.mean) > (length(ids) * length(idp))){ browser() }
+    
   inputs$impacts.demochange.mean <- create.impactmat(prod = inputs$impacts.prod.mean,
                                               survimmat = inputs$impacts.survimmat.mean, 
                                               survadult = inputs$impacts.survadult.mean,
@@ -433,6 +437,8 @@ create.impactmat <- function(prod, survimmat, survadult,
     ## ####################
     ## Productivity
     
+    ## if(length(prod) != (length(ids)*length(idp))){ browser() }
+    
     out[ids,idp,1] <- prod
       
     ## ####################
@@ -447,7 +453,7 @@ create.impactmat <- function(prod, survimmat, survadult,
       ## Otherwise, if (impacts.relative = TRUE), assume adult survival rates
       ##  can also be applied to immatures:
       
-      ## BUG FIX: Version 4.1: "! impacts.relative" changed to "impacts.relative"
+      ## VERSION 4.14 - bug fix - "! impacts.relative" changed to "impacts.relative"
       
       if(is.null(survimmat) & (impacts.relative)){ out[ids,idpa,j] <- survadult } 
     }
@@ -653,16 +659,14 @@ mean.demorates <- function(ests, modelfns, model.prodmax, popsize.prev = NULL, m
       
     simfn <- modelfns$sim.con
       
-    fn.pred.con <- function(pars, popsize){ pred.numeric(pars = pars, popsize = popsize, 
+    fn.pred.con <- function(pars, popsize,...){ pred.numeric(pars = pars, popsize = popsize, 
                                                            simfn = simfn, ddfn = ddfn) }
   }
     
   if(is.null(fn.pred.unc)){
       
-    simfn <- modelfns$sim.unc
-      
-    fn.pred.unc <- function(pars, popsize){ pred.numeric(pars = pars, popsize = popsize, 
-                                                           simfn = simfn, ddfn = ddfn) }
+    fn.pred.unc <- function(pars, popsize,...){ pred.numeric(pars = pars, popsize = popsize, 
+                                                           simfn = modelfns$sim.unc, ddfn = ddfn) }
   }
 
   ## #####################
@@ -694,11 +698,11 @@ mean.demorates <- function(ests, modelfns, model.prodmax, popsize.prev = NULL, m
 ## Created V0.5 on 5 November 2018:
 ## ########################################################################################
   
-pred.numeric <- function(pars, popsize, simfn, sim.big = 100000){
+pred.numeric <- function(pars, popsize, simfn, sim.big = 100000,...){
     
     ru <- runif(sim.big)
     
-    out <- simfn(ru = ru, pars = as.numeric(c(pars)), popsize = popsize)
+    out <- simfn(ru = ru, pars = as.numeric(c(pars)), popsize = popsize,...)
     
     mean(out)
 }

@@ -1,8 +1,8 @@
 ## ########################################################################################
 ## Project: NEC06986
-## Script purpose: NE PVA Tool interface
-## Date v3.6: 14th May 2019
-## Author: Centre for Ecology & Hydrology
+## Script purpose: PVA Tool interface
+## Date v2.0 release: January 2020
+## Author: UK Centre for Ecology & Hydrology
 ## Author: BioSS
 ## ########################################################################################
 
@@ -20,30 +20,29 @@ library(tidyr)
 # These R packages are required for the underlying PVA code
 library(popbio)
 
-# for debug only rm(list=objects())
-
 # The functions
-source("functions-highlevel.R")
-source("functions-maincalcs.R")
-source("functions-sensitivity.R")
-source("functions-preprocessing.R")
-source("functions-runpva.R")
-source("models.R")
+source(file.path("Rpackage","functions-highlevel.R",fsep=.Platform$file.sep))
+source(file.path("Rpackage","functions-maincalcs.R",fsep=.Platform$file.sep))
+source(file.path("Rpackage","functions-sensitivity.R",fsep=.Platform$file.sep))
+source(file.path("Rpackage","functions-preprocessing.R",fsep=.Platform$file.sep))
+source(file.path("Rpackage","functions-runpva.R",fsep=.Platform$file.sep))
+source(file.path("Rpackage","functions-models.R",fsep=.Platform$file.sep))
 source("busy-indicator.R")
 source("shiny-helptext.R")
 source("shiny-helpers.R")
 
 # Read and reformat the input data
 sourcepop.ref <<- "National"
-svdat <<- read.csv("lookup-surv.csv")
+svdat <<- read.csv(file.path("Rpackage","lookup-surv.csv",fsep=.Platform$file.sep))
 svdat <<- svdat[svdat$Source != "",]
-lookup <<- list(Spmeta = read.csv("lookup-spmeta.csv"),
-   BS = read.csv("lookup-BS.csv"), Surv = svdat)
-modeoptions <<- read.csv("ModeOptions.csv")
+lookup <<- list(Spmeta = read.csv(file.path("Rpackage","lookup-spmeta.csv",fsep=.Platform$file.sep)),
+   BS = read.csv(file.path("Rpackage","lookup-BS.csv",fsep=.Platform$file.sep)), Surv = svdat)
+modeoptions <<- read.csv(file.path("Rpackage","ModeOptions.csv",fsep=.Platform$file.sep))
 
 # Version numbers
-pva_ver <- 3.6
-ui_ver <- 1.4
+pva_ver <- 4.15
+ui_ver <- 1.7
+release_ver <- 2.0
 
 # Set some global values
 maxnpop <- 10
@@ -72,26 +71,28 @@ ui <- dashboardPage(skin = "green",
 
    # ##############################################################################
    # ## THE HEADER
-   dashboardHeader(title = "NE PVA Tool",
+   dashboardHeader(title = "PVA Tool",
       titleWidth = 280
    ),
 
    # ##############################################################################
    # ## THE SIDEBAR
+
    dashboardSidebar(width = 280,
-      sidebarMenu(id = "sidebar",
-         menuItem("1. Basic Information", tabName = "par1", icon = icon("wrench", lib = "glyphicon"),selected = FALSE),
-         menuItem("2. Baseline demographic rates", tabName = "par2", icon = icon("wrench", lib = "glyphicon"),selected = FALSE),
-         menuItem("3. Impacts", tabName = "par3", icon = icon("wrench", lib = "glyphicon"), selected = FALSE),
-         menuItem("4. Run", tabName = "runtab", icon = icon("play", lib = "glyphicon"),selected = FALSE),
-         menuItem("5. Tables", tabName = "table", icon = icon("list-alt", lib = "glyphicon"), selected = FALSE),
-         menuItem("6. Charts", tabName = "charts", icon = icon("eye-open", lib = "glyphicon"), selected = FALSE)
-      ),
-      br()
-      # img(src='puffin27.png', align = "left", width="270")
-      # tags$footer("Copyright and disclaimer text could go here")
+                    sidebarMenu(id = "sidebarinfo",
+                                menuItem("Tool Information",tabName = "documentation", icon = icon("info-sign",lib="glyphicon"),selected = TRUE)
+                    ),
+                    sidebarMenu(id = "sidebar",
+                                menuItem("1. Basic PVA Information", tabName = "par1", icon = icon("wrench", lib = "glyphicon"),selected = FALSE),
+                                menuItem("2. Baseline demographic rates", tabName = "par2", icon = icon("wrench", lib = "glyphicon"),selected = FALSE),
+                                menuItem("3. Impacts", tabName = "par3", icon = icon("wrench", lib = "glyphicon"), selected = FALSE),
+                                menuItem("4. Run", tabName = "runtab", icon = icon("play", lib = "glyphicon"),selected = FALSE),
+                                menuItem("5. Tables", tabName = "table", icon = icon("list-alt", lib = "glyphicon"), selected = FALSE),
+                                menuItem("6. Charts", tabName = "charts", icon = icon("stats", lib = "glyphicon"), selected = FALSE)
+                    )
 
    ), # end dashboardSidebar
+
 
    # ##############################################################################
    # ## THE BODY
@@ -114,7 +115,7 @@ ui <- dashboardPage(skin = "green",
                h3(textOutput("runrefname_txt1")),
 
                fluidRow(
-                  box(title = "PVA run details", status = "primary", width = 4, solidHeader = TRUE, collapsible = FALSE,
+                  shinydashboard::box(title = "PVA run details", status = "primary", width = 4, solidHeader = TRUE, collapsible = FALSE,
                      footer = actionBttn("resetALL", label = "Reset all parameters", style = "gradient", color = "warning", icon = icon("refresh")),
 
                      # Run reference name
@@ -143,7 +144,7 @@ ui <- dashboardPage(skin = "green",
                   ),
 
                   # Model options box - always visible
-                  box(title = "Basic information about the form of PVA", status = "primary",
+                  shinydashboard::box(title = "Basic information about the form of PVA", status = "primary",
                      width = 4, solidHeader = TRUE, collapsible = TRUE, collapsed = FALSE,
                      footer = dropdownButton(circle = TRUE, status = "info",
                         size = helpsize, icon = icon("info"), right = FALSE, up = FALSE,
@@ -178,7 +179,7 @@ ui <- dashboardPage(skin = "green",
                   ),
 
                   # Simulation options box - always visible
-                  box(title = "Simulation", status = "primary",
+                  shinydashboard::box(title = "Simulation", status = "primary",
                      width = 4, solidHeader = TRUE, collapsible = TRUE, collapsed = FALSE,
                      footer = dropdownButton(circle = TRUE, status = "info",
                         size = helpsize, icon = icon("info"), right = FALSE, up = FALSE,
@@ -186,25 +187,27 @@ ui <- dashboardPage(skin = "green",
                      ),
                      htmlOutput("note_simn"),
                      numericInput("sim_n", label = "Number of simulations",
-                        value = NA, min = 1, max = NA, step = 1, width = NULL),
+                                  value = NA, min = 1, max = NA, step = 1, width = NULL),
                      numericInput("sim_seed", label = "Random seed",
-                        value = NA, min = 0, max = NA, step = 1, width = NULL)
+                                  value = NA, min = 0, max = NA, step = 1, width = NULL),
+                     numericInput("nburn", label = "Years for burn-in",
+                                  value = 0, min = 0, max = 30, step = 1, width = NULL)
                   )
                ),
 
                fluidRow(
                   # Case Study box
-                  box(title = "Case Studies", status = "info", width = 4,
+                  shinydashboard::box(title = "Case Studies", status = "info", width = 4,
                      solidHeader = TRUE, collapsible = TRUE,
                      selectizeInput("case_studies", label = 'Select a case study',
                         choices = c("None","Case study 1a","Case study 1b","Case study 1c","Case study 1d")
                      )
                   )
-                  # ,box(title = "FOR TESTING ONLY", status = "danger", width = 4,
+                  # ,shinydashboard::box(title = "FOR TESTING ONLY", status = "danger", width = 4,
                   #    solidHeader = TRUE, collapsible = TRUE,
                   #    HTML("Select a test to set some default values"),
                   #    selectizeInput("testrun", label = '',
-                  #       choices = c("None", "Example Simulation", "Example Validation", "Example Sensitivity"
+                  #       choices = c("None", "Example Simulation", "Example Validation", "Example Sensitivity", "Example 3"
                   #       )
                   #    )
                   # )
@@ -219,7 +222,7 @@ ui <- dashboardPage(skin = "green",
             h3(textOutput("runrefname_txt2")),
             div(id = "BaselineTAB",
                fluidRow(
-                  box(title = "Species-specific values", status = "primary", width = 4,
+                  shinydashboard::box(title = "Species-specific values", status = "primary", width = 4,
                      solidHeader = TRUE, collapsible = TRUE,
                      footer = actionBttn("resetBaselineTAB", label = "Reset baseline parameters", style = "gradient", color = "warning", icon = icon("refresh")),
                      fluidRow(
@@ -269,7 +272,7 @@ ui <- dashboardPage(skin = "green",
                   ),
 
                   # Age at first breeding box - always visible
-                  box(title = "Age at first breeding", status = "primary",
+                  shinydashboard::box(title = "Age at first breeding", status = "primary",
                      width = 4, solidHeader = TRUE, collapsible = TRUE, collapsed = FALSE,
                      footer = dropdownButton(circle = TRUE, status = "info",
                         size = helpsize, icon = icon("info"), right = FALSE, up = FALSE,
@@ -281,7 +284,7 @@ ui <- dashboardPage(skin = "green",
                   ),
 
                   # Productivity box - always visible
-                  box(title = "Productivity parameters", status = "primary",
+                  shinydashboard::box(title = "Productivity parameters", status = "primary",
                      width = 4, solidHeader = TRUE, collapsible = TRUE, collapsed = FALSE,
                      footer = dropdownButton(circle = TRUE, status = "info",
                         size = helpsize, icon = icon("info"), right = FALSE, up = FALSE,
@@ -301,7 +304,7 @@ ui <- dashboardPage(skin = "green",
                ),
 
                fluidRow(
-                  box(title = "Options for subpopulations", status = "primary", width = 4,
+                  shinydashboard::box(title = "Options for subpopulations", status = "primary", width = 4,
                      solidHeader = TRUE, collapsible = TRUE, collapsed = FALSE,
                      footer = dropdownButton(circle = TRUE, status = "info",
                         size = helpsize, icon = icon("info"), right = FALSE, up = FALSE,
@@ -321,7 +324,7 @@ ui <- dashboardPage(skin = "green",
                         value = FALSE, disabled = FALSE, inline = TRUE, size = "mini"
                      )
                   ),
-                  box(title = "Units for initial population size", status = "primary", width = 4,
+                  shinydashboard::box(title = "Units for initial population size", status = "primary", width = 4,
                      solidHeader = TRUE, collapsible = TRUE, collapsed = FALSE,
                      footer = dropdownButton(circle = TRUE, status = "info",
                         size = helpsize, icon = icon("info"), right = FALSE, up = FALSE,
@@ -339,7 +342,7 @@ ui <- dashboardPage(skin = "green",
                      )
                   ),
 
-                  box(title = "Options for immatures", status = "primary", width = 4,
+                  shinydashboard::box(title = "Options for immatures", status = "primary", width = 4,
                      solidHeader = TRUE, collapsible = TRUE, collapsed = FALSE,
                      footer = dropdownButton(circle = TRUE, status = "info",
                         size = helpsize, icon = icon("info"), right = FALSE, up = FALSE,
@@ -360,27 +363,27 @@ ui <- dashboardPage(skin = "green",
                   lapply(1:maxnpop, function(ia) {
                      conditionalPanel(
                         condition = paste0("input.npop >= ", ia),
-                        box(title=paste0("Baseline demographic rates: ",ia), status = "primary", width = 12, height = "auto", solidHeader = TRUE,
+                        shinydashboard::box(title=paste0("Baseline demographic rates: ",ia), status = "primary", width = 12, height = "auto", solidHeader = TRUE,
                            collapsible = TRUE, collapsed = FALSE,
                            h4(textOutput(paste0("demobase_tab_txt",ia))),
                            fluidRow(
-                              box(title="Initial population size", status = "info", width = 4, solidHeader = FALSE, collapsible = FALSE, collapsed = FALSE,
+                              shinydashboard::box(title="Initial population size", status = "info", width = 4, solidHeader = FALSE, collapsible = FALSE, collapsed = FALSE,
                                  numericInput(paste0("inipopyrs_",ia), "Year", min = minyr, max = maxyr_ini, step = 1, value = NULL),
                                  numericInput(paste0("inipopval_",ia), "Initial population size", min = 1, max = 1000000, step = 1, value = NULL)
                               ),
-                              box(title="Productivity rate per pair", status = "info", width = 4, solidHeader = FALSE, collapsible = FALSE, collapsed = FALSE,
+                              shinydashboard::box(title="Productivity rate per pair", status = "info", width = 4, solidHeader = FALSE, collapsible = FALSE, collapsed = FALSE,
                                  numericInput(paste0("pr_mn_",ia), "Mean", min = 0, max = NA, step = 0.001, width = NULL, value = NULL),
                                  numericInput(paste0("pr_sd_",ia), "Standard deviation", min = 0, max = NA, step = 0.001, width = NULL, value = NULL),
                                  numericInput(paste0("pr_idd_",ia), "Effect of density dependence", min = 0, max = NA, step = 0.001, width = NULL, value = NULL)
                               ),
-                              box(title="Adult survival rate", status = "info", width = 4, solidHeader = FALSE, collapsible = FALSE, collapsed = FALSE,
+                              shinydashboard::box(title="Adult survival rate", status = "info", width = 4, solidHeader = FALSE, collapsible = FALSE, collapsed = FALSE,
                                  numericInput(paste0("ad_mn_",ia), "Mean", min = 0, max = NA, step = 0.001, value = NULL),
                                  numericInput(paste0("ad_sd_",ia), "Standard deviation", min = 0, max = NA, step = 0.001, value = NULL),
                                  numericInput(paste0("ad_idd_",ia), "Effect of density dependence", min = 0, max = NA, step = 0.001, value = NULL)
                               )
                            ),
                            fluidRow(
-                              box(title="Immature survival rates", status = "info", width = 12, solidHeader = FALSE, collapsible = FALSE, collapsed = FALSE, id = paste0("immat_surv_box_",ia),
+                              shinydashboard::box(title="Immature survival rates", status = "info", width = 12, solidHeader = FALSE, collapsible = FALSE, collapsed = FALSE, id = paste0("immat_surv_box_",ia),
                                  column(width = 4,
                                     lapply(1:maxage, function(ik) {
                                        conditionalPanel(condition = paste0("input.afb >= ", ik),
@@ -414,7 +417,7 @@ ui <- dashboardPage(skin = "green",
 
                fluidRow(
                   conditionalPanel(condition = "input.run_type == 'sensitivity.local'",
-                     box(id = "output_sensitivity_box", title = "Options: Sensitivity", status = "primary", width = 12,
+                     shinydashboard::box(id = "output_sensitivity_box", title = "Options: Sensitivity", status = "primary", width = 12,
                         solidHeader = TRUE, collapsible = TRUE, collapsed = FALSE,
                         footer = dropdownButton(circle = TRUE, status = "info",
                            size = helpsize, icon = icon("info"), right = FALSE, up = FALSE,
@@ -450,7 +453,7 @@ ui <- dashboardPage(skin = "green",
             h3(textOutput("runrefname_txt3")),
             div(id = "ImpactTAB",
                fluidRow(
-                  box(title="Scenarios",
+                  shinydashboard::box(title="Scenarios",
                      status = "primary", width = 4, solidHeader = TRUE, collapsible = TRUE, collapsed = FALSE,
                      footer = actionBttn("resetImpactTAB",label = "Reset impact parameters", style = "gradient", color = "warning", icon = icon("refresh")),
                      numericInput("nscen", label = "Number of scenarios of impact",
@@ -459,7 +462,7 @@ ui <- dashboardPage(skin = "green",
                      helpText("The baseline is also included as an additional scenario.")
                   ),
 
-                  box(title="Options", status = "primary", width = 4, solidHeader = TRUE,
+                  shinydashboard::box(title="Options", status = "primary", width = 4, solidHeader = TRUE,
                      collapsible = TRUE, collapsed = FALSE,
                      footer = dropdownButton(circle = TRUE, status = "info",
                         size = helpsize, icon = icon("info"), right = FALSE, up = FALSE,
@@ -498,7 +501,7 @@ ui <- dashboardPage(skin = "green",
                      )
                   ),
 
-                  box(title="Form of impact", status = "primary", width = 4, solidHeader = TRUE,
+                  shinydashboard::box(title="Form of impact", status = "primary", width = 4, solidHeader = TRUE,
                      collapsible = TRUE, collapsed = FALSE,
                      footer = dropdownButton(circle = TRUE, status = "info",
                         size = helpsize, icon = icon("info"), right = FALSE, up = FALSE,
@@ -518,14 +521,14 @@ ui <- dashboardPage(skin = "green",
 
                fluidRow(
                   # Years - impacts_year_start, impacts_year_end
-                  box(title="Years in which impacts are assumed to begin and end",
+                  shinydashboard::box(title="Years in which impacts are assumed to begin and end",
                      status = "primary", width = 12, solidHeader = TRUE, collapsible = TRUE, collapsed = FALSE,
                      footer = dropdownButton(circle = TRUE, status = "info",
                         size = helpsize, icon = icon("info"), right = FALSE, up = FALSE,
                         helptext$impactyears
                      ),
                      sliderInput("impacts_year", label=NULL, minyr, maxyr,
-                        value=c(startyr-10,startyr+20), step = 1,
+                        value=c(startyr+20,startyr+50), step = 1,
                         round = TRUE, ticks = TRUE, width = "100%", sep = "", dragRange = TRUE),
                      textOutput("output_year_display")
                   )
@@ -534,7 +537,7 @@ ui <- dashboardPage(skin = "green",
                   lapply(1:maxnscen, function(ic) {
                      conditionalPanel(
                         condition = paste0("input.nscen >= ", ic), value = paste0("impsc",ic),
-                        box(title=paste0("Scenario ",LETTERS[ic]), status = "primary", width = 6, height = "auto", solidHeader = TRUE,
+                        shinydashboard::box(title=paste0("Scenario ",LETTERS[ic]), status = "primary", width = 6, height = "auto", solidHeader = TRUE,
                            collapsible = TRUE, collapsed = FALSE,
                            textInput(paste0("scn_nm_str_",ic), label = "Scenario name", value = NULL,
                               placeholder="Enter a reference name (no commas!)...", width = "100%"),
@@ -542,26 +545,26 @@ ui <- dashboardPage(skin = "green",
                            lapply(1:maxnpop, function(ia) {
                               conditionalPanel(
                                  condition = paste0("input.npop >= ", ia),
-                                 box(id = paste0("box_",ic,"_",ia), title=paste0("Subpopulation: ",ia), status = "info", width = 12, height = "auto", solidHeader = TRUE,
+                                 shinydashboard::box(id = paste0("box_",ic,"_",ia), title=paste0("Subpopulation: ",ia), status = "info", width = 12, height = "auto", solidHeader = TRUE,
                                     collapsible = TRUE, collapsed = FALSE,
 
                                     h4(textOutput(paste0("impacts_tab_txt_", ic, "_", ia))),
 
-                                    box(title = NULL, status = NULL, width = 4, solidHeader = FALSE, collapsible = FALSE, collapsed = FALSE,
+                                    shinydashboard::box(title = NULL, status = NULL, width = 4, solidHeader = FALSE, collapsible = FALSE, collapsed = FALSE,
                                        textOutput(paste0("imp_pr_txt_", ic,"_", ia)),
                                        #"impacts_prod_mean"
                                        numericInput(paste0("imp_pr_mn_", ic,"_", ia), label = "Mean", width="auto", step = 0.001, value = NULL),
                                        #"impacts_prod_se"
                                        numericInput(paste0("imp_pr_se_", ic,"_", ia), label = "Standard error", width="auto", step = 0.001, value = NULL)
                                     ),
-                                    box(title = NULL, status = NULL, width = 4, solidHeader = FALSE, collapsible = FALSE, collapsed = FALSE,
+                                    shinydashboard::box(title = NULL, status = NULL, width = 4, solidHeader = FALSE, collapsible = FALSE, collapsed = FALSE,
                                        textOutput(paste0("imp_ad_txt_", ic,"_", ia)),
                                        #"impacts_survadult_mean"
                                        numericInput(paste0("imp_ad_mn_", ic,"_", ia) , label = "Mean", width="auto", step = 0.001, value = NULL),
                                        #"impacts_survadult_se"
                                        numericInput(paste0("imp_ad_se_", ic,"_", ia) ,label = "Standard error", width="auto", step = 0.001, value = NULL)
                                     ),
-                                    box(title = NULL, status = NULL, width = 4, solidHeader = FALSE, collapsible = FALSE, collapsed = FALSE,
+                                    shinydashboard::box(title = NULL, status = NULL, width = 4, solidHeader = FALSE, collapsible = FALSE, collapsed = FALSE,
                                        textOutput(paste0("imp_im_txt_", ic,"_", ia)),
                                        #"impacts_survimmat_mean"
                                        numericInput(paste0("imp_im_mn_", ic,"_", ia) ,label = "Mean", width="auto", step = 0.001, value = NULL),
@@ -586,7 +589,7 @@ ui <- dashboardPage(skin = "green",
                h3(textOutput("runrefname_txt4")),
                fluidRow(
                   # Output years box - always visible
-                  box(title = "Output: Years", status = "primary", width = 4,
+                  shinydashboard::box(title = "Output: Years", status = "primary", width = 4,
                      solidHeader = TRUE, collapsible = TRUE, collapsed = FALSE,
 
                      # output_year_start
@@ -601,7 +604,7 @@ ui <- dashboardPage(skin = "green",
                   ),
 
                   # Target population size - optional, can be NULL
-                  box(title = "Output: Target population size (optional)", status = "primary", width = 4,
+                  shinydashboard::box(title = "Output: Target population size (optional)", status = "primary", width = 4,
                      solidHeader = TRUE, collapsible = TRUE, collapsed = FALSE,
                      footer = dropdownButton(circle = TRUE, status = "info",
                         size = helpsize, icon = icon("info"), right = FALSE, up = FALSE,
@@ -611,32 +614,32 @@ ui <- dashboardPage(skin = "green",
                         value = NA, min = 0, max = NA, step = NA, width = NULL),
                      numericInput("output_popsize_qe", label = "Quasi-extinction threshold to use in calculating impact metrics",
                         value = NA, min = NA, max = NA, step = NA, width = NULL),
-                     helpText("These values must be entered using the same units as specified for outputs. Can be blank, but required to calculate metrics M5, M6 and M7.")
+                     helpText("These values must be entered using the same units as specified for outputs. Can be left blank, but are required to calculate metrics 'Quasi_Extinction', 'pc_ImpSims_above_TPS' and TPS_YR.")
                   ),
 
                   # Output.agetype
-                  box(id = "output_agetype_box",title = "Units for output", status = "primary", width = 4,
+                  shinydashboard::box(id = "output_agetype_box",title = "Units for output", status = "primary", width = 4,
                      solidHeader = TRUE, collapsible = TRUE, collapsed = FALSE,
                      footer = dropdownButton(circle = TRUE, status = "info",
                         size = helpsize, icon = icon("info"), right = FALSE, up = FALSE,
                         helptext$outputages
                      ),
-                     # outagetypes <- c("breeding.adults", "breeding.pairs", "age.separated")
+
                      prettyRadioButtons("output_agetype",
                         label = "Choose",
                         choices = c("Breeding adults" = 'breeding.adults', "Breeding pairs" = 'breeding.pairs',
-                           "All ages separately" = 'age.separated'),
+                                    "All ages separately" = 'age.separated', "Whole population" = 'whole.population'),
                         selected = 'breeding.pairs',
                         icon = icon("check"),
                         bigger = TRUE, status = "success", animation = "jelly"
                      )
                   ),
                   conditionalPanel(condition = "input.run_type=='validation'",
-                     box(id = "output_validation_box", title = "Outputs: Validation data", status = "primary", width = 12,
+                     shinydashboard::box(id = "output_validation_box", title = "Outputs: Validation data", status = "primary", width = 12,
                         solidHeader = TRUE, collapsible = TRUE, collapsed = FALSE,
                         helpText("Validation data for comparison with PVA. Values can only be added for the baseline and if
                         there is only one subpopulation. Population size must be specified in same units as set for output."),
-                        box(width = 3,
+                        shinydashboard::box(width = 3,
                            lapply(1:5, function(i){
                               fluidRow(
                                  column(width = 6,
@@ -649,7 +652,7 @@ ui <- dashboardPage(skin = "green",
                                  )
                               )
                            })),
-                        box(width = 3,
+                        shinydashboard::box(width = 3,
                            lapply(6:10, function(i){
                               fluidRow(
                                  column(width = 6,
@@ -662,7 +665,7 @@ ui <- dashboardPage(skin = "green",
                                  )
                               )
                            })),
-                        box(width = 3,
+                        shinydashboard::box(width = 3,
                            lapply(11:15, function(i){
                               fluidRow(
                                  column(width = 6,
@@ -675,7 +678,7 @@ ui <- dashboardPage(skin = "green",
                                  )
                               )
                            })),
-                        box(width = 3,
+                        shinydashboard::box(width = 3,
                            lapply(16:20, function(i){
                               fluidRow(
                                  column(width = 6,
@@ -697,7 +700,7 @@ ui <- dashboardPage(skin = "green",
                h3("Population Viability Analysis (PVA)"),
 
                fluidRow(
-                  box(title = "Summary of parameters", status = "primary", width = 12,
+                  shinydashboard::box(title = "Summary of parameters", status = "primary", width = 12,
                      solidHeader = TRUE, collapsible = TRUE, collapsed = FALSE,
                      footer = dropdownButton(circle = TRUE, status = "info",
                         size = helpsize, icon = icon("info"), right = FALSE, up = FALSE,
@@ -717,16 +720,7 @@ ui <- dashboardPage(skin = "green",
                         column(width = 2, offset = 5,
                            downloadButton("downloadlog", label = "Run Model (& Generate log)")
                         )
-                        # column(width = 4, offset = 2,
-                        #    downloadBttn("downloadlog", label = "Generate Log", style = "gradient", color = "primary", size = "lg",
-                        #       block = TRUE, no_outline = TRUE)
-                        # )
-                        # ,
-                        # column(width = 4,
-                        #    actionBttn(inputId = "goButton", label = "Run PVA", style = "gradient", color = "success", size = "lg",
-                        #       block = TRUE, icon = icon("thumbs-up"))
-                        # )
-                     )
+                      )
                   ) # box
                ) # fluidRow
             )
@@ -738,7 +732,7 @@ ui <- dashboardPage(skin = "green",
          tabItem(tabName = "charts",
             h3(textOutput("runrefname_txt5")),
             conditionalPanel(condition = "input.run_type != 'sensitivity.local'",
-               box(title = "Metrics", status = "success", width = 12, height = "690px",
+               shinydashboard::box(title = "Metrics", status = "success", width = 12, height = "690px",
                   solidHeader = FALSE, collapsible = FALSE, collapsed = FALSE,
                   column(width = 12,
                      plotlyOutput("pva_plot_01")
@@ -746,14 +740,14 @@ ui <- dashboardPage(skin = "green",
                )
             ),
             conditionalPanel(condition = "input.run_type == 'sensitivity.local'",
-               box(title = "Sensitivity: Metrics", status = "success", width = 12, height = "1200px",
+               shinydashboard::box(title = "Sensitivity: Metrics", status = "success", width = 12, height = "1200px",
                   solidHeader = FALSE, collapsible = FALSE, collapsed = TRUE,
                   column(width=12,
                      plotlyOutput("pva_plot_sl_all")
                   )
                )),
             conditionalPanel(condition = "input.run_type=='simplescenarios'",
-               box(title = "Counterfactual of Population Growth Rate (Metric M1)", status = "success", width = 12, height = "690px",
+               shinydashboard::box(title = "Counterfactual of Population Growth Rate (CGR)", status = "success", width = 12, height = "690px",
                   solidHeader = FALSE, collapsible = FALSE, collapsed = FALSE,
                   column(width = 12,
                      htmlOutput("M1_text"),
@@ -762,7 +756,7 @@ ui <- dashboardPage(skin = "green",
                )
             ),
             conditionalPanel(condition = "input.run_type=='simplescenarios'",
-               box(title = "Counterfactual of Population size (Metric M2)", status = "success", width = 12, height = "690px",
+               shinydashboard::box(title = "Counterfactual of Population size (CPS)", status = "success", width = 12, height = "690px",
                   solidHeader = FALSE, collapsible = FALSE, collapsed = FALSE,
                   column(width = 12,
                      htmlOutput("M2_text"),
@@ -776,42 +770,94 @@ ui <- dashboardPage(skin = "green",
          ### TAB OUTPUT TABLE
          ###
          tabItem(tabName = "table",
-            h3(textOutput("runrefname_txt6")),
-            conditionalPanel(condition = "input.run_type=='simplescenarios'",
-               box(title = "Metrics", status = "success", width = 12,
-                  solidHeader = FALSE, collapsible = FALSE, collapsed = TRUE,
-                  column(width = 12,
-                     DT::dataTableOutput("resultstableA")
-                  )
-               )
-            ),
-            conditionalPanel(condition = "input.run_type=='simplescenarios'",
-               box(title = "Metric M7", status = "success", width = 12,
-                  solidHeader = FALSE, collapsible = FALSE, collapsed = TRUE,
-                  column(width = 12,
-                     DT::dataTableOutput("resultstableD")
-                  )
-               )
-            ),
-            conditionalPanel(condition = "input.run_type=='simplescenarios'",
-               box(title = "Population growth rate & population % change", status = "success", width = 12,
-                  solidHeader = FALSE, collapsible = FALSE, collapsed = TRUE,
-                  column(width = 12,
-                     DT::dataTableOutput("resultstableB")
-                  )
-               )
-            ),
-            box(title = "Full table of outputs", status = "success", width = 12,
-               solidHeader = FALSE, collapsible = FALSE, collapsed = TRUE,
-               column(width = 12,
-                  DT::dataTableOutput("resultstableC")
-               )
-            )
+                 h3(textOutput("runrefname_txt6")),
+                 conditionalPanel(condition = "input.run_type=='simplescenarios'",
+                                  shinydashboard::box(title = "Table of main PVA metrics", status = "success", width = 12,
+                                                      solidHeader = FALSE, collapsible = FALSE, collapsed = TRUE,
+                                                      column(width = 12,
+                                                             DT::dataTableOutput("resultstableA")
+                                                      )
+                                  )
+                 ),
+                 conditionalPanel(condition = "input.run_type=='simplescenarios'",
+                                  shinydashboard::box(title = "Table for conservation target-related PVA metrics", status = "success", width = 12,
+                                                      solidHeader = FALSE, collapsible = FALSE, collapsed = TRUE,
+                                                      column(width = 12,
+                                                             DT::dataTableOutput("resultstableM")
+                                                      )
+                                  )
+                 ),
+                 conditionalPanel(condition = "input.run_type=='simplescenarios'",
+                                  shinydashboard::box(title = "Metric TPS_YR", status = "success", width = 12,
+                                                      solidHeader = FALSE, collapsible = FALSE, collapsed = TRUE,
+                                                      column(width = 12,
+                                                             DT::dataTableOutput("resultstableD")
+                                                      )
+                                  )
+                 ),
+                 conditionalPanel(condition = "input.run_type=='simplescenarios'",
+                                  shinydashboard::box(title = "Population growth rate & population % change", status = "success", width = 12,
+                                                      solidHeader = FALSE, collapsible = FALSE, collapsed = TRUE,
+                                                      column(width = 12,
+                                                             DT::dataTableOutput("resultstableB")
+                                                      )
+                                  )
+                 ),
+                 shinydashboard::box(title = "Full table of outputs", status = "success", width = 12,
+                                     solidHeader = FALSE, collapsible = FALSE, collapsed = TRUE,
+                                     column(width = 12,
+                                            DT::dataTableOutput("resultstableC")
+                                     )
+                 )
+         ), # end tabItem
+
+         ### ##############################################################################
+         ### TAB OUTPUT Front Page Information
+         ###
+         tabItem(tabName = "documentation",
+                 h3("A Population Viability Analysis Modelling Tool for Seabird Species"),
+                 div(id = "InfoTAB",
+                     fluidRow(
+                        shinydashboard::box(title=" ", status = "info", width = 12, solidHeader = FALSE, collapsible = FALSE, collapsed = FALSE,
+                                            tags$h4("This online version of the PVA Tool allows users to run Population Viability Analyses (PVAs) applicable
+                                                    to seabirds at a variety of scales, and can be used to set-up and run bespoke PVA models via the user-friendly
+                                                    interface accessed via a standard web browser."),
+                                            tags$h4("The tool allows users the flexibility to explore population management-oriented objectives (e.g.
+                                                    assessment of impacts, evaluation of management options etc.), as well as being able to explicitly
+                                                    highlight the effects on model predictions of different assumptions about the model, data, species
+                                                    and populations concerned. It can be used to assess any type of impact that changes survival or
+                                                    productivity rates, including as a cull or harvest of a fixed size per year. Impacts may also be
+                                                    positive, meaning that mitigation or conservation measures aimed at increasing demographic rates
+                                                    may also be modelled. The tool also allows users to conduct PVAs at a range of scales (e.g. breeding
+                                                    colony to SPA or wider region), and for non-seabird species."),
+                                            tags$h4("The tool produces a range of tabular and graphical outputs for interpreting outputs from PVAs, and a
+                                                    facility for using pre-set demographic rates for a number of seabird species, based on currently available demographic data."))
+                     ),
+                     fluidRow(
+                        shinydashboard::box(title="Documentation ", status = "info", width = 4, solidHeader = FALSE, collapsible = FALSE, collapsed = FALSE,
+                                            tags$p("For Population Viability Analysis Modelling Tool documentation see", tags$a("Github", href = "https://github.com/naturalengland/Seabird_PVA_Tool", target="_blank",
+                                            style="font-weight: bold;color:#000;"), "(opens in a new browser tab)")
+                        ),
+                        shinydashboard::box(title="Version ", status = "warning", width = 4, solidHeader = FALSE, collapsible = FALSE, collapsed = FALSE,
+                                            tags$p("Tool v",release_ver," (Code: v",pva_ver," Interface: v",ui_ver,"). For documentation of changes, issues and comments, see",
+                                                   tags$a("Github", href = "https://github.com/naturalengland/Seabird_PVA_Tool", target="_blank", style="font-weight: bold;color:#000;"), "(opens in a new browser tab)")
+                        ),
+                        shinydashboard::box(title="About the Tool", status = "info", width = 4, solidHeader = FALSE, collapsible = FALSE, collapsed = FALSE,
+                                            tags$p("This tool was developed by UKCEH and BioSS, under contract to Natural England and JNCC. See ",
+                                            tags$a("Github", href = "https://github.com/naturalengland/Seabird_PVA_Tool/blob/master/LICENCE.md", target="_blank", style="font-weight: bold;color:#000;"),
+                                            "(opens in a new browser tab) for licence details."),
+                                            tags$p(tags$img(src="ukceh.png", height="40px"), tags$img(src="bioss.jpg", height="40px"), align = "right")
+                        )
+                     )
+
+                 )
          ) # end tabItem
+
       ), # end tabItems
       busyIndicator(text = "...Please wait...", img = "busyIndicator/hover.gif", wait = 600)
    ) # dashboardbody
 )
+
 
 # ##############################################################################
 # ## Server
@@ -820,7 +866,6 @@ ui <- dashboardPage(skin = "green",
 server <- function(input, output, session) {
 
    ## SCRATCH AREA --------------------------------------------------------------------------------
-
 
 
 
@@ -928,7 +973,7 @@ server <- function(input, output, session) {
    observe({
       req(!errfn3a(input$npop))
       if (input$npop == 1) {
-         updateSwitchInput(session, "demobase_splitpops", value = TRUE, disabled = TRUE, offStatus = NULL)
+         updateSwitchInput(session, "demobase_splitpops", value = FALSE, disabled = TRUE, offStatus = NULL)
          updateSwitchInput(session, "impacts_splitpops", value = FALSE, disabled = TRUE, offStatus = NULL)
       } else {
          if (input$run_type == 'simplescenarios'){
@@ -1048,7 +1093,7 @@ server <- function(input, output, session) {
       lapply(c("pr_idd_","ad_idd_"), function(iv) {shinyjs::enable(paste0(iv,1))})
       lapply(1:maxage, function(j) {
          isolate({
-            if (input$demobase_splitimmat == TRUE) {shinyjs::enable("im_idd_",1,"_",j)}
+            if (input$demobase_splitimmat == TRUE) {shinyjs::enable(paste0("im_idd_",1,"_",j))}
             if (input$demobase_splitpops == TRUE) {
                lapply(2:maxnpop, function(i) {
                   lapply(c("pr_idd_", "ad_idd_"), function(v) {shinyjs::enable(paste0(v,i)) })
@@ -1440,8 +1485,8 @@ server <- function(input, output, session) {
    ## LOG, CHART AND TABLES -----------------------------------------------------------------------
 
    output$nepva_text <- renderText({
-      HTML(paste0("The progress bar indicates how many of the mandatory numeric parameters have been completed
-         based on the run type, number of scenarios and number of subpopulations specified.
+      HTML(paste0("The progress bar indicates how many of the mandatory numeric parameters have been
+         completed based on the run type, number of scenarios and number of subpopulations specified.
          Note that the RUN button can be clicked at any time but will give an error message if
          any mandatory parameters are unset!","<br><br>A document listing all parameters is generated
          with each run."))
@@ -1454,24 +1499,26 @@ server <- function(input, output, session) {
       req(class(rv$results) == 'data.frame')
       req(input$run_type == "simplescenarios")
       tabledata <- rv$results[(rv$results$Year == max(rv$results$Year)) & (rv$results$Scenario != "baseline"),
-         c("Age", "Scenario", "m1.median", "m2.median","m3","m4","m5","m6")]
+                              c("Age_Class", "Scenario", "CGR_Median", "CPS_Median","QuantileUNIMP50pcIMP","QuantileIMP50pcUNIMP","Quasi_Extinction","pc_ImpSims_above_TPS")]
 
       DT::datatable(tabledata,
-         extensions = c('Buttons'),
-         selection = 'multiple', rownames = FALSE, filter = 'none', class = 'compact row-border hover',
-         fillContainer = FALSE,
-         options = list(dom = 'Bit', scrollY = TRUE,  scrollX = TRUE, pageLength = 20,
-            searching = FALSE, buttons = list('copy',
-               list(extend = 'excel', filename = paste0("NEPVA_", rv$shortrunrefname,"_metrics_",Sys.Date())),
-               list(extend = 'csv', filename = paste0("NEPVA_", rv$shortrunrefname,"_metrics_",Sys.Date()))),
-            initComplete = JS(
-               "function(settings, json) {",
-               "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
-               "}"))
-      )
+                    extensions = c('Buttons'),
+                    selection = 'multiple', rownames = FALSE, filter = 'none', class = 'compact row-border hover',
+                    fillContainer = FALSE,
+                    options = list(dom = 'Bit', scrollY = TRUE,  scrollX = TRUE, pageLength = 20,
+                                   searching = FALSE, buttons = list('copy',
+                                                                     #excel#list(extend = 'excel', filename = paste0("NEPVA_", rv$shortrunrefname,"_metrics_",Sys.Date())),
+                                                                     list(extend = 'csv', filename = paste0("NEPVA_", rv$shortrunrefname,"_metrics_",Sys.Date()))),
+                                   initComplete = JS(
+                                      "function(settings, json) {",
+                                      "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+                                      "}"))
+      ) %>%
+         formatRound(c("QuantileUNIMP50pcIMP", "QuantileIMP50pcUNIMP", "Quasi_Extinction", "pc_ImpSims_above_TPS"),1) %>%
+         formatSignif(c("CGR_Median", "CPS_Median"),3)
    })
 
-   # METRIC M7
+   # METRIC TPS_YR (M7)
    output$resultstableD <-  DT::renderDataTable({
       req(class(rv$results) == 'data.frame')
       req(input$run_type == "simplescenarios")
@@ -1483,7 +1530,7 @@ server <- function(input, output, session) {
          fillContainer = FALSE,
          options = list(dom = 'Bit', scrollY = TRUE,  scrollX = TRUE, pageLength = 10,
             searching = FALSE, buttons = list('copy',
-               list(extend = 'excel', filename = paste0("NEPVA_", rv$shortrunrefname,"_metrics_",Sys.Date())),
+               #excel#list(extend = 'excel', filename = paste0("NEPVA_", rv$shortrunrefname,"_metrics_",Sys.Date())),
                list(extend = 'csv', filename = paste0("NEPVA_", rv$shortrunrefname,"_metrics_",Sys.Date()))),
             initComplete = JS(
                "function(settings, json) {",
@@ -1492,48 +1539,86 @@ server <- function(input, output, session) {
       )
    })
 
+   # METRICS Quasi_Extinction, pc_ImpSims_above_TPS, M7
+   output$resultstableM <-  DT::renderDataTable({
+      req(class(rv$results) == 'data.frame')
+      req(input$run_type == "simplescenarios")
+      tabledata <- rv$results[, c("Year","Age_Class", "Scenario", "Quasi_Extinction", "pc_ImpSims_above_TPS")]
+
+      DT::datatable(tabledata,
+                    extensions = c('Buttons'),
+                    selection = 'multiple', rownames = FALSE, filter = 'none', class = 'compact row-border hover',
+                    fillContainer = FALSE,
+                    options = list(dom = 'Bit', scrollY = TRUE,  scrollX = TRUE, pageLength = 10,
+                                   searching = FALSE, buttons = list('copy',
+                                                                     #excel#list(extend = 'excel', filename = paste0("NEPVA_", rv$shortrunrefname,"_metrics_",Sys.Date())),
+                                                                     list(extend = 'csv', filename = paste0("NEPVA_", rv$shortrunrefname,"_metrics_",Sys.Date()))),
+                                   initComplete = JS(
+                                      "function(settings, json) {",
+                                      "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+                                      "}"))
+      )
+   })
+
+
+
    # Population growth rate & population % change
    output$resultstableB <-  DT::renderDataTable({
       req(class(rv$results) == 'data.frame')
       tabledata <- rv$results[(rv$results$Year == max(rv$results$Year)),
-         c("Age", "Scenario", "popsize.median", "popsize.q2.5%", "popsize.q97.5%",
-            "agr.median", "agr.cilo", "agr.cihi","ppc.median", "ppc.cilo", "ppc.cihi")]
+         c("Age_Class", "Scenario", "Popsize_Median", "Popsize_2.5%_quantile", "Popsize_97.5%_quantile",
+           "Annual_GR_Median", "Annual_GR_LCI", "Annual_GR_UCI",
+           "pc_Pop_Change_Median", "pc_Pop_Change_LCI", "pc_Pop_Change_UCI")]
 
       DT::datatable(tabledata,
          extensions = c('Buttons'),
          selection = 'multiple', rownames = FALSE, filter = 'none', class = 'compact row-border hover',
          fillContainer = FALSE,
          options = list(dom = 'Bit', scrollY = TRUE,  scrollX = TRUE, buttons = list(I('colvis'), 'copy',
-            list(extend = 'excel', filename = paste0("NEPVA_", rv$shortrunrefname,"_pop_",Sys.Date())),
+            #excel#list(extend = 'excel', filename = paste0("NEPVA_", rv$shortrunrefname,"_pop_",Sys.Date())),
             list(extend = 'csv', filename = paste0("NEPVA_", rv$shortrunrefname,"_pop_",Sys.Date()))),
             initComplete = JS(
                "function(settings, json) {",
                "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
-               "}"))
-      )
+               "}")
+            ),
+         # callback = JS("var tips = ['tooltip1', 'tooltip2', 'tooltip3', 'tooltip4', 'tooltip5'],
+         #                    firstRow = $('#resultstableB thead tr th');
+         #                    for (var i = 0; i < tips.length; i++) {
+         #                      $(firstRow[i]).attr('title', tips[i]);
+         #                    }"),
+      ) %>%
+         formatRound(c("Popsize_Median","Popsize_2.5%_quantile","Popsize_97.5%_quantile"), 0) %>%
+         formatRound(c("Annual_GR_Median", "Annual_GR_LCI", "Annual_GR_UCI"),3) %>%
+         formatRound(c("pc_Pop_Change_Median", "pc_Pop_Change_LCI", "pc_Pop_Change_UCI"),1)
    })
 
    output$resultstableC <-  DT::renderDataTable({
       req(class(rv$results) == 'data.frame')
       DT::datatable(rv$results,
          extensions = c('Buttons'),
-         selection = 'multiple', rownames = TRUE, filter = 'none', class = 'compact row-border hover',
+         selection = 'multiple', rownames = FALSE, filter = 'none', class = 'compact row-border hover',
          fillContainer = FALSE,
          options = list(dom = 'lBfiptp', scrollY = TRUE,  scrollX = TRUE, language = list(search = 'Find:'),
             pageLength = 20, lengthMenu = list(c(10, 20, 50, 100, -1), list('10', '20', '50', '100', 'All')),
             searching = TRUE, buttons = list(I('colvis'), 'copy',
-               list(extend = 'excel', filename = paste0("NEPVA_", rv$shortrunrefname,"_full_",Sys.Date())),
+               #excel#list(extend = 'excel', filename = paste0("NEPVA_", rv$shortrunrefname,"_full_",Sys.Date())),
                list(extend = 'csv', filename = paste0("NEPVA_", rv$shortrunrefname,"_full_",Sys.Date()))),
             initComplete = JS(
                "function(settings, json) {",
                "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
                "}"))
-      )
+      ) %>%
+         formatRound(paste("Popsize", c("Mean", "Median", paste0(c(1, 2.5, 5, 10, 20, 25, 33, 66, 75, 80, 90, 95, 97.5, 99), "%_quantile")), sep="_"), 0) %>%
+         formatRound(c("Annual_GR_Median","Annual_GR_Mean", "Annual_GR_LCI", "Annual_GR_UCI"),3) %>%
+         formatRound(c("pc_Pop_Change_Median", "pc_Pop_Change_Mean", "pc_Pop_Change_LCI", "pc_Pop_Change_UCI", "QuantileUNIMP50pcIMP", "QuantileIMP50pcUNIMP", "Quasi_Extinction", "pc_ImpSims_above_TPS"),1) %>%
+         formatSignif(c("Annual_GR_SD","CGR_SD","CPS_SD","pc_Pop_Change_SD", "Popsize_SD"),2) %>%
+         formatSignif(c("CGR_Median","CGR_Mean","CGR_LCI","CGR_UCI","CPS_Median","CPS_Mean","CPS_LCI","CPS_UCI"),3)
    },server = FALSE)
 
    # The Parameter settings report
    output$downloadlog <- downloadHandler(
-      filename = function() {paste0('NEPVA_log_',rv$shortrunrefname,"_",format(Sys.time(), '%Y%m%d_%H%M'), '.doc')},
+      filename = function() {paste0('NEPVA_log_',rv$shortrunrefname,"_",format(Sys.time(), '%Y%m%d_%H%M'), '.docx')},
       content = function(file) {
          src <- normalizePath('NEPVAlog.Rmd')
          owd <- setwd(tempdir())
@@ -1553,16 +1638,21 @@ server <- function(input, output, session) {
       req(class(rv$results) == 'data.frame')
       req(input$run_type == "simplescenarios" | input$run_type == "validation")
 
-      # Only plot adult data even if juveniles are output separately
-      PVA <- rv$results[(rv$results$Age == "breeding.adults" | rv$results$Age == "breeding.pairs"),]
-      #PVA <- rv$results
-
-      outtype <-  ifelse(input$output_agetype == 'age.separated',paste0(input$output_agetype," (adults only)"),input$output_agetype)
+      if (input$output_agetype == 'breeding.adults'){
+         PVA <- rv$results[rv$results$Age_Class == "breeding.adults",]
+         outtype <-  "breeding adults"
+      } else if (input$output_agetype == 'breeding.pairs') {
+         PVA <- rv$results[rv$results$Age_Class == "breeding.pairs",]
+         outtype <-  "breeding pairs"
+      } else {
+         PVA <- rv$results[rv$results$Age_Class == "whole.population",]
+         outtype <-  "whole population"
+      }
 
       gg_pva <- ggplot(data = PVA) + theme_bw() +
-         geom_line(aes(x = Year, y = popsize.median, colour = Scenario)) +
-         geom_line(aes(x = Year, y = PVA[,"popsize.q2.5%"], colour = Scenario), linetype="dotted") +
-         geom_line(aes(x = Year, y = PVA[,"popsize.q97.5%"], colour = Scenario), linetype="dotted") +
+         geom_line(aes(x = Year, y = Popsize_Median, colour = Scenario)) +
+         geom_line(aes(x = Year, y = PVA[,"Popsize_2.5%_quantile"], colour = Scenario), linetype="dotted") +
+         geom_line(aes(x = Year, y = PVA[,"Popsize_97.5%_quantile"], colour = Scenario), linetype="dotted") +
          ylab(paste("Projected population size (",outtype,")")) + ggtitle("Population Size")
 
 
@@ -1601,8 +1691,16 @@ server <- function(input, output, session) {
       req(input$run_type == "sensitivity.local")
 
       # Only plot adult data even if juveniles are output separately
-      tabledata <- rv$results[(rv$results$Age == "breeding.adults" | rv$results$Age == "breeding.pairs"),]
-      #tabledata <- rv$results
+      if (input$output_agetype == 'breeding.adults'){
+         tabledata <- rv$results[rv$results$Age_Class == "breeding.adults",]
+
+      } else if (input$output_agetype == 'breeding.pairs') {
+         tabledata <- rv$results[rv$results$Age_Class == "breeding.pairs",]
+
+      } else {
+         tabledata <- rv$results[rv$results$Age_Class == "whole.population",]
+
+      }
 
       baselinerun <- tabledata[tabledata$parname == "standard",] %>%
          slice(rep(1:n(), each = nlevels(tabledata$parname)))
@@ -1616,8 +1714,8 @@ server <- function(input, output, session) {
             pcchange.impact.prod.mean == 0 ~ pcchange.impact.prod.mean,
             pcchange.impact.survadult.mean == 0 ~ pcchange.impact.survadult.mean
          )) %>% filter(parname != "standard") %>%
-         select(parname, pcchange, m1.median, m2.median, m3, m4, m5, m6) %>%
-         gather(key, value = "Metric", m1.median:m6)
+         select(parname, pcchange, CGR_Median, CPS_Median, QuantileUNIMP50pcIMP, QuantileIMP50pcUNIMP, Quasi_Extinction, pc_ImpSims_above_TPS) %>%
+         gather(key, value = "Metric", CGR_Median:pc_ImpSims_above_TPS)
 
       tabledata <- tabledata %>% mutate(
          pcchange = case_when(
@@ -1627,8 +1725,8 @@ server <- function(input, output, session) {
             pcchange.impact.prod.mean != 0 ~ pcchange.impact.prod.mean,
             pcchange.impact.survadult.mean != 0 ~ pcchange.impact.survadult.mean
          )) %>% filter(parname != "standard") %>%
-         select(parname, pcchange, m1.median, m2.median, m3, m4, m5, m6) %>%
-         gather(key, value = "Metric", m1.median:m6)
+         select(parname, pcchange, CGR_Median, CPS_Median, QuantileUNIMP50pcIMP, QuantileIMP50pcUNIMP, Quasi_Extinction, pc_ImpSims_above_TPS) %>%
+         gather(key, value = "Metric", CGR_Median:pc_ImpSims_above_TPS)
 
       tabledata <- rbind(tabledata, baselinerun)
       levels(tabledata$parname) <- c(levels(tabledata$parname),"Initial population size",
@@ -1662,14 +1760,22 @@ server <- function(input, output, session) {
       req(input$nscen > 0)
 
       # Only plot adult data even if juveniles are output separately
-      PVA <- rv$results[(rv$results$Age == "breeding.adults" | rv$results$Age == "breeding.pairs"),]
-      #PVA <- rv$results
+      if (input$output_agetype == 'breeding.adults'){
+         PVA <- rv$results[rv$results$Age_Class == "breeding.adults",]
+
+      } else if (input$output_agetype == 'breeding.pairs') {
+         PVA <- rv$results[rv$results$Age_Class == "breeding.pairs",]
+
+      } else {
+         PVA <- rv$results[rv$results$Age_Class == "whole.population",]
+
+      }
 
       # If >1 scenario specified, and only one subpopulation, or multiple populations all with the same impact
       if (input$npop == 1 | input$impacts_splitpops == FALSE) {
          output$M1_text <- renderText({HTML("") })
          tableindata <- data.frame(Scenario = rv$impacts_scennames, Impact = rv$impacts_survadult_mean[1,])
-         tableoutdata <- PVA[PVA$Scenario != "baseline", c("Year", "Scenario", "m1.median", "m1.cilo","m1.cihi")]
+         tableoutdata <- PVA[PVA$Scenario != "baseline", c("Year", "Scenario", "CGR_Median", "CGR_LCI","CGR_UCI")]
          tableoutdata$Year <- tableoutdata$Year - input$impacts_year[1]
          tableoutdata$ImpactYear <- paste0("Yr ",as.character(tableoutdata$Year))
 
@@ -1680,13 +1786,13 @@ server <- function(input, output, session) {
          tabledata <- merge(tableindata, tableoutdata[c & (a|b),], by = "Scenario")
 
          #    X-axis is the impact on adult survival for each of the scenarios
-         #    Y-axis is m1.median (solid), m1.cilo (dotted line) and m1.cihi (dotted line)
+         #    Y-axis is CGR_Median (solid), CGR_LCI (dotted line) and CGR_UCI (dotted line)
          gg_pva_p1 <- ggplot() + theme_bw() +
-            geom_line(data=tabledata,aes(x=Impact, y=m1.median, colour = ImpactYear)) +
-            geom_point(data=tabledata,aes(x=Impact, y=m1.median, colour = ImpactYear)) +
-            geom_line(data=tabledata,aes(x=Impact, y=m1.cilo, colour = ImpactYear),linetype="dotted") +
-            geom_line(data=tabledata,aes(x=Impact, y=m1.cihi, colour = ImpactYear), linetype = "dotted")  +
-            ylab("M1 (median and confidence interval) \n\n") + ggtitle("Counterfactual of Population Growth Rate")
+            geom_line(data=tabledata,aes(x=Impact, y=CGR_Median, colour = ImpactYear)) +
+            geom_point(data=tabledata,aes(x=Impact, y=CGR_Median, colour = ImpactYear)) +
+            geom_line(data=tabledata,aes(x=Impact, y=CGR_LCI, colour = ImpactYear),linetype="dotted") +
+            geom_line(data=tabledata,aes(x=Impact, y=CGR_UCI, colour = ImpactYear), linetype = "dotted")  +
+            ylab("CGR (median and confidence interval) \n\n") + ggtitle("Counterfactual of Population Growth Rate")
 
          plotly_pva <- ggplotly(gg_pva_p1, autosize = T, height = 600) %>%
             layout(yaxis = list(tickmode="auto", autorange=TRUE),
@@ -1706,14 +1812,22 @@ server <- function(input, output, session) {
       req(input$nscen > 0)
 
       # Only plot adult data even if juveniles are output separately
-      PVA <- rv$results[(rv$results$Age == "breeding.adults" | rv$results$Age == "breeding.pairs"),]
-      #PVA <- rv$results
+      if (input$output_agetype == 'breeding.adults'){
+         PVA <- rv$results[rv$results$Age_Class == "breeding.adults",]
+
+      } else if (input$output_agetype == 'breeding.pairs') {
+         PVA <- rv$results[rv$results$Age_Class == "breeding.pairs",]
+
+      } else {
+         PVA <- rv$results[rv$results$Age_Class == "whole.population",]
+
+      }
 
       # If >1 scenario specified, and only one subpopulation, or multiple populations all with the same impact
       if (input$npop == 1 | input$impacts_splitpops == FALSE) {
          output$M2_text <- renderText({HTML("") })
          tableindata <- data.frame(Scenario = rv$impacts_scennames, Impact = rv$impacts_survadult_mean[1,])
-         tableoutdata <- PVA[PVA$Scenario != "baseline", c("Year", "Scenario", "m2.median", "m2.cilo","m2.cihi")]
+         tableoutdata <- PVA[PVA$Scenario != "baseline", c("Year", "Scenario", "CPS_Median", "CPS_LCI","CPS_UCI")]
          tableoutdata$Year <- tableoutdata$Year - input$impacts_year[1]
          tableoutdata$ImpactYear <- paste0("Yr ",as.character(tableoutdata$Year))
 
@@ -1724,14 +1838,14 @@ server <- function(input, output, session) {
          tabledata <- merge(tableindata, tableoutdata[c & (a|b),], by = "Scenario")
 
          #    X-axis is the impact on adult survival for each of the scenarios
-         #    Y-axis is m2.median (solid), m2.cilo (dotted line) and m2.cihi (dotted line)
+         #    Y-axis is CPS_Median (solid), CPS_LCI (dotted line) and CPS_UCI (dotted line)
 
          gg_pva_p2 <- ggplot() + theme_bw() +
-            geom_line(data=tabledata,aes(x=Impact, y=m2.median, colour = ImpactYear)) +
-            geom_point(data=tabledata,aes(x=Impact, y=m2.median, colour = ImpactYear)) +
-            geom_line(data=tabledata,aes(x=Impact, y=m2.cilo, colour = ImpactYear),linetype="dotted") +
-            geom_line(data=tabledata,aes(x=Impact, y=m2.cihi, colour = ImpactYear), linetype = "dotted")  +
-            ylab("M2 (median and confidence interval) \n\n") + ggtitle("Counterfactual of Population Size")
+            geom_line(data=tabledata,aes(x=Impact, y=CPS_Median, colour = ImpactYear)) +
+            geom_point(data=tabledata,aes(x=Impact, y=CPS_Median, colour = ImpactYear)) +
+            geom_line(data=tabledata,aes(x=Impact, y=CPS_LCI, colour = ImpactYear),linetype="dotted") +
+            geom_line(data=tabledata,aes(x=Impact, y=CPS_UCI, colour = ImpactYear), linetype = "dotted")  +
+            ylab("CPS (median and confidence interval) \n\n") + ggtitle("Counterfactual of Population Size")
 
          plotly_pva <- ggplotly(gg_pva_p2, autosize = T, height = 600) %>%
             layout(yaxis = list(tickmode="auto", autorange=TRUE),
@@ -1828,7 +1942,7 @@ server <- function(input, output, session) {
          if (input$model_dd == 'nodd') {
             demobase_survimmat <- array(dim=c(NP, NF, 2))
             for (x in 1:NP) {
-               for (y in 1:NF) {
+                for (y in 1:NF) {
                   demobase_survimmat[x,y,1] <- input[[paste0("im_mn_",x,"_",y)]]
                   demobase_survimmat[x,y,2] <- input[[paste0("im_sd_",x,"_",y)]]
                }
@@ -1936,36 +2050,37 @@ server <- function(input, output, session) {
                   npop = input$npop,
                   nscen = input$nscen,
                   sim.n = input$sim_n,
+                  nburn = input$nburn,
                   sim.seed = sim_seed,
                   demobase.specify.as.params = specify.as.params,
                   demobase.splitpops = input$demobase_splitpops,
                   demobase.splitimmat = input$demobase_splitimmat,
                   demobase.prod = demobase_prod,
+                  demobase.survimmat = drop(demobase_survimmat),
                   demobase.survadult = demobase_survadult,
-                  demobase.survimmat = demobase_survimmat,
                   inipop.years = inipop_years,
-                  inipop.vals = inipop_vec(input,"inipopval_"),
                   inipop.inputformat = input$inipop_inputformat,
+                  inipop.vals = inipop_vec(input,"inipopval_"),
                   impacts.relative = (input$impacts_relative == 'relative'),
                   impacts.splitpops = input$impacts_splitpops,
                   impacts.splitimmat = input$impacts_splitimmat,
                   impacts.provideses = input$impacts_provideses,
                   impacts.year.start = input$impacts_year[1],
                   impacts.year.end = input$impacts_year[2],
-                  impacts.matchscens = input$impacts_matchscens,
                   impacts.scennames = impacts_scennames,
+                  impacts.matchscens = input$impacts_matchscens,
                   impacts.prod.mean = impacts_prod_mean,
                   impacts.prod.se = impacts_prod_se,
-                  impacts.survadult.mean = impacts_survadult_mean,
-                  impacts.survadult.se = impacts_survadult_se,
                   impacts.survimmat.mean = impacts_survimmat_mean,
                   impacts.survimmat.se = impacts_survimmat_se,
+                  impacts.survadult.mean = impacts_survadult_mean,
+                  impacts.survadult.se = impacts_survadult_se,
                   output.agetype = input$output_agetype,
-                  output.year.end = output_yr_end,
                   output.year.start = output_yr_start,
+                  output.year.end = output_yr_end,
                   output.popsize.target = popsize_target,
                   output.popsize.qe = input$output_popsize_qe,
-                  silent = TRUE
+                  silent = TRUE, output.raw = FALSE, changetablenames = FALSE
                )
             }, warning = function(war) {
                sendSweetAlert(session, title = "Something went wrong", text = war,
@@ -2005,10 +2120,14 @@ server <- function(input, output, session) {
                   afb = input$afb,
                   sim.n = input$sim_n,
                   sim.seed = sim_seed,
+                  nburn = input$nburn,
                   demobase.specify.as.params = specify.as.params,
+                  demobase.splitimmat = input$demobase_splitimmat,
                   demobase.prod = demobase_prod, #data.frame(Mean = 0.5, SD = 0.11),
+                  demobase.survimmat = drop(demobase_survimmat),
                   demobase.survadult = demobase_survadult, # data.frame(Mean = 0.82, SD = 0.02),
                   inipop.years = inipop_years,
+                  inipop.inputformat = input$inipop_inputformat,
                   inipop.vals = inipop_vec(input,"inipopval_"),
                   output.agetype = input$output_agetype,
                   output.year.end = output_yr_end,
@@ -2016,8 +2135,9 @@ server <- function(input, output, session) {
                   output.popsize.qe = input$output_popsize_qe,
                   output.validation.counts = validation_counts,
                   output.validation.years = validation_years,
-                  silent = TRUE
+                  silent = TRUE, changetablenames = FALSE
                )
+
             }, warning = function(war) {
                sendSweetAlert(session, title = "Validation: Something went wrong", text = war,
                   type = "warning", btn_labels = "Ok", html = FALSE, closeOnClickOutside = TRUE)
@@ -2049,21 +2169,23 @@ server <- function(input, output, session) {
                   afb = input$afb,
                   sim.n = input$sim_n,
                   sim.seed = sim_seed,
+                  nburn = input$nburn,
+                  demobase.specify.as.params = specify.as.params,
                   demobase.prod = demobase_prod,
                   demobase.survadult = demobase_survadult,
                   inipop.years = inipop_years,
                   inipop.vals = inipop_vec(input,"inipopval_"),
+                  impacts.relative = (input$impacts_relative == 'relative'),
                   impacts.year.start = input$impacts_year[1],
                   impacts.year.end = input$impacts_year[2],
-                  impacts.relative = (input$impacts_relative == 'relative'),
                   impacts.prod.mean = impacts_prod_mean,
                   impacts.survadult.mean = impacts_survadult_mean,
-                  output.year.end = output_yr_end,
-                  output.popsize.target = popsize_target,
                   output.popsize.qe = input$output_popsize_qe,
+                  output.popsize.target = popsize_target,
+                  output.year.end = output_yr_end,
                   sens.npvlocal = input$sens_npvlocal,
                   sens.pcr = sens_pcr,
-                  silent = TRUE
+                  silent = TRUE, changetablenames = FALSE
                )
             }, warning = function(war) {
                sendSweetAlert(session, title = "Sensitivity: Something went wrong", text = war,
@@ -2083,17 +2205,17 @@ server <- function(input, output, session) {
 
       if (!is.null(rv$results) && (class(rv$results)  == "data.frame")) {
 
-         # Remove the pgr output
-         delc <- grepl(glob2rx("pgr*"),names(rv$results))
-         rv$results <- rv$results[,!delc]
+         if (input$run_type == "sensitivity.local"){
+            rv$results <- change.table.names.sen(rv$results)
+         } else {
+            rv$results <- change.table.names(rv$results)
+         }
 
-         sendSweetAlert(session, title = "Finished", text = "See Table and Charts tab for results",
+         sendSweetAlert(session, title = "Finished", text = "See Table and Charts tab for results (log file is being written now)",
             type = "success", btn_labels = "Ok", html = FALSE, closeOnClickOutside = TRUE)
       }
 
    })
-
-
 
    ## SET TEST AND/OR CASE STUDY VALUES -----------------------------------------------------------
    ## any new examples added here must also be added to the Case Study box in the UI
@@ -2115,6 +2237,7 @@ server <- function(input, output, session) {
       updateNumericInput(session, "nscen", value = 5)
       updateNumericInput(session, "sim_n", value = 5000)
       updateNumericInput(session, "sim_seed", value = NA)
+      updateNumericInput(session, "nburn", value = 0)
       updateSwitchInput(session, "demobase_splitpops", value = TRUE)
       updateSwitchInput(session, "demobase_splitimmat", value = FALSE); input$demobase_splitimmat
       updateNumericInput(session, "pr_mn_1", value = 0.58)
@@ -2201,6 +2324,7 @@ server <- function(input, output, session) {
       updateNumericInput(session, "nscen", value = 5)
       updateNumericInput(session, "sim_n", value = 5000)
       updateNumericInput(session, "sim_seed", value = NULL)
+      updateNumericInput(session, "nburn", value = 0)
       updateSwitchInput(session, "demobase_splitpops", value = TRUE)
       updateSwitchInput(session, "demobase_splitimmat", value = TRUE); input$demobase_splitimmat
       updateNumericInput(session, "pr_mn_1", value = 0.58)
@@ -2223,10 +2347,22 @@ server <- function(input, output, session) {
       updateNumericInput(session, "im_mn_2_2", value = 0.79)
       updateNumericInput(session, "im_sd_1_2", value = 0.077)
       updateNumericInput(session, "im_sd_2_2", value = 0.077)
+      updateNumericInput(session, "im_mn_1_3", value = 0.79)
+      updateNumericInput(session, "im_mn_2_3", value = 0.79)
+      updateNumericInput(session, "im_sd_1_3", value = 0.077)
+      updateNumericInput(session, "im_sd_2_3", value = 0.077)
+      updateNumericInput(session, "im_mn_1_4", value = 0.79)
+      updateNumericInput(session, "im_mn_2_4", value = 0.79)
+      updateNumericInput(session, "im_sd_1_4", value = 0.077)
+      updateNumericInput(session, "im_sd_2_4", value = 0.077)
       updateNumericInput(session, "im_idd_1_1", value = NA)
       updateNumericInput(session, "im_idd_2_1", value = NA)
       updateNumericInput(session, "im_idd_1_2", value = NA)
       updateNumericInput(session, "im_idd_2_2", value = NA)
+      updateNumericInput(session, "im_idd_1_3", value = NA)
+      updateNumericInput(session, "im_idd_2_3", value = NA)
+      updateNumericInput(session, "im_idd_1_4", value = NA)
+      updateNumericInput(session, "im_idd_2_4", value = NA)
       updateNumericInput(session, "inipopyrs_1", value = 2017)
       updateNumericInput(session, "inipopyrs_2", value = 2017)
       updateNumericInput(session, "inipopval_1", value = 45504)
@@ -2287,6 +2423,7 @@ server <- function(input, output, session) {
       updateNumericInput(session, "nscen", value = 5)
       updateNumericInput(session, "sim_n", value = 5000)
       updateNumericInput(session, "sim_seed", value = NULL)
+      updateNumericInput(session, "nburn", value = 0)
       updateSwitchInput(session, "demobase_splitpops", value = TRUE)
       updateSwitchInput(session, "demobase_splitimmat", value = FALSE); input$demobase_splitimmat
       updateNumericInput(session, "pr_mn_1", value = 0.58)
@@ -2373,6 +2510,7 @@ server <- function(input, output, session) {
       updateNumericInput(session, "nscen", value = 5)
       updateNumericInput(session, "sim_n", value = 5000)
       updateNumericInput(session, "sim_seed", value = NA)
+      updateNumericInput(session, "nburn", value = 0)
       updateSwitchInput(session, "demobase_splitpops", value = TRUE)
       updateSwitchInput(session, "demobase_splitimmat", value = FALSE); input$demobase_splitimmat
       updateNumericInput(session, "pr_mn_1", value = 0.58)
@@ -2459,6 +2597,7 @@ server <- function(input, output, session) {
       updateNumericInput(session, "nscen", value = 3)
       updateNumericInput(session, "sim_n", value = 10)
       updateNumericInput(session, "sim_seed", value = 43576)
+      updateNumericInput(session, "nburn", value = 0)
       updateSwitchInput(session, "demobase_splitpops", value = TRUE)
       updateSwitchInput(session, "demobase_splitimmat", value = FALSE); input$demobase_splitimmat
       updateNumericInput(session, "pr_mn_1", value = 0.3)
@@ -2515,6 +2654,7 @@ server <- function(input, output, session) {
       updateSliderInput(session, "afb", value = 5)
       updateNumericInput(session, "sim_n", value = 1000)
       updateNumericInput(session, "sim_seed", value = 43576)
+      updateNumericInput(session, "nburn", value = 0)
       updateNumericInput(session, "pr_mn_1", value = 0.5)
       updateNumericInput(session, "pr_sd_1", value = 0.11)
       updateNumericInput(session, "ad_mn_1", value = 0.82)
@@ -2549,6 +2689,7 @@ server <- function(input, output, session) {
       updateSliderInput(session, "afb", value = 5)
       updateNumericInput(session, "sim_n", value = 10)
       updateNumericInput(session, "sim_seed", value = 43576)
+      updateNumericInput(session, "nburn", value = 0)
       updateNumericInput(session, "pr_mn_1", value = 0.7)
       updateNumericInput(session, "pr_sd_1", value = 0.11)
       updateNumericInput(session, "ad_mn_1", value = 0.92)
@@ -2570,6 +2711,65 @@ server <- function(input, output, session) {
       updateNumericInput(session, "sens_pcr_4", value = 50)
       updateNumericInput(session, "sens_pcr_5", value = 50)
    })
+
+   # TEST EXAMPLE 3x
+   observeEvent(input$testrun,{
+      req(input$testrun == "Example 3")
+      updateTextInput(session, "runrefname", value = "run3")
+      updateSelectizeInput(session, "case_studies", selected = "None")
+      updateSelectizeInput(session, "species", selected = "None")
+      updatePrettyRadioButtons(session, "run_type", selected = "simplescenarios")
+      updatePrettyRadioButtons(session, "model_envstoch",selected = "deterministic")
+      updateSwitchInput(session, "model_demostoch", value = FALSE)
+      updatePrettyRadioButtons(session, "model_dd", selected = "nodd")
+      updateSwitchInput(session, "model_prodmax", value = TRUE)
+      updateSliderInput(session, "mbs", value = 2)
+      updateSliderInput(session, "afb", value = 4)
+      updateNumericInput(session, "npop", value = 3)
+      updateNumericInput(session, "nscen", value = 2)
+      updateNumericInput(session, "sim_n", value = 8)
+      updateNumericInput(session, "nburn", value = 9)
+      updateNumericInput(session, "sim_seed", value = 7064)
+      updateSwitchInput(session, "demobase_splitpops", value = FALSE)
+      updateSwitchInput(session, "demobase_splitimmat", value = FALSE); input$demobase_splitimmat
+      updateNumericInput(session, "pr_mn_1", value = 0.7590806)
+      updateNumericInput(session, "pr_sd_1", value = 0.1179217)
+      updateNumericInput(session, "ad_mn_1", value = 0.9803358)
+      updateNumericInput(session, "ad_sd_1", value = 0.0658929)
+      updatePrettyRadioButtons(session, "inipop_inputformat", selected = "breeding.pairs")
+      updateNumericInput(session, "inipopyrs_1", value = 2010)
+      updateNumericInput(session, "inipopyrs_2", value = 2006)
+      updateNumericInput(session, "inipopyrs_3", value = 2014)
+      updateNumericInput(session, "inipopval_1", value = 8375)
+      updateNumericInput(session, "inipopval_2", value = 502)
+      updateNumericInput(session, "inipopval_3", value = 773)
+      updateSwitchInput(session, "impacts_splitpops", value = FALSE)
+      updateSwitchInput(session, "impacts_splitimmat", value = TRUE)
+      updateSwitchInput(session, "impacts_provideses", value = TRUE)
+      updateSwitchInput(session, "impacts_matchscens", value = TRUE)
+      updatePrettyRadioButtons(session, "impacts_relative", selected = "relative")
+      updateSliderInput(session, "impacts_year", value = c(2033, 2053))
+      updateTextInput(session, "scn_nm_str_1", value = "scen1")
+      updateTextInput(session, "scn_nm_str_2", value = "scen2")
+      updateNumericInput(session, "imp_pr_mn_1_1", value = -0.09077062)
+      updateNumericInput(session, "imp_pr_mn_2_1", value = 0.04593874)
+      updateNumericInput(session, "imp_pr_se_1_1", value = -0.004374508)
+      updateNumericInput(session, "imp_pr_se_2_1", value = 0.00144323)
+      updateNumericInput(session, "imp_ad_mn_1_1", value = -0.04271304)
+      updateNumericInput(session, "imp_ad_mn_2_1", value = -0.04346782)
+      updateNumericInput(session, "imp_ad_se_1_1", value = -0.0007258702)
+      updateNumericInput(session, "imp_ad_se_2_1", value = -0.0005980797)
+      updateNumericInput(session, "imp_im_mn_1_1", value = -0.0006136637)
+      updateNumericInput(session, "imp_im_mn_2_1", value = 0.013220849)
+      updateNumericInput(session, "imp_im_se_1_1", value = -7.759761e-06)
+      updateNumericInput(session, "imp_im_se_2_1", value = 0.0006537367)
+      updatePrettyRadioButtons(session, "output_agetype", selected = "whole.population")
+      updateNumericInput(session, "output_year_start", value = 2031)
+      updateNumericInput(session, "output_year_end", value = 2053)
+      updateNumericInput(session, "output_popsize_target", value = 256)
+      updateNumericInput(session, "output_popsize_qe", value = 4)
+   })
+
 }
 
 # ##############################################################################

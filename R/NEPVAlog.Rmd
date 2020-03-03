@@ -1,5 +1,5 @@
 ---
-title: "NE PVA Parameter log"
+title: "Population Viability Analysis Parameter log"
 output: 
    word_document:
      reference_docx: "NEPVA-styles.docx"
@@ -7,12 +7,12 @@ params:
   d: NA
   ui_ver: NA
   pva_ver: NA
+  release_ver: NA
 ---
 
 # Set up 
-The log file was created on: `r params$d`  
-
-R version `r getRversion()`, NEPVA package version: `r pva_ver` (with UI version `r ui_ver`)
+The log file was created on: `r params$d` using Tool version `r release_ver`, 
+with R version `r getRversion()`, PVA package version: `r pva_ver` (with UI version `r ui_ver`)
 
 ```{r Package information, echo=FALSE}
 packinfo <- installed.packages(fields = c("Package", "Version"))
@@ -20,24 +20,26 @@ packinfo[c("popbio","shiny","shinyjs","shinydashboard","shinyWidgets","DT","plot
 ```
 
 # Basic information
-This run had reference name `r input$runrefname`.  
+This run had reference name "`r input$runrefname`".  
 PVA model run type: `r input$run_type`.      
 Model to use for environmental stochasticity: `r input$model_envstoch`.    
 Model for density dependence: `r input$model_dd`.    
 Include demographic stochasticity in model?: `r ifelse(input$model_demostoch,"Yes","No")`.   
 Number of simulations: `r input$sim_n`.      
-Random seed: `r input$sim_seed`.    
+Random seed: `r sim_seed`.    
+Years for burn-in: `r input$nburn`.  
 Case study selected: `r input$case_studies`.  
 
 # Baseline demographic rates
 Species chosen to set initial values: `r input$species`.    
 Region type to use for breeding success data: `r input$poolregtypeBS`.   
+Available colony-specific survival rate: `r input$sourcepopsurv`.
 Sector to use within breeding success region: `r input$poolregionBS`.  
 Age at first breeding: `r input$afb`.    
 Is there an upper constraint on productivity in the model?: `r ifelse(input$model_prodmax,paste0("Yes, constrained to ",input$mbs," per pair"),"No")`.      
 Number of subpopulations: `r input$npop`.    
-Format for initial population size: `r input$inipop_inputformat`  
 Are demographic rates applied separately to each subpopulation?: `r ifelse(input$demobase_splitpops,"Yes","No")`.    
+Units for initial population size: `r input$inipop_inputformat`  
 Are baseline demographic rates specified separately for immatures?: `r ifelse(input$demobase_splitimmat,"Yes","No")`.    
 
 ```{r demobase, echo=FALSE, results="asis"}
@@ -45,14 +47,14 @@ for (i in 1:input$npop) {
    cat("### Population ",i,"  \n")
    cat("**Initial population values:** \n")
    cat("Initial population ", input[[paste0("inipopval_",i)]], " in ", input[[paste0("inipopyrs_",i)]],"\n\n")
-   cat("**Productivity rates:** \n")
+   cat("**Productivity rate per pair:** \n")
    if (input$model_dd == "nodd") {
    cat("mean: ",input[[paste0("pr_mn_",i)]],", sd: ", input[[paste0("pr_sd_",i)]], "\n\n")
-   cat("**Adult survival rates:** \n")
+   cat("**Adult survival rate:** \n")
    cat("mean: ",input[[paste0("ad_mn_",i)]],", sd: ", input[[paste0("ad_sd_",i)]], "\n\n")
    } else {
    cat("mean: ",input[[paste0("pr_mn_",i)]],", sd: ", input[[paste0("pr_sd_",i)]], ", DD:", input[[paste0("pr_idd_",i)]],"\n\n")
-   cat("**Adult survival rates:** \n")
+   cat("**Adult survival rate:** \n")
    cat("mean: ",input[[paste0("ad_mn_",i)]],", sd: ", input[[paste0("ad_sd_",i)]], ", DD:", input[[paste0("ad_idd_",i)]],"\n\n")
    }
    if (input$demobase_splitimmat){

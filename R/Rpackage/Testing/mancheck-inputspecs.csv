@@ -1,0 +1,31 @@
+runtype,seed.meta,ought.valid,ought.errtype,check.noerrors,check.validoutput,errmess,status
+simplescenarios,91655,TRUE,0,TRUE,TRUE,NA,run.full
+simplescenarios,90543,TRUE,0,TRUE,TRUE,NA,run.full
+simplescenarios,8443,TRUE,0,TRUE,TRUE,NA,run.full
+simplescenarios,47283,TRUE,0,TRUE,TRUE,NA,run.full
+simplescenarios,55344,TRUE,0,TRUE,TRUE,NA,run.full
+simplescenarios,13610,TRUE,0,TRUE,TRUE,NA,run.full
+simplescenarios,39115,TRUE,0,TRUE,TRUE,NA,run.full
+simplescenarios,39606,TRUE,0,TRUE,TRUE,NA,run.full
+simplescenarios,59748,TRUE,0,TRUE,TRUE,NA,run.full
+simplescenarios,92893,TRUE,0,TRUE,TRUE,NA,run.full
+simplescenarios,75346,TRUE,0,TRUE,TRUE,NA,run.full
+simplescenarios,5754,TRUE,0,TRUE,TRUE,NA,run.full
+simplescenarios,9017,TRUE,0,TRUE,TRUE,NA,run.full
+simplescenarios,17184,TRUE,0,TRUE,TRUE,NA,run.full
+simplescenarios,18411,TRUE,0,TRUE,TRUE,NA,run.full
+simplescenarios,63509,TRUE,0,TRUE,TRUE,NA,run.full
+simplescenarios,78850,TRUE,0,TRUE,FALSE,NA,run.partial
+simplescenarios,63399,TRUE,0,FALSE,FALSE,Error in leslie.update(demobase.ests = demobase.ests[j; ; ]; nbyage.prev = nbyage.prev; : Population size explosion - will lead to numerical overflow,error.e1
+simplescenarios,97076,TRUE,0,FALSE,FALSE,Error in inits.burned(nbyage.burned = nbyage.burned; inipop.totals = inipop.totals): Error! Zero values during burn-in...,error.e2
+simplescenarios,1494,TRUE,0,FALSE,FALSE,Error in leslie.update(demobase.ests = demobase.ests[j; ; ]; nbyage.prev = nbyage.prev; : Invalid survival probabilities simulated!,error.e3
+validation,27485,TRUE,0,TRUE,TRUE,NA,run.full
+validation,84713,TRUE,0,TRUE,FALSE,NA,run.partial
+validation,79811,TRUE,0,FALSE,FALSE,Error in leslie.update(demobase.ests = demobase.ests[j; ; ]; nbyage.prev = nbyage.prev; : Population size explosion - will lead to numerical overflow,error.e1
+validation,7689,TRUE,0,FALSE,FALSE,Error in inits.burned(nbyage.burned = nbyage.burned; inipop.totals = inipop.totals): Error! Zero values during burn-in...,error.e2
+validation,80158,TRUE,0,FALSE,FALSE,Error in leslie.update(demobase.ests = demobase.ests[j; ; ]; nbyage.prev = nbyage.prev; : Invalid survival probabilities simulated!,error.e3
+sensitivity.local,13738,TRUE,0,TRUE,FALSE,NA,run.partial
+sensitivity.local,98848,TRUE,0,TRUE,FALSE,NA,run.partial
+sensitivity.local,27506,TRUE,0,FALSE,FALSE,Error in leslie.update(demobase.ests = demobase.ests[j; ; ]; nbyage.prev = nbyage.prev; : Population size explosion - will lead to numerical overflow,error.e1
+sensitivity.local,27269,TRUE,0,FALSE,FALSE,Error in inits.burned(nbyage.burned = nbyage.burned; inipop.totals = inipop.totals): Error! Zero values during burn-in...,error.e2
+sensitivity.local,93898,TRUE,0,FALSE,FALSE,Error in leslie.update(demobase.ests = demobase.ests[j; ; ]; nbyage.prev = nbyage.prev; : Invalid survival probabilities simulated!,error.e3

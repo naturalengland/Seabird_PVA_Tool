@@ -31,9 +31,10 @@ nepva.calcs.localsens <- function(inputs, demomods){
                          impact.prod.mean = inputs$sens.pcr[4] * zmat[,4],
                          impact.survadult.mean = inputs$sens.pcr[5] * zmat[,5])
   
+  ## Version 4.4, changed to refer to [,1] and [,2] rather than $mean and $sd
   standard.vals <- data.frame(inipop.vals = rep(inputs$inipop.vals, npe),
-                              demobase.prod.mean = rep(inputs$demobase.prod$mean, npe),
-                              demobase.survadult.mean = rep(inputs$demobase.survadult$mean, npe),
+                              demobase.prod.mean = rep(inputs$demobase.prod[,1], npe),
+                              demobase.survadult.mean = rep(inputs$demobase.survadult[,1], npe),
                               impact.prod.mean = rep(inputs$impacts.prod.mean, npe),
                               impact.survadult.mean = rep(inputs$impacts.survadult.mean, npe))
   
@@ -54,11 +55,12 @@ nepva.calcs.localsens <- function(inputs, demomods){
     
     inputs.tmp <- inputs
     
+    ## Version 4.4: changed to refer to "[,2]" rather than "$sd"
     inputs.tmp$demobase.prod <- data.frame(mean = parvals$demobase.prod.mean[k], 
-                                           sd = inputs$demobase.prod$sd)
+                                           sd = inputs$demobase.prod[,2])
     
     inputs.tmp$demobase.survadult <- data.frame(mean = parvals$demobase.survadult.mean[k], 
-                                                sd = inputs$demobase.survadult$sd)
+                                                sd = inputs$demobase.survadult[,2])
     
     inputs.tmp$inipop.vals <- parvals$inipop.vals[k]
     
@@ -98,14 +100,21 @@ nepva.calcs.localsens <- function(inputs, demomods){
 
 nepva.calcs.globalsens <- function(inputs, demomods = demomods){
   
+  if(inputs$sens.npvglobal == 1){
+    
+    stop("The value of 'sens.npvglobal' must exceed one!")
+  }
+  
   ## ##############################################################
   ## Ranges of input parameters
   
   simranges <- data.frame(inipop.vals = inputs$inipop.vals * (1 + c(-1,1) * inputs$sens.pcr[1] / 100))
   
-  simranges$demobase.prod.mean <- inputs$demobase.prod$mean * (1 + c(-1,1) * inputs$sens.pcr[2] / 100)
+  ## Version 4.4, changed to refer to [,1] and [,2] rather than $mean and $sd
   
-  simranges$demobase.survadult.mean <- inputs$demobase.survadult$mean * (1 + c(-1,1) * inputs$sens.pcr[3] / 100)
+  simranges$demobase.prod.mean <- inputs$demobase.prod[,1] * (1 + c(-1,1) * inputs$sens.pcr[2] / 100)
+  
+  simranges$demobase.survadult.mean <- inputs$demobase.survadult[,1] * (1 + c(-1,1) * inputs$sens.pcr[3] / 100)
   
   simranges$impact.prod.mean <- inputs$impacts.prod.mean * (1 + c(-1,1) * inputs$sens.pcr[4] / 100)
   
@@ -119,7 +128,7 @@ nepva.calcs.globalsens <- function(inputs, demomods = demomods){
   ## ##############################################################
   ## Run PVAs
   
-  nom <- 25
+  nom <- 32 ## revised Version 4.13
   
   ok <- 6+(1:nom)
   
@@ -129,15 +138,19 @@ nepva.calcs.globalsens <- function(inputs, demomods = demomods){
     
     for(j in 1:7){
       
+      ## print(paste(i,j))
+      
       ## #############################################
       
       inputs.tmp <- inputs
       
       inputs.tmp$inipop.vals <- inputmats[i,j,1]
       
-      inputs.tmp$demobase.prod <- data.frame(mean = inputmats[i,j,2], sd = inputs$demobase.prod$sd)
+      ## Version 4.4, changed to refer to [,1] and [,2] rather than $mean and $sd
       
-      inputs.tmp$demobase.survadult <- data.frame(mean = inputmats[i,j,3], sd = inputs$demobase.survadult$sd)
+      inputs.tmp$demobase.prod <- data.frame(mean = inputmats[i,j,2], sd = inputs$demobase.prod[,2])
+      
+      inputs.tmp$demobase.survadult <- data.frame(mean = inputmats[i,j,3], sd = inputs$demobase.survadult[,2])
       
       inputs.tmp$impacts.prod.mean <- inputmats[i,j,4]
       

@@ -5,24 +5,81 @@
 ## Date v1.1:  6th March 2019
 ## ########################################################################################
 
+## New function added Version 4.9
 
-## Function to calculate M7 metric - added Version 3.1
+change.table.names <- function(tab){
+
+   qs <- c(1, 2.5, 5, 10, 20, 25, 33, 66, 75, 80, 90, 95, 97.5, 99)
+
+   old.names <- c("Year", "Age", "Scenario", "Baseyear", "Currently.Impacted", "Impact.year",
+                  paste("popsize", c("mean", "sd", "median", paste0("q", qs, "%")), sep="."),
+                  paste(rep(c("pgr", "agr", "ppc", "m1", "m2"), 1, each = 5),
+                        rep(c("median", "mean", "sd", "cilo", "cihi"), 5), sep="."),
+                  paste0("m", 3:6))
+
+   new.names <- c("Year", "Age_Class", "Scenario", "Base_Year", "Currently_Impacted", "YRS_From_First_Imp",
+                  paste("Popsize", c("Mean", "SD", "Median", paste0(qs, "%_quantile")), sep="_"),
+                  paste(rep(c("pgr", "Annual_GR", "pc_Pop_Change", "CGR", "CPS"), 1, each = 5),
+                        rep(c("Median", "Mean", "SD", "LCI", "UCI"), 5), sep="_"),
+                  "QuantileUNIMP50pcIMP", "QuantileIMP50pcUNIMP", "Quasi_Extinction", "pc_ImpSims_above_TPS")
+
+   colnames(tab)[match(colnames(tab), old.names)] <- new.names
+   delc <- grepl(glob2rx("pgr*"),names(tab))
+   tab <- tab[,!delc]
+
+   tab
+}
+
+change.table.names.sen <- function(tab){
+
+   qs <- c(1, 2.5, 5, 10, 20, 25, 33, 66, 75, 80, 90, 95, 97.5, 99)
+
+   old.names <- c("parname","pcchange.inipop.vals", "pcchange.demobase.prod.mean",
+                  "pcchange.demobase.survadult.mean", "pcchange.impact.prod.mean",
+                  "pcchange.impact.survadult.mean", "inipop.vals", "demobase.prod.mean",
+                  "demobase.survadult.mean", "impact.prod.mean", "impact.survadult.mean",
+                  "Year", "Age", "Scenario", "Baseyear", "Currently.Impacted", "Impact.year",
+                  paste("popsize", c("mean", "sd", "median", paste0("q", qs, "%")), sep="."),
+                  paste(rep(c("pgr", "agr", "ppc", "m1", "m2"), 1, each = 5),
+                        rep(c("median", "mean", "sd", "cilo", "cihi"), 5), sep="."),
+                  paste0("m", 3:6))
+
+   new.names <- c("parname","pcchange.inipop.vals", "pcchange.demobase.prod.mean",
+                  "pcchange.demobase.survadult.mean", "pcchange.impact.prod.mean",
+                  "pcchange.impact.survadult.mean", "inipop.vals", "demobase.prod.mean",
+                  "demobase.survadult.mean", "impact.prod.mean", "impact.survadult.mean",
+                  "Year", "Age_Class", "Scenario", "Base_Year", "Currently_Impacted", "YRS_From_First_Imp",
+                  paste("Popsize", c("Mean", "SD", "Median", paste0(qs, "%_quantile")), sep="_"),
+                  paste(rep(c("pgr", "Annual_GR", "pc_Pop_Change", "CGR", "CPS"), 1, each = 5),
+                        rep(c("Median", "Mean", "SD", "LCI", "UCI"), 5), sep="_"),
+                  "QuantileUNIMP50pcIMP", "QuantileIMP50pcUNIMP", "Quasi_Extinction", "pc_ImpSims_above_TPS")
+
+   colnames(tab)[match(colnames(tab), old.names)] <- new.names
+   delc <- grepl(glob2rx("pgr*"),names(tab))
+   tab <- tab[,!delc]
+
+   tab
+}
+
+
+
+## Function to calculate TPS_YR (M7) metric - added Version 3.1
 #
 calc.m7 <- function(out){
 
    ## Function to calculate M7 metric - added Version 3.1
 
-   id <- paste(out$Age, out$Scenario, sep="-")
+   id <- paste(out$Age_Class, out$Scenario, sep="-")
 
    bob <- out$Year
 
-   bob[(out$m6 < 50) | is.na(out$m6)] <- NA
+   bob[(out$pc_ImpSims_above_TPS < 50) | is.na(out$pc_ImpSims_above_TPS)] <- NA
 
    vals <- tapply(bob, id, min, na.rm=TRUE)
 
-   new <- data.frame(Age = unlist(lapply(strsplit(names(vals), "-"), function(x){x[1]})),
+   new <- data.frame(Age_Class = unlist(lapply(strsplit(names(vals), "-"), function(x){x[1]})),
       Scenario = unlist(lapply(strsplit(names(vals), "-"), function(x){x[2]})),
-      m7 = as.numeric(vals))
+      TPS_YR = as.numeric(vals))
 
    new
 }
