@@ -14,4 +14,4 @@ The tool is capable of assessing any type of impact in terms of a change to demo
 # Online version
 The online version of the tool can be accessed via this link (works best in Chrome): 
 
-http://ec2-54-229-75-12.eu-west-1.compute.amazonaws.com/shiny/seabirds/
+http://ec2-54-229-75-12.eu-west-1.compute.amazonaws.com/shiny/seabirds/PVATool/R/
