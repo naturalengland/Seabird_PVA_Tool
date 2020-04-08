@@ -1385,7 +1385,7 @@ make.impactmetrics.table <- function(ntot, scen.names, age.names,
       ## print(kb)
             
       if((! is.null(kb))){ ## changed version 4.15 - moved clause relating to impact year to further down
-          
+        
         ## #############################################################
         ## Calculate annualized growth rate under baseline
         ## #########################################
@@ -1399,83 +1399,86 @@ make.impactmetrics.table <- function(ntot, scen.names, age.names,
         ## annualized growth rate under baseline
         ## Version 2.8: bug fix: change (1/i) to (1/pgy)
         pgr.baseline <- (ntot.base.cur / ntot.base.ref)
-        
+          
         agr.baseline <- pgr.baseline^(1/pgy) 
 
         for(ks in 1:ns){
       
-          ## #############################################################
-          ## Calculate annualized growth rate under scenario
-          ## #########################################
-        
-          ntot.scen.cur <- ntot[ks,ic,,j] ## current population size in this impact scenario
-          ntot.scen.ref <- ntot[ks,brry,,j] ## population in reference year in this impact scenario
-          
-          ## #############################################################
-          ## annualized growth rate under impact scenario
-          ## Version 2.8: bug fix: change (1/i) to (1/pgy)
-          
-          pgr.scenario <- (ntot.scen.cur / ntot.scen.ref)
-          
-          agr.scenario <- pgr.scenario^(1/pgy)
- 
-          ## #############################################################
-          ## Population growth rate summaries - added Version 3.1
-          ## NOTE: this is overall growth, not annual growth rate
-          
-          if(all(! (is.na(pgr.scenario) | is.nan(pgr.scenario)))){ ## Version 4.8 - added clause
-          
-            tmp$pgr.median[ks] <- median(pgr.scenario) 
-          
-            tmp$pgr.mean[ks] <- mean(pgr.scenario) 
-          
-            tmp$pgr.sd[ks] <- sd(pgr.scenario)
-          
-            tmp$pgr.cilo[ks] <- quantile(pgr.scenario, 0.025)
-          
-            tmp$pgr.cihi[ks] <- quantile(pgr.scenario, 0.975) ## added 3 Dec 2019
-          }
-  
-          ## #############################################################
-          ## Annualized growth rate summaries - added Version 3.2
-
-          if(all(! (is.na(agr.scenario) | is.nan(agr.scenario)))){ ## Version 4.8 - added clause
+          if(tmp$Year[ks] > tmp$Baseyear[ks]){ ## Clause added Version 4.16
             
-            tmp$agr.median[ks] <- median(agr.scenario)
+            ## #############################################################
+            ## Calculate annualized growth rate under scenario
+            ## #########################################
+        
+            ntot.scen.cur <- ntot[ks,ic,,j] ## current population size in this impact scenario
+            ntot.scen.ref <- ntot[ks,brry,,j] ## population in reference year in this impact scenario
           
-            tmp$agr.mean[ks] <- mean(agr.scenario)
+            ## #############################################################
+            ## annualized growth rate under impact scenario
+            ## Version 2.8: bug fix: change (1/i) to (1/pgy)
           
-            tmp$agr.sd[ks] <- sd(agr.scenario)
+            pgr.scenario <- (ntot.scen.cur / ntot.scen.ref)
           
-            tmp$agr.cilo[ks] <- quantile(agr.scenario, 0.025)
+            agr.scenario <- pgr.scenario^(1/pgy)
+ 
+            ## #############################################################
+            ## Population growth rate summaries - added Version 3.1
+            ## NOTE: this is overall growth, not annual growth rate
           
-            tmp$agr.cihi[ks] <- quantile(agr.scenario, 0.975)
-          }
+            if(all(! (is.na(pgr.scenario) | is.nan(pgr.scenario)))){ ## Version 4.8 - added clause
           
-          ## #############################################################
-          ## Percentage population change - added Version 3.1
+              tmp$pgr.median[ks] <- median(pgr.scenario) 
           
-          ppc <- 100 * (ntot.scen.cur - ntot.scen.ref) / ntot.scen.ref
+              tmp$pgr.mean[ks] <- mean(pgr.scenario) 
           
-          if(all(! (is.na(ppc) | is.nan(ppc)))){ # Version 4.8 - added clause
+              tmp$pgr.sd[ks] <- sd(pgr.scenario)
           
-            tmp$ppc.median[ks] <- median(ppc)
+              tmp$pgr.cilo[ks] <- quantile(pgr.scenario, 0.025)
+          
+              tmp$pgr.cihi[ks] <- quantile(pgr.scenario, 0.975) ## added 3 Dec 2019
+            }
+  
+            ## #############################################################
+            ## Annualized growth rate summaries - added Version 3.2
 
-            tmp$ppc.mean[ks] <- median(ppc)
+            if(all(! (is.na(agr.scenario) | is.nan(agr.scenario)))){ ## Version 4.8 - added clause
+            
+              tmp$agr.median[ks] <- median(agr.scenario)
+            
+              tmp$agr.mean[ks] <- mean(agr.scenario)
+            
+              tmp$agr.sd[ks] <- sd(agr.scenario)
           
-            tmp$ppc.sd[ks] <- sd(ppc)
+              tmp$agr.cilo[ks] <- quantile(agr.scenario, 0.025)
           
-            tmp$ppc.cilo[ks] <- quantile(ppc, 0.025)
+              tmp$agr.cihi[ks] <- quantile(agr.scenario, 0.975)
+            }
           
-            tmp$ppc.cihi[ks] <- quantile(ppc, 0.975)
+            ## #############################################################
+            ## Percentage population change - added Version 3.1
+            
+            ppc <- 100 * (ntot.scen.cur - ntot.scen.ref) / ntot.scen.ref
+            
+            if(all(! (is.na(ppc) | is.nan(ppc)))){ # Version 4.8 - added clause
+          
+              tmp$ppc.median[ks] <- median(ppc)
+
+              tmp$ppc.mean[ks] <- median(ppc)
+             
+              tmp$ppc.sd[ks] <- sd(ppc)
+          
+              tmp$ppc.cilo[ks] <- quantile(ppc, 0.025)
+          
+              tmp$ppc.cihi[ks] <- quantile(ppc, 0.975)
+            }
           }
-          
+      
           ## #############################################################
           ## Calculate metrics
           ## Version 1.3: changed to use "mean" and "SD" as well as "median" for M1 and M2
-        
-          if(! is.na(tmp$Impact.year[ks])){ ## changed version 4.15
           
+          if(! is.na(tmp$Impact.year[ks])){ ## changed version 4.15
+            
             ## ##################################
             ## Metric M1. The ratio of impacted to unimpacted final population size 
             ## in each future year - mean, median and SD across the set of simulations

@@ -1,4 +1,12 @@
 ========================================================
+NE PVA tool, R package -- Version 4.16, 1 April 2020
+
+- Change to "functions-runpva.R", to the function "make.impactmetrics.table":
+
+Added additional clause "if(tmp$Year[ks] > tmp$Baseyear[ks]){ ... }" within calculation of growth
+rates so these are now only calculated for years after "Baseyear", following feedback from NE
+
+========================================================
 NE PVA tool, R package -- Version 4.15, 19 February 2020
 
 - Changes to "functions-runpva.R" only; these are:
