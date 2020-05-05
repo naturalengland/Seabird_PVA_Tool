@@ -96,7 +96,7 @@ nepva.sim <- function(fn.sim.con, fn.sim.unc, ddfn,
   
     print.noquote("-------------------------------------------------")
   
-    print.noquote("Running the NE PVA tool, Version 4.2")
+    print.noquote("Running the NE PVA tool, Version 4.17")
   
     print.noquote("-------------------------------------------------")
   
@@ -512,11 +512,15 @@ leslie.calcs <- function(npop, nyears, na, inipop.counts, inipop.relyears,
   ##   but means resulting values need to be treated carefully, as colony sizes are 
   ##   assumed to be zero prior to initialization (which is clearly not plausible - 
   ##   it is only valid to do this because these values are never actually used in calculations)
+  ##
+  ## v4.17: changed so that outputs become NA after failure to split occurs
   ## ############################################
   
   nbyage <- array(dim=c(nscen, npop, nyears, sim.n, na), data = 0) 
   
   for(i in 1:nscen){
+  
+    tt.fail <- FALSE ## added v4.17
     
     ## #########################################
     ## Set up output, and initialize
@@ -538,85 +542,95 @@ leslie.calcs <- function(npop, nyears, na, inipop.counts, inipop.relyears,
     
     for(tt in 2:nyears){
 
-      ## ######################################################
-      
-      if(! silent){
-        
-        print.noquote(paste0("Scenario:", i, " Year: (", tt, "/",nyears,")    ", date()))
-      }
-      
-      ## ######################################################
-      ## Is the impact active in this year
-      
-      impacted <- (tt >= min(impacts.relyears)) & (tt <= max(impacts.relyears))
-      
-      ## ######################################################
-      ## Number of birds from previous year: array of [subpopulations, years, ages]
-      
-      nprev <- d(nbyage[i,,tt-1,,,drop=FALSE], c(2,4,5))
-      
-      ## print(paste(nprev[1,1,], collapse=" "))
-      
-      ## ######################################################
-      ## Simulate scenarios
-      
-      if(impacted){
-        
-        impacts.demochange.tt <- d(impacts.demochange[i,,,,drop=FALSE], 2:4)
-        
-        impacts.abschange.tt <- d(impacts.abschange[i,,,,drop=FALSE], 2:4)
-        
-        if(any(nprev < 0)){print("ZIT"); browser()}
-        
-        impacts.abschange.tt <- try(split.deaths(impacts.abschange = impacts.abschange.tt,
-                                                 nprev = nprev, 
-                                                 impacts.infillpops = impacts.infillpops,
-                                                 impacts.infillages = impacts.infillages), silent = TRUE)
+      if(tt.fail){ ## added v4.17
+  
+        nbyage[i,,tt,,] <- NA
       }
       else{
         
-        impacts.demochange.tt <- NULL
-        
-        impacts.abschange.tt <- NULL
-      }
+        ## ######################################################
       
-      ## ##################################################
-      ## Loop through subpopulations and update size of each
+        if(! silent){
+        
+          print.noquote(paste0("Scenario:", i, " Year: (", tt, "/",nyears,")    ", date()))
+        }
       
-      if(inherits(impacts.abschange.tt, "try-error")){
+        ## ######################################################
+        ## Is the impact active in this year
+      
+        impacted <- (tt >= min(impacts.relyears)) & (tt <= max(impacts.relyears))
         
-        print.noquote("Leslie matrix calculations truncated prematurely, due to failure to split absolute harvest!")
-      }
-      else{
+        ## ######################################################
+        ## Number of birds from previous year: array of [subpopulations, years, ages]
+      
+        nprev <- d(nbyage[i,,tt-1,,,drop=FALSE], c(2,4,5))
+      
+        ## print(paste(nprev[1,1,], collapse=" "))
         
-        for(j in 1:npop){
+        ## ######################################################
+        ## Simulate scenarios
+      
+        if(impacted){
         
-         ## ##################################################
-         ## Leslie matrix updating for each subpopulation
+          impacts.demochange.tt <- d(impacts.demochange[i,,,,drop=FALSE], 2:4)
         
-         if(tt > inipop.relyears[j]){
+          impacts.abschange.tt <- d(impacts.abschange[i,,,,drop=FALSE], 2:4)
+        
+          if(any(nprev < 0)){print("ZIT"); browser()}
+        
+          impacts.abschange.tt <- try(split.deaths(impacts.abschange = impacts.abschange.tt,
+                                                   nprev = nprev, 
+                                                   impacts.infillpops = impacts.infillpops,
+                                                   impacts.infillages = impacts.infillages), silent = TRUE)
+        }
+        else{
+        
+          impacts.demochange.tt <- NULL
+        
+          impacts.abschange.tt <- NULL
+        }
+      
+        ## ##################################################
+        ## Loop through subpopulations and update size of each
+      
+        if(inherits(impacts.abschange.tt, "try-error")){
+        
+          print.noquote("Leslie matrix calculations truncated prematurely, due to failure to split absolute harvest!")
+        
+          nbyage[i,,tt,,] <- NA ## added v4.17
+          
+          tt.fail <- TRUE ## added v4.17
+        }
+        else{ ## "else" added v4.17
+        
+          for(j in 1:npop){
+        
+           ## ##################################################
+           ## Leslie matrix updating for each subpopulation
+          
+           if(tt > inipop.relyears[j]){
           
            ## if(any(is.na(mean(apply(nbyage[i,j,tt-1,,,drop=FALSE],2,sum))))){browser()} ## Version 2.6: Added drop=FALSE
           
-          ## print(paste(i,"  ", j, "   ", tt,"         ",mean(apply(nbyage[i,j,tt-1,,],1,sum))))
+           ## print(paste(i,"  ", j, "   ", tt,"         ",mean(apply(nbyage[i,j,tt-1,,],1,sum))))
 
-          nbyage.prev <- apply(nbyage[i,j,tt-1,,,drop=FALSE], 4:5, identity) ## Added Version 2.6, to get right # dimensions
+           nbyage.prev <- apply(nbyage[i,j,tt-1,,,drop=FALSE], 4:5, identity) ## Added Version 2.6, to get right # dimensions
           
-          ## if(any(is.na(nbyage.prev)|is.nan(nbyage.prev))){ browser() }
+           ## if(any(is.na(nbyage.prev)|is.nan(nbyage.prev))){ browser() }
           
-          ruij.base <- apply(ru.base[j,tt,,,drop=FALSE], 3:4, identity) ## Added Version 2.6, to get right # dimensions
+           ruij.base <- apply(ru.base[j,tt,,,drop=FALSE], 3:4, identity) ## Added Version 2.6, to get right # dimensions
           
-          ret3minus1 <- function(y,m){ out <- y ;  if(! is.null(y)){ out <- apply(y[m,,,drop=FALSE], 2:3, identity) } ; out }
+           ret3minus1 <- function(y,m){ out <- y ;  if(! is.null(y)){ out <- apply(y[m,,,drop=FALSE], 2:3, identity) } ; out }
           
-          ret2minus1 <- function(y,m){ out <- y ;  if(! is.null(y)){ out <- apply(y[m,,drop=FALSE], 2, unique) } ; out }
+            ret2minus1 <- function(y,m){ out <- y ;  if(! is.null(y)){ out <- apply(y[m,,drop=FALSE], 2, unique) } ; out }
           
-          impacts.demochange.ij <- ret3minus1(impacts.demochange.tt, m = j) ## Tidied Version 4.2
+            impacts.demochange.ij <- ret3minus1(impacts.demochange.tt, m = j) ## Tidied Version 4.2
           
-          impacts.abschange.ij <- ret3minus1(impacts.abschange.tt, m = j) ## Tidied Version 4.2
+            impacts.abschange.ij <- ret3minus1(impacts.abschange.tt, m = j) ## Tidied Version 4.2
           
-          simbsk <- ret2minus1(sim.bskippc, m = tt) ## Version 2.6: bug fix; tidied Version 4.2; bug fix Version 4.3
+            simbsk <- ret2minus1(sim.bskippc, m = tt) ## Version 2.6: bug fix; tidied Version 4.2; bug fix Version 4.3
  
-          nbyage[i,j,tt,,] <- leslie.update(demobase.ests = demobase.ests[j,,],
+            nbyage[i,j,tt,,] <- leslie.update(demobase.ests = demobase.ests[j,,],
                                             nbyage.prev = nbyage.prev,
                                             ddfn = ddfn,
                                             fn.sim.con = fn.sim.con,
@@ -628,9 +642,10 @@ leslie.calcs <- function(npop, nyears, na, inipop.counts, inipop.relyears,
                                             impacts.abschange = impacts.abschange.ij,
                                             sim.bskippc = simbsk, impacted = impacted,
                                             sim.n = sim.n, afb = afb, mbs = mbs, noround = noround)
+           }
+             
+           ## ##################################################
           }
-        
-          ## ##################################################
         }
       }
     }

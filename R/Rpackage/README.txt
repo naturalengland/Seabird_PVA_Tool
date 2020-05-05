@@ -1,4 +1,17 @@
 ========================================================
+NE PVA tool, R package -- Version 4.17, 30 April 2020
+
+- Changes to "functions-runpva.R" to the function "nepva.sim" to fix a bug: 
+    when run completes prematurely (due to failure to split absolute harvest) 
+    all subsequent abundance values are now stored as NA rather than 0
+
+- Change to "functions-preprocessing.R" to the function "nepva.preprocessing"
+    such that in a "baseline-only run" (no scenarios other than the baseline)
+    the value of "impacts.relative" is forced to be TRUE, which means that 
+    the code never attempts to split the absolute harvest (doing so would needlessly
+    force values to be set of NA [missing] in many cases.
+    
+========================================================
 NE PVA tool, R package -- Version 4.16, 1 April 2020
 
 - Change to "functions-runpva.R", to the function "make.impactmetrics.table":

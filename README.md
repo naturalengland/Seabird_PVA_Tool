@@ -1,7 +1,7 @@
 # Seabird_PVA_Tool
 A Shiny app for carrying out population viability analysis for seabird species under different impact scenarios.
 
-This is tool v 2.0 (nepva R package: v 4.13 Interface: v 1.6). This is the most recent version of the tool and is available on a use-at-your-own-risk basis. See Documentation folder for user manuals.
+This is tool v 2.0 (nepva R package: v 4.17 Interface: v 1.7). This is the most recent version of the tool and is available on a use-at-your-own-risk basis. See Documentation folder for user manuals.
 
 NE PVA Tool is published by Natural England under the Open Government Licence.
 
