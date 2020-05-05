@@ -313,6 +313,8 @@ nepva.preprocess <- function(inputs, demomods){
 
   ## if(length(inputs$impacts.prod.mean) > (length(ids) * length(idp))){ browser() }
     
+  if(inputs$baseonly){ inputs$impacts.relative <- TRUE } ## added v4.17
+  
   inputs$impacts.demochange.mean <- create.impactmat(prod = inputs$impacts.prod.mean,
                                               survimmat = inputs$impacts.survimmat.mean, 
                                               survadult = inputs$impacts.survadult.mean,
