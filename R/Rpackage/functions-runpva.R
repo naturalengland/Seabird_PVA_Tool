@@ -96,7 +96,7 @@ nepva.sim <- function(fn.sim.con, fn.sim.unc, ddfn,
   
     print.noquote("-------------------------------------------------")
   
-    print.noquote("Running the NE PVA tool, Version 4.2")
+    print.noquote("Running the NE PVA tool, Version 4.17")
   
     print.noquote("-------------------------------------------------")
   
@@ -512,11 +512,15 @@ leslie.calcs <- function(npop, nyears, na, inipop.counts, inipop.relyears,
   ##   but means resulting values need to be treated carefully, as colony sizes are 
   ##   assumed to be zero prior to initialization (which is clearly not plausible - 
   ##   it is only valid to do this because these values are never actually used in calculations)
+  ##
+  ## v4.17: changed so that outputs become NA after failure to split occurs
   ## ############################################
   
   nbyage <- array(dim=c(nscen, npop, nyears, sim.n, na), data = 0) 
   
   for(i in 1:nscen){
+  
+    tt.fail <- FALSE ## added v4.17
     
     ## #########################################
     ## Set up output, and initialize
@@ -538,85 +542,95 @@ leslie.calcs <- function(npop, nyears, na, inipop.counts, inipop.relyears,
     
     for(tt in 2:nyears){
 
-      ## ######################################################
-      
-      if(! silent){
-        
-        print.noquote(paste0("Scenario:", i, " Year: (", tt, "/",nyears,")    ", date()))
-      }
-      
-      ## ######################################################
-      ## Is the impact active in this year
-      
-      impacted <- (tt >= min(impacts.relyears)) & (tt <= max(impacts.relyears))
-      
-      ## ######################################################
-      ## Number of birds from previous year: array of [subpopulations, years, ages]
-      
-      nprev <- d(nbyage[i,,tt-1,,,drop=FALSE], c(2,4,5))
-      
-      ## print(paste(nprev[1,1,], collapse=" "))
-      
-      ## ######################################################
-      ## Simulate scenarios
-      
-      if(impacted){
-        
-        impacts.demochange.tt <- d(impacts.demochange[i,,,,drop=FALSE], 2:4)
-        
-        impacts.abschange.tt <- d(impacts.abschange[i,,,,drop=FALSE], 2:4)
-        
-        if(any(nprev < 0)){print("ZIT"); browser()}
-        
-        impacts.abschange.tt <- try(split.deaths(impacts.abschange = impacts.abschange.tt,
-                                                 nprev = nprev, 
-                                                 impacts.infillpops = impacts.infillpops,
-                                                 impacts.infillages = impacts.infillages), silent = TRUE)
+      if(tt.fail){ ## added v4.17
+  
+        nbyage[i,,tt,,] <- NA
       }
       else{
         
-        impacts.demochange.tt <- NULL
-        
-        impacts.abschange.tt <- NULL
-      }
+        ## ######################################################
       
-      ## ##################################################
-      ## Loop through subpopulations and update size of each
+        if(! silent){
+        
+          print.noquote(paste0("Scenario:", i, " Year: (", tt, "/",nyears,")    ", date()))
+        }
       
-      if(inherits(impacts.abschange.tt, "try-error")){
+        ## ######################################################
+        ## Is the impact active in this year
+      
+        impacted <- (tt >= min(impacts.relyears)) & (tt <= max(impacts.relyears))
         
-        print.noquote("Leslie matrix calculations truncated prematurely, due to failure to split absolute harvest!")
-      }
-      else{
+        ## ######################################################
+        ## Number of birds from previous year: array of [subpopulations, years, ages]
+      
+        nprev <- d(nbyage[i,,tt-1,,,drop=FALSE], c(2,4,5))
+      
+        ## print(paste(nprev[1,1,], collapse=" "))
         
-        for(j in 1:npop){
+        ## ######################################################
+        ## Simulate scenarios
+      
+        if(impacted){
         
-         ## ##################################################
-         ## Leslie matrix updating for each subpopulation
+          impacts.demochange.tt <- d(impacts.demochange[i,,,,drop=FALSE], 2:4)
         
-         if(tt > inipop.relyears[j]){
+          impacts.abschange.tt <- d(impacts.abschange[i,,,,drop=FALSE], 2:4)
+        
+          if(any(nprev < 0)){print("ZIT"); browser()}
+        
+          impacts.abschange.tt <- try(split.deaths(impacts.abschange = impacts.abschange.tt,
+                                                   nprev = nprev, 
+                                                   impacts.infillpops = impacts.infillpops,
+                                                   impacts.infillages = impacts.infillages), silent = TRUE)
+        }
+        else{
+        
+          impacts.demochange.tt <- NULL
+        
+          impacts.abschange.tt <- NULL
+        }
+      
+        ## ##################################################
+        ## Loop through subpopulations and update size of each
+      
+        if(inherits(impacts.abschange.tt, "try-error")){
+        
+          print.noquote("Leslie matrix calculations truncated prematurely, due to failure to split absolute harvest!")
+        
+          nbyage[i,,tt,,] <- NA ## added v4.17
+          
+          tt.fail <- TRUE ## added v4.17
+        }
+        else{ ## "else" added v4.17
+        
+          for(j in 1:npop){
+        
+           ## ##################################################
+           ## Leslie matrix updating for each subpopulation
+          
+           if(tt > inipop.relyears[j]){
           
            ## if(any(is.na(mean(apply(nbyage[i,j,tt-1,,,drop=FALSE],2,sum))))){browser()} ## Version 2.6: Added drop=FALSE
           
-          ## print(paste(i,"  ", j, "   ", tt,"         ",mean(apply(nbyage[i,j,tt-1,,],1,sum))))
+           ## print(paste(i,"  ", j, "   ", tt,"         ",mean(apply(nbyage[i,j,tt-1,,],1,sum))))
 
-          nbyage.prev <- apply(nbyage[i,j,tt-1,,,drop=FALSE], 4:5, identity) ## Added Version 2.6, to get right # dimensions
+           nbyage.prev <- apply(nbyage[i,j,tt-1,,,drop=FALSE], 4:5, identity) ## Added Version 2.6, to get right # dimensions
           
-          ## if(any(is.na(nbyage.prev)|is.nan(nbyage.prev))){ browser() }
+           ## if(any(is.na(nbyage.prev)|is.nan(nbyage.prev))){ browser() }
           
-          ruij.base <- apply(ru.base[j,tt,,,drop=FALSE], 3:4, identity) ## Added Version 2.6, to get right # dimensions
+           ruij.base <- apply(ru.base[j,tt,,,drop=FALSE], 3:4, identity) ## Added Version 2.6, to get right # dimensions
           
-          ret3minus1 <- function(y,m){ out <- y ;  if(! is.null(y)){ out <- apply(y[m,,,drop=FALSE], 2:3, identity) } ; out }
+           ret3minus1 <- function(y,m){ out <- y ;  if(! is.null(y)){ out <- apply(y[m,,,drop=FALSE], 2:3, identity) } ; out }
           
-          ret2minus1 <- function(y,m){ out <- y ;  if(! is.null(y)){ out <- apply(y[m,,drop=FALSE], 2, unique) } ; out }
+            ret2minus1 <- function(y,m){ out <- y ;  if(! is.null(y)){ out <- apply(y[m,,drop=FALSE], 2, unique) } ; out }
           
-          impacts.demochange.ij <- ret3minus1(impacts.demochange.tt, m = j) ## Tidied Version 4.2
+            impacts.demochange.ij <- ret3minus1(impacts.demochange.tt, m = j) ## Tidied Version 4.2
           
-          impacts.abschange.ij <- ret3minus1(impacts.abschange.tt, m = j) ## Tidied Version 4.2
+            impacts.abschange.ij <- ret3minus1(impacts.abschange.tt, m = j) ## Tidied Version 4.2
           
-          simbsk <- ret2minus1(sim.bskippc, m = tt) ## Version 2.6: bug fix; tidied Version 4.2; bug fix Version 4.3
+            simbsk <- ret2minus1(sim.bskippc, m = tt) ## Version 2.6: bug fix; tidied Version 4.2; bug fix Version 4.3
  
-          nbyage[i,j,tt,,] <- leslie.update(demobase.ests = demobase.ests[j,,],
+            nbyage[i,j,tt,,] <- leslie.update(demobase.ests = demobase.ests[j,,],
                                             nbyage.prev = nbyage.prev,
                                             ddfn = ddfn,
                                             fn.sim.con = fn.sim.con,
@@ -628,9 +642,10 @@ leslie.calcs <- function(npop, nyears, na, inipop.counts, inipop.relyears,
                                             impacts.abschange = impacts.abschange.ij,
                                             sim.bskippc = simbsk, impacted = impacted,
                                             sim.n = sim.n, afb = afb, mbs = mbs, noround = noround)
+           }
+             
+           ## ##################################################
           }
-        
-          ## ##################################################
         }
       }
     }
@@ -1385,7 +1400,7 @@ make.impactmetrics.table <- function(ntot, scen.names, age.names,
       ## print(kb)
             
       if((! is.null(kb))){ ## changed version 4.15 - moved clause relating to impact year to further down
-          
+        
         ## #############################################################
         ## Calculate annualized growth rate under baseline
         ## #########################################
@@ -1399,83 +1414,86 @@ make.impactmetrics.table <- function(ntot, scen.names, age.names,
         ## annualized growth rate under baseline
         ## Version 2.8: bug fix: change (1/i) to (1/pgy)
         pgr.baseline <- (ntot.base.cur / ntot.base.ref)
-        
+          
         agr.baseline <- pgr.baseline^(1/pgy) 
 
         for(ks in 1:ns){
       
-          ## #############################################################
-          ## Calculate annualized growth rate under scenario
-          ## #########################################
-        
-          ntot.scen.cur <- ntot[ks,ic,,j] ## current population size in this impact scenario
-          ntot.scen.ref <- ntot[ks,brry,,j] ## population in reference year in this impact scenario
-          
-          ## #############################################################
-          ## annualized growth rate under impact scenario
-          ## Version 2.8: bug fix: change (1/i) to (1/pgy)
-          
-          pgr.scenario <- (ntot.scen.cur / ntot.scen.ref)
-          
-          agr.scenario <- pgr.scenario^(1/pgy)
- 
-          ## #############################################################
-          ## Population growth rate summaries - added Version 3.1
-          ## NOTE: this is overall growth, not annual growth rate
-          
-          if(all(! (is.na(pgr.scenario) | is.nan(pgr.scenario)))){ ## Version 4.8 - added clause
-          
-            tmp$pgr.median[ks] <- median(pgr.scenario) 
-          
-            tmp$pgr.mean[ks] <- mean(pgr.scenario) 
-          
-            tmp$pgr.sd[ks] <- sd(pgr.scenario)
-          
-            tmp$pgr.cilo[ks] <- quantile(pgr.scenario, 0.025)
-          
-            tmp$pgr.cihi[ks] <- quantile(pgr.scenario, 0.975) ## added 3 Dec 2019
-          }
-  
-          ## #############################################################
-          ## Annualized growth rate summaries - added Version 3.2
-
-          if(all(! (is.na(agr.scenario) | is.nan(agr.scenario)))){ ## Version 4.8 - added clause
+          if(tmp$Year[ks] > tmp$Baseyear[ks]){ ## Clause added Version 4.16
             
-            tmp$agr.median[ks] <- median(agr.scenario)
+            ## #############################################################
+            ## Calculate annualized growth rate under scenario
+            ## #########################################
+        
+            ntot.scen.cur <- ntot[ks,ic,,j] ## current population size in this impact scenario
+            ntot.scen.ref <- ntot[ks,brry,,j] ## population in reference year in this impact scenario
           
-            tmp$agr.mean[ks] <- mean(agr.scenario)
+            ## #############################################################
+            ## annualized growth rate under impact scenario
+            ## Version 2.8: bug fix: change (1/i) to (1/pgy)
           
-            tmp$agr.sd[ks] <- sd(agr.scenario)
+            pgr.scenario <- (ntot.scen.cur / ntot.scen.ref)
           
-            tmp$agr.cilo[ks] <- quantile(agr.scenario, 0.025)
+            agr.scenario <- pgr.scenario^(1/pgy)
+ 
+            ## #############################################################
+            ## Population growth rate summaries - added Version 3.1
+            ## NOTE: this is overall growth, not annual growth rate
           
-            tmp$agr.cihi[ks] <- quantile(agr.scenario, 0.975)
-          }
+            if(all(! (is.na(pgr.scenario) | is.nan(pgr.scenario)))){ ## Version 4.8 - added clause
           
-          ## #############################################################
-          ## Percentage population change - added Version 3.1
+              tmp$pgr.median[ks] <- median(pgr.scenario) 
           
-          ppc <- 100 * (ntot.scen.cur - ntot.scen.ref) / ntot.scen.ref
+              tmp$pgr.mean[ks] <- mean(pgr.scenario) 
           
-          if(all(! (is.na(ppc) | is.nan(ppc)))){ # Version 4.8 - added clause
+              tmp$pgr.sd[ks] <- sd(pgr.scenario)
           
-            tmp$ppc.median[ks] <- median(ppc)
+              tmp$pgr.cilo[ks] <- quantile(pgr.scenario, 0.025)
+          
+              tmp$pgr.cihi[ks] <- quantile(pgr.scenario, 0.975) ## added 3 Dec 2019
+            }
+  
+            ## #############################################################
+            ## Annualized growth rate summaries - added Version 3.2
 
-            tmp$ppc.mean[ks] <- median(ppc)
+            if(all(! (is.na(agr.scenario) | is.nan(agr.scenario)))){ ## Version 4.8 - added clause
+            
+              tmp$agr.median[ks] <- median(agr.scenario)
+            
+              tmp$agr.mean[ks] <- mean(agr.scenario)
+            
+              tmp$agr.sd[ks] <- sd(agr.scenario)
           
-            tmp$ppc.sd[ks] <- sd(ppc)
+              tmp$agr.cilo[ks] <- quantile(agr.scenario, 0.025)
           
-            tmp$ppc.cilo[ks] <- quantile(ppc, 0.025)
+              tmp$agr.cihi[ks] <- quantile(agr.scenario, 0.975)
+            }
           
-            tmp$ppc.cihi[ks] <- quantile(ppc, 0.975)
+            ## #############################################################
+            ## Percentage population change - added Version 3.1
+            
+            ppc <- 100 * (ntot.scen.cur - ntot.scen.ref) / ntot.scen.ref
+            
+            if(all(! (is.na(ppc) | is.nan(ppc)))){ # Version 4.8 - added clause
+          
+              tmp$ppc.median[ks] <- median(ppc)
+
+              tmp$ppc.mean[ks] <- median(ppc)
+             
+              tmp$ppc.sd[ks] <- sd(ppc)
+          
+              tmp$ppc.cilo[ks] <- quantile(ppc, 0.025)
+          
+              tmp$ppc.cihi[ks] <- quantile(ppc, 0.975)
+            }
           }
-          
+      
           ## #############################################################
           ## Calculate metrics
           ## Version 1.3: changed to use "mean" and "SD" as well as "median" for M1 and M2
-        
-          if(! is.na(tmp$Impact.year[ks])){ ## changed version 4.15
           
+          if(! is.na(tmp$Impact.year[ks])){ ## changed version 4.15
+            
             ## ##################################
             ## Metric M1. The ratio of impacted to unimpacted final population size 
             ## in each future year - mean, median and SD across the set of simulations

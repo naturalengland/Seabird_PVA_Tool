@@ -40,7 +40,7 @@ lookup <<- list(Spmeta = read.csv(file.path("Rpackage","lookup-spmeta.csv",fsep=
 modeoptions <<- read.csv(file.path("Rpackage","ModeOptions.csv",fsep=.Platform$file.sep))
 
 # Version numbers
-pva_ver <- 4.15
+pva_ver <- 4.17
 ui_ver <- 1.7
 release_ver <- 2.0
 
@@ -989,6 +989,7 @@ server <- function(input, output, session) {
       v <- c("impacts_matchscens", "impacts_splitimmat", "impacts_provideses", "impacts_splitpops")
       if (input$nscen == 0) {
          shinyjs::disable("impacts_year")
+         updatePrettyRadioButtons(session, "impacts_relative", selected = "relative")
          shinyjs::disable("impacts_relative")
          lapply(v, function(iv) {updateSwitchInput(session, iv, disabled = TRUE)})
       } else {
