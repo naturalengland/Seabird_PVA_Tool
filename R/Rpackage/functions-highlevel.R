@@ -219,6 +219,7 @@ getsurvdefaults <- function(dat, ref, age.lo, age.hi){
 ## ###################################################################################################################
 ## >> nepva.fullrun
 ## Version 3.1: added "output.run" argument
+## Version 4.18: added "noround" argument
 ## ############################################################################
 #' @title NE PVA tool: Generate PVAs from a Leslie matrix model under one or more
 #'   different scenarios
@@ -441,7 +442,7 @@ nepva.fullrun <- function(model.envstoch = "deterministic", model.demostoch = FA
                       output.validation.years = NULL, 
                       sens.npvlocal = 1, sens.npvglobal = 10,
                       sens.pcr = rep(20,5),
-                      silent = FALSE, output.raw = FALSE, changetablenames = FALSE){
+                      silent = FALSE, output.raw = FALSE, changetablenames = FALSE, noround = TRUE){
 
   ## ######################################################
   ## Added Version 2.1, updated Version 2.2
@@ -865,8 +866,9 @@ nepva.plot.timeseries <- function(out, changetablenames){
   
   ## ###################################################
   ## Extract adults only - bug fix Version 3.3
+  ## bug fix v4.18 to add "| out$Age == "whole.population""
   
-  out <- out[(out$Age == "breeding.adults" | out$Age == "breeding.pairs"),]
+  out <- out[(out$Age == "breeding.adults" | out$Age == "breeding.pairs" | out$Age == "whole.population"),]
   
   ## ###################################################
   
@@ -1389,6 +1391,12 @@ nepva.setinputs <- function(run.type, modeoptions){
   
   ## #############################################
  
+  if(all(is.na(type))){ ## bug fix v4.18: added clause needed for 'nepva.fullrun'
+    
+    type <- rep("", length(type)) ## 4.18 - this line added
+  }
+  else{ ## v4.18: this part unchanged:
+  
   if(any(type == "Calculate")){
    
      inputs <- asla(inputs, type == "Calculate", "To be calculated !!")
@@ -1441,6 +1449,7 @@ nepva.setinputs <- function(run.type, modeoptions){
   ##  (as that would mess up indexing)
   
   inputs <- asla(inputs, type == "Fix::NULL", list(NULL)) 
+  } ## close extra clause added for v4.18
   
   ## #############################################
 
