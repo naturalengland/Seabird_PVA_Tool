@@ -831,7 +831,10 @@ ui <- dashboardPage(skin = "green",
                                                     may also be modelled. The tool also allows users to conduct PVAs at a range of scales (e.g. breeding
                                                     colony to SPA or wider region), and for non-seabird species."),
                                             tags$h4("The tool produces a range of tabular and graphical outputs for interpreting outputs from PVAs, and a
-                                                    facility for using pre-set demographic rates for a number of seabird species, based on currently available demographic data."))
+                                                    facility for using pre-set demographic rates for a number of seabird species, based on currently available demographic data."),
+                                            tags$h4("Please be advised that users should refer to the most recent guidance on the GitHub site prior to running the tool 
+                                                   (see documentation box below). The guidance in the appendices of the original Natural England commissioned report 
+                                                   (NECR274 edition 1 A Population Viability Analysis Modelling Tool for Seabird Species) is superseded by this and should no longer be used."))
                      ),
                      fluidRow(
                         shinydashboard::box(title="Documentation ", status = "info", width = 4, solidHeader = FALSE, collapsible = FALSE, collapsed = FALSE,
