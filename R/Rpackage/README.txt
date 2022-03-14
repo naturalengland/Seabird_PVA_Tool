@@ -1,4 +1,13 @@
 ========================================================
+NE PVA tool, R package -- Version 4.18, 10 Dec 2020
+
+- Some minor bug fixes, all in "functions-highlevel.R"
+
+ a) added 'noround' argument to 'nepva.fullrun', to match addition of this argument to other high-level functions
+ b) fixed a bug when running "nepva.plot.timeseries" with 'out$Age == "whole.population"'
+ c) added clause in 'nepva.setinputs' to avoid calling redundant functions in situation in which "modeoptions" provides no options (needed for running "nepva.fullrun")
+
+========================================================
 NE PVA tool, R package -- Version 4.17, 30 April 2020
 
 - Changes to "functions-runpva.R" to the function "nepva.sim" to fix a bug: 
