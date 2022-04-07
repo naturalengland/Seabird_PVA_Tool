@@ -23,8 +23,6 @@ The Natural England Commissioned Report for the original (Version 1) development
 
 http://publications.naturalengland.org.uk/publication/4926995073073152    
 
-**Warning (March 2022):** The guidance in this document is out of date and is replaced by the latest guidance in this GitHub repository.  
-
 The JNCC report for the project which undertook testing of the tool, review of the R package code, along with some tool updates (Version 2) can be accessed via this link:
 
 https://hub.jncc.gov.uk/assets/302a7a51-fe29-4633-95d1-b3ef458cb79a
