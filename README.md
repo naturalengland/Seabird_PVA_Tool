@@ -14,7 +14,7 @@ The tool is capable of assessing any type of impact in terms of a change to demo
 # Online Version
 The online version of the PVA Tool can be accessed via this link (works best in Chrome): 
 
-http://ec2-54-229-75-12.eu-west-1.compute.amazonaws.com/shiny/seabirds/PVATool_mar2022/R/
+http://ec2-54-170-82-117.eu-west-1.compute.amazonaws.com/shiny/seabirds/PVATool_mar2022/R/
 
 # Documentation
 The current guidance documents for the online version of the PVA Tool as well as the nepva R package can be found in the Documentation folder in this GitHub repository.
