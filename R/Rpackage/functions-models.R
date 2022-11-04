@@ -1,4 +1,9 @@
 ## ###############################################################################
+## TEMPORARY BUG FIX - TO DEAL WITH SITUATIONS WHERE SD = 0 AND THE TOOL WAS
+##  PRODUCING INCORRECT OUTPUT - NOW PRODUCES AN ERROR MESSAGE IN THESE SITUATIONS
+## ###############################################################################
+
+## ###############################################################################
 ## Specification of parametric models for the inter-annual distribution of 
 ##   demographic rates - modelling both
 ##   environmental stochasticity and density dependence 
@@ -33,6 +38,8 @@
 ##
 ## Version 1.1, 4 January 2019: added "ddthresh" option
 ##                            : added density dependence options for "betagamma"
+##
+## 16 Aug 2022: added error message whenever zero value in denominator
 ## ###############################################################################
 
 ## ###############################################################################
@@ -64,15 +71,15 @@ demomods <- as.list(NULL)
 ## https://cran.r-project.org/web/packages/betareg/vignettes/betareg.pdf
 ## Change from (mean, precison) to standard parameterization
 
-mom.beta <- function(smy){ mu <- smy[1] ; prec <- (mu * (1 - mu) / (smy[2]^2)) - 1 ; c(mu, prec) }
+mom.beta <- function(smy){ if(smy[2] == 0){stop("Zero value in denominator! - please ensure that the standard deviations for the demographic parameters are greater than zero")} ; mu <- smy[1] ; prec <- (mu * (1 - mu) / (smy[2]^2)) - 1 ; c(mu, prec) }
  
-mom.gamma <- function(smy){ mu <- smy[1] ; scalepar <- smy[2]^2/smy[1] ; c(mu, scalepar) } 
+mom.gamma <- function(smy){ if(smy[1] == 0){stop("Zero value in denominator! - please ensure that the standard deviations for the demographic parameters are greater than zero")} ; mu <- smy[1] ; scalepar <- smy[2]^2/smy[1] ; c(mu, scalepar) } 
   
 ## ##############################
 
 revreparam.beta <- function(mu, prec){ prec * cbind(mu, 1 - mu) }
 
-revreparam.gamma <- function(mu, scalepar){ cbind(mu / scalepar, rep(scalepar, length(mu))) } 
+revreparam.gamma <- function(mu, scalepar){ if(scalepar == 0){stop("Zero value in denominator! - please ensure that the standard deviations for the demographic parameters are greater than zero")} ; cbind(mu / scalepar, rep(scalepar, length(mu))) } 
 
 ## ###############################################################################
 
@@ -121,8 +128,8 @@ demomods$es$betagamma.ddu <- list(npes = 1,
                                qgamma(pnorm(ru), shape = newpars[,1], scale = newpars[,2])},
                              pred.con = function(pars, popsize, ddfn){ ddfn(pars[-2], popsize) },
                              pred.unc = function(pars, popsize, ddfn){ ddfn(pars[-2], popsize) },
-                             mom.con = function(smy){ c(smy[1], (smy[1] * (1 - smy[1]) / (smy[2]^2)) - 1) },
-                             mom.unc = function(smy){ c(smy[1], (smy[2]^2) / smy[1]) })
+                             mom.con = mom.beta,
+                             mom.unc = mom.gamma)
 
 demomods$es$betagamma.ddt <- list(npes = 1,
                              sim.con = function(ru, pars, popsize, ddfn) { 
@@ -133,8 +140,8 @@ demomods$es$betagamma.ddt <- list(npes = 1,
                                mu <- exp(ddfn(pars[-2], popsize))
                                newpars <-  revreparam.gamma(mu, pars[2]) 
                                qgamma(pnorm(ru), shape = newpars[,1], scale = newpars[,2])},
-                             pred.con = function(ru, pars, ddfn){ ddfn(pars[-2], popsize) },
-                             pred.unc = function(ru, pars, ddfn){ ddfn(pars[-2], popsize) })
+                             pred.con = function(pars, popsize, ddfn){ ddfn(pars[-2], popsize) },
+                             pred.unc = function(pars, popsize, ddfn){ ddfn(pars[-2], popsize) }) ## typo on lines 136 and 137, fixed v 4.19
 
 demomods$es$logitnlogn.ddt <- list(npes = 1, 
   sim.con = function(ru, pars, popsize, ddfn) { ilogit(ddfn(pars[-2], popsize) + ru * pars[2]) },
