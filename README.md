@@ -62,7 +62,7 @@ The Natural England Commissioned Report for the original (Version 1) development
 
 The JNCC report for the project which undertook testing of the tool, review of the R package code, along with some tool updates (Version 2) can be accessed [here](https://hub.jncc.gov.uk/assets/302a7a51-fe29-4633-95d1-b3ef458cb79a).
 
-## Examples of recent research utilizing the 'nepva' package 
+## Examples of recent research utilising the 'nepva' package 
 
 Hereward, H.F.R., Macgregor, C.J., Gabb, O., Connell, A., Thomas, R.J., Cross, A.V. & Taylor, R.C. (2024). Modelling population-level impacts of wind farm collision risk on Welsh Red Kites. BTO Research Report 766, BTO, Thetford, UK.
 
