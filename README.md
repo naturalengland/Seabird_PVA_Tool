@@ -16,7 +16,7 @@ http://ec2-34-243-66-127.eu-west-1.compute.amazonaws.com/shiny/seabirds/PVATool_
 
 ## Processing scripts
 
-The nepva package was developed using Version 3.5.1 of R, and utilises two add-on packages: **mvtnorm** (it was developed using Version 1.0-8) and **popbio** (it was developed using Version 2.4.4).
+The 'nepva' package was developed using Version 3.5.1 of R, and utilises two add-on packages: **mvtnorm** (it was developed using Version 1.0-8) and **popbio** (it was developed using Version 2.4.4).
 
 This is **tool v 2.0 (nepva R package: v 4.18 Interface: v 1.7)**. This is the most recent version of the tool and is available on a use-at-your-own-risk basis. Please refer to the Rpackage guidance documentation for a detailed description of the methods employed and associated functions.
 
@@ -61,3 +61,17 @@ The current guidance documents for the online version of the PVA Shiny tool, as 
 The Natural England Commissioned Report for the original (Version 1) development of the PVA Tool can be accessed [here](http://publications.naturalengland.org.uk/publication/4926995073073152).
 
 The JNCC report for the project which undertook testing of the tool, review of the R package code, along with some tool updates (Version 2) can be accessed [here](https://hub.jncc.gov.uk/assets/302a7a51-fe29-4633-95d1-b3ef458cb79a).
+
+## Examples of recent research utilizing the 'nepva' package 
+
+Hereward, H.F.R., Macgregor, C.J., Gabb, O., Connell, A., Thomas, R.J., Cross, A.V. & Taylor, R.C. (2024). Modelling population-level impacts of wind farm collision risk on Welsh Red Kites. BTO Research Report 766, BTO, Thetford, UK.
+
+Inch, T., Nicoll, M.A.C., Feare, C.J. & Horswill, C. (2024), Population viability analysis predicts long-term impacts of commercial Sooty Tern egg harvesting to a large breeding colony on a small oceanic island. Ibis, 166: 1296-1310. https://doi.org/10.1111/ibi.13326
+
+Langlois Lopez, S., Daunt, F., Wilson, J., O'Hanlon, N. J., Searle, K. R., Bennett, S., Newell, M. A., Harris, M. P., & Masden, E. (2023). Quantifying the impacts of predation by Great Black-backed Gulls Larus marinus on an Atlantic Puffin Fratercula arctica population: Implications for conservation management and impact assessments. Marine environmental research, 188, 105994. https://doi.org/10.1016/j.marenvres.2023.105994
+
+
+Macgregor, C.J., Boersch-Supan, P.H., Burton, N.H.K., Carss, D.N., Newson, S.E., Pearce-Higgins, J.W., Robinson, R.A., & Taylor, R.C. (2022). Informing decisions on lethal control of great cormorant and goosander in Wales: scenarios from Population Viability Analysis. NRW Evidence Report Series (No. 615)
+
+Merrall, E., Green, J. A., Robinson, L. A., Butler, A., Wood, M. J., Newell, M. A., Black, J., Daunt, F., & Horswill, C. (2024). Incorporating density-dependent regulation into impact assessments for seabirds. Journal of Applied Ecology, 61, 2510–2524. https://doi.org/10.1111/1365-2664.14750
+
