@@ -10,7 +10,7 @@ The tool allows the assessment of any type of impact in terms of a change to dem
 The tool can also be used to produce “historical” PVAs, for validation purposes, where outputs can be assessed against validation counts, or to undertake sensitivity analyses.
 
 The online version of the PVA Shiny tool can be accessed via this link (the tool works best in a Chrome browser):
-http://ec2-34-243-66-127.eu-west-1.compute.amazonaws.com/shiny/seabirds/PVATool_Nov2022/R/
+http://ec2-34-243-66-127.eu-west-1.compute.amazonaws.com/shiny/seabirds/PVATool_Nov2024/R/
 
 **Please note that currently whenever the Shiny tool is updated this URL changes and therefore, we advise users to always access the tool from this repository rather than relying on bookmarks.** 
 
