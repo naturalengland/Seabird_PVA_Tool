@@ -4,7 +4,7 @@ Atlantic Puffin,Adult,5,,National,National (H&R; 2015),National - derived ,,,,,,
 Atlantic Puffin,Adult,5,,Fair Isle (1990-2002),Fair Isle (1990-2002),Study - sep and nat,Fair Isle,1990-2002,Shetland,UK,Harris et al 2005,MR,VR,12,0.915,0.11,,0.11,,,,,,,,0.915,0.11
 Atlantic Puffin,Adult,5,,Isle of May (1984-2008),Isle of May (1984-2008),Study - sep and nat,Isle of May,1984-2008,SE Scotland,UK,Lahoz-Monfort et al 2011,MR,VR,24,0.901,0.091,,0.091,,,,,,,,0.901,0.091
 Atlantic Puffin,Adult,5,,Skomer (1972-2008),Skomer (1972-2008),Study - sep and nat,Skomer,1972-2008,Wales,UK,Taylor et al 2010,MR,,36,0.906,0.047,,0.047,,,,,,,,0.906,0.047
-Atlantic Puffin,Immature,0,3,National,National (H&R; 2015),National - single study,,1980-2003,New Brunswick,Canada,Breton et al 2006,MR,VR,24,0.709,,0.022,0.108,1,,0.709,0.709,0.022,0.108,Error in H&R SDs,0.709,0.108
+Atlantic Puffin,Immature,0,3,National,National (H&R; 2015),National - single study,,1980-2003,New Brunswick,Canada,Breton et al 2006,MR,VR,24,0.709,,0.022,0.108,1,,0.709,0.709,0.022,0.108,Error in H&R SDs,0.892,
 Atlantic Puffin,Immature,3,4,National,National (H&R; 2015),National - single study,,1980-2003,New Brunswick,Canada,Breton et al 2006,MR,VR,24,0.76,,0.019,0.093,1,,0.76,0.76,0.019,0.093,Error in H&R SDs,0.76,0.093
 Atlantic Puffin,Immature,4,5,National,National (H&R; 2015),National - single study,,1980-2003,New Brunswick,Canada,Breton et al 2006,MR,VR,24,0.805,,0.017,0.083,1,,0.805,0.805,0.017,0.083,Error in H&R SDs,0.805,0.083
 Common Guillemot,Adult,4,,National,National (H&R; 2015),National - derived ,,,,,,,,,,,,,4,No,0.939,0.94,0.015,0.025,Error in H&R SDs,0.94,0.025
@@ -22,7 +22,7 @@ Razorbill,Adult,2,,National,National (H&R; 2015),National - derived ,,,,,,,,,,,,
 Razorbill,Adult,2,,Isle of May (1984-2008),Isle of May (1984-2008),Study - sep and nat,Isle of May,1984-2008,SE Scotland,UK,Lahoz-Monfort et al 2011,MR,VR,24,0.894,0.07,,0.07,,,,,,,,0.894,0.07
 Razorbill,Adult,2,,Shiant Islands (1990-1995),Shiant Islands (1990-1995),Study - sep only,Shaint Islands,1990-1995,NW Scotland,UK,Chapdelaine 1997,MR,,5,0.77,0.21,,0.21,,,,,,,,0.77,0.21
 Razorbill,Adult,2,,Skomer (1970-2008),Skomer (1970-2008),Study - sep and nat,Skomer,1970-2008,Wales,UK,Taylor et al 2010,MR,,39,0.895,0.064,,0.064,,,,,,,,0.895,0.064
-Razorbill,Immature,0,2,National,National (H&R; 2015),National - derived ,,,,,,,,,,,,,2,No,0.63,0.63,0.209,,Missing value for SE,0.63,
+Razorbill,Immature,0,2,National,National (H&R; 2015),National - derived ,,,,,,,,,,,,,2,No,0.63,0.63,0.209,,Missing value for SE,0.794,
 Razorbill,Immature,0,2,,,Study - nat only,Gannet Island,1995-2006,Labrador,Canada,Lavers et al 2008,MR,,11,0.482,,0.033,0.109,,,,,,,,0.482,0.109
 Razorbill,Immature,0,2,,,Study - nat only,Machias  seal Island,1995-2006,New Brunswick,Canada,Lavers et al 2008,MR,,11,0.778,,0.041,0.136,,,,,,,,0.778,0.136
 European Shag,Adult,2,,National,National (H&R; 2015),National - single study,Isle of May,1963-2005,SE Scotland,UK,Frederiksen et al 2008,Joint,VR,42,0.858,0.194,,0.194,1,,0.858,0.858,0.194,0.194,Good,0.858,0.194
@@ -66,14 +66,14 @@ Lesser Black-Backed Gull,Adult,1,,Isle of May (1989-1992),Isle of May (1989-1992
 Lesser Black-Backed Gull,Adult,1,,Skomer (1978-2010),Skomer (1978-2010),Study - sep and nat,Skomer,1978-2010,Wales,UK,Taylor et al 2010,MR,VR,32,0.882,0.059,,0.059,,,,,,,,0.882,0.059
 Lesser Black-Backed Gull,Immature,0,1,National,National (H&R; 2015),National - single study,Skomer; Skokholm; Grassholm,1968-1969,Wales,UK,Harris 1970,RR,CR,2,0.82,,,,1,,0.82,0.82,0.022,,Missing value for SE,0.82,
 Northern Fulmar,Adult,8,,National,National (H&R; 2015),National - single study,Eynhallow,1962-1995,Orkney,UK,Grosbois and Thompson 2005,MR,VR,34,0.936,0.055,,0.055,1,,0.936,0.936,0.055,0.055,Good,0.936,0.055
-Northern Fulmar,Immature,0,8,National,National (H&R; 2015),National - single study,Ile des Petrels,1963-1992,Pointe Geologie Archipelago,Antarctica,Jenouvrier et al 2003,MR,VR,29,0.26,0.15,,0.15,1,,0.26,0.26,0.15,0.15,Good,0.26,0.15
+Northern Fulmar,Immature,0,8,National,National (H&R; 2015),National - single study,Ile des Petrels,1963-1992,Pointe Geologie Archipelago,Antarctica,Jenouvrier et al 2003,MR,VR,29,0.26,0.15,,0.15,1,,0.26,0.26,0.15,0.15,Good,0.845,
 Arctic Skua,Adult,4,,National,National (H&R; 2015),National - single study,Foula,1976;77;79;87;92-94,Shetland,UK,Phillips and Furness 1998,MR,CR,6,0.91,,,,1,,0.91,0.91,0.038,,Missing value for SE,0.91,
-Arctic Skua,Immature,0,4,National,National (H&R; 2015),National - single study,Fair Isle,,Shetland,UK,O'Donald  1983,,,,0.346,,,,1,,0.346,0.346,0.038,,Missing value for SE,0.346,
+Arctic Skua,Immature,0,4,National,National (H&R; 2015),National - single study,Fair Isle,,Shetland,UK,O'Donald  1983,,,,0.346,,,,1,,0.346,0.346,0.038,,Missing value for SE,0.767,
 Common Tern,Adult,5,,National,National (H&R; 2015),National - derived ,,,,,,,,,,,,,2,Yes,0.883,0.883,0.014,0.011,,0.883,0.011
 Common Tern,Adult,5,,,,Study - nat only,Great Gull Island; Plymouth beach,1995-1997,Massachusetts,US,Nisbet and Cam 2002,MR,VR,3,0.9,0.085,,0.085,,,,,,,Error,0.9,0.085
 Common Tern,Adult,5,,,,Study - nat only,Bird Island; Ram Island; Penikese Island,1983-2004,Massachusetts,US,Breton et al 2014,MR,VR,21,0.88,,,0,,,,,,,Error,0.88,
 Common Tern,Immature,3,5,National,National (H&R; 2015),National - single study,Bird Island; Ram Island; Penikese Island,1983-2004,Massachusetts,US,Breton et al 2014,MR,VR,21,0.85,,,,1,,0.85,0.85,0.014,,Missing value for SE,0.85,
-Common Tern,Immature,0,3,National,National (H&R; 2015),National - single study,Banter See,2000-2001,,Germany,Braasch et al 2008,MR,CR,2,0.441,,0.004,0.006,1,,0.441,0.441,0.004,0.006,Error,0.441,0.006
+Common Tern,Immature,0,3,National,National (H&R; 2015),National - single study,Banter See,2000-2001,,Germany,Braasch et al 2008,MR,CR,2,0.441,,0.004,0.006,1,,0.441,0.441,0.004,0.006,Error,0.761,
 Little Tern,All,0,,National,National (H&R; 2015),National - single study,,,,,Grosskopf 1964,MR,,7,0.8,,,,1,,0.8,0.8,0.014,,Missing value for SE,0.8,
 Sandwich Tern,Adult,5,,National,National (H&R; 2015),National - single study,,1990-2006,,UK,Robinson 2010,RR,VR,16,0.898,,0.029,0.116,1,,0.898,0.898,0.029,0.116,Error,0.898,0.116
 Sandwich Tern,Immature,0,2,National,National (H&R; 2015),National - single study,,1990-2006,,UK,Robinson 2010,RR,VR,16,0.358,,0.219,0.876,1,,0.358,0.358,0.219,0.876,Error,0.358,0.876
