@@ -9,8 +9,8 @@ The PVA Tool is motivated by the use of PVAs to assess the impacts of proposed o
 The tool allows the assessment of any type of impact in terms of a change to demographic rates, or as a cull or harvest of a fixed size per year. Impacts may also be positive, meaning that mitigation or conservation measures aimed at increasing demographic rates may also be modelled. The tool allows users to conduct PVAs at a range of scales (breeding colony to SPA or region). 
 The tool can also be used to produce “historical” PVAs, for validation purposes, where outputs can be assessed against validation counts, or to undertake sensitivity analyses.
 
-The online version of the PVA Shiny tool can be accessed via this link (the tool works best in a Chrome browser):
-http://ec2-34-243-66-127.eu-west-1.compute.amazonaws.com/shiny/seabirds/PVATool_Nov2024/R/
+The online version of the PVA Shiny tool is now hosted on shinyapps.io and can be accessed via this link (the tool works best in a Chrome browser):
+https://natural-england.shinyapps.io/NE_PVA_Tool/
 
 **Please note that currently whenever the Shiny tool is updated this URL changes and therefore, we advise users to always access the tool from this repository rather than relying on bookmarks.** 
 
