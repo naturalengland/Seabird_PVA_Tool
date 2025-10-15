@@ -12,6 +12,8 @@ The tool can also be used to produce “historical” PVAs, for validation purpo
 The online version of the PVA Shiny tool is now hosted on shinyapps.io and can be accessed via this link (the tool works best in a Chrome browser):
 https://natural-england.shinyapps.io/NE_PVA_Tool/
 
+To download and use the latest version of the tool offline, please use the green (<> Code) button above.
+
 **Please note that currently whenever the Shiny tool is updated this URL changes and therefore, we advise users to always access the tool from this repository rather than relying on bookmarks.** 
 
 ## Processing scripts
